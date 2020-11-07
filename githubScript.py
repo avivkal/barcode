@@ -14,6 +14,8 @@ from selenium.webdriver.common.action_chains import ActionChains
 import threading
 from selenium.webdriver.common.keys import Keys
 from wifi import Cell, Scheme
+import os
+
 
 array = []
 disp = Display(visible=0, size=(1920,1080)).start()
@@ -179,20 +181,10 @@ def wholeRami():
         time.sleep(1)
         
 if __name__ == '__main__':
-    cell = Cell.all('wlan0')[0]
-    scheme = Scheme.for_cell('wlan0', 'home', cell, passkey)
-    scheme.save()
-    scheme.activate()
-    ssids = [cell.ssid for cell in Cell.all('wlan0')]
-    schemes = list(Scheme.all())
-    print(schemes)
-    for scheme in schemes:
-        ssid = scheme.options.get('wpa-ssid', scheme.options.get('wireless-essid'))
-        print('Connecting to %s' % ssid)
-        if ssid in ssids:
-            print('Connecting to %s' % ssid)
-            scheme.activate()
-            break
+    interface = 'wlan0'
+    name = ‘Get your own wifi pls’
+    password = ‘kalkalkal123’
+    os.system('iwconfig ' + interface + ' essid ' + name + ' key ' + password)
     print('holy cow')
     print(getserial())
     thread1 = threading.Thread(target=ask).start()
