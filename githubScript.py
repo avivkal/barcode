@@ -132,6 +132,7 @@ def addToCartRami(driver):
         hover.perform()
     except:
         print('failed')
+    print('proceed')
     try:
         try313 = driver.find_element(By.XPATH, '//*[@id="product-'+array[0]+'"]/div/div[1]/div[3]/div/div/div/div/button')
         try313.click()
