@@ -12,6 +12,8 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.action_chains import ActionChains
 import threading
 from selenium.webdriver.common.keys import Keys
+from __future__ import print_function
+from wifi import Cell, Scheme
 
 array = []
 disp = Display(visible=0, size=(1920,1080)).start()
@@ -177,6 +179,14 @@ def wholeRami():
         time.sleep(1)
         
 if __name__ == '__main__':
+    ssids = [cell.ssid for cell in Cell.all('wlan0')]
+    schemes = list(Scheme.all())
+    for scheme in schemes:
+        ssid = scheme.options.get('wpa-ssid', scheme.options.get('wireless-essid'))
+        if ssid in ssids:
+            print('Connecting to %s' % ssid)
+            scheme.activate()
+            break
     print('holy cow')
     print(getserial())
     thread1 = threading.Thread(target=ask).start()
