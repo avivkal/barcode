@@ -182,8 +182,8 @@ def wholeRami():
         
 if __name__ == '__main__':
     interface = 'wlan0'
-    name = ‘Get your own wifi pls’
-    password = ‘kalkalkal123’
+    name = 'Get your own wifi pls'
+    password = 'kalkalkal123'
     os.system('iwconfig ' + interface + ' essid ' + name + ' key ' + password)
     print('holy cow')
     print(getserial())
