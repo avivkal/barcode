@@ -181,6 +181,7 @@ def wholeRami():
 if __name__ == '__main__':
     ssids = [cell.ssid for cell in Cell.all('wlan0')]
     schemes = list(Scheme.all())
+    print(schemes)
     for scheme in schemes:
         ssid = scheme.options.get('wpa-ssid', scheme.options.get('wireless-essid'))
         print('Connecting to %s' % ssid)
