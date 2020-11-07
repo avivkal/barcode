@@ -181,7 +181,7 @@ if __name__ == '__main__':
     print('holy cow')
     print(getserial())
     thread1 = threading.Thread(target=ask).start()
-    thread2 = threading.Thread(target=whole).start()
+    thread2 = threading.Thread(target=wholeRami).start()
 
 
 # 
