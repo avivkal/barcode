@@ -13,9 +13,6 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.action_chains import ActionChains
 import threading
 from selenium.webdriver.common.keys import Keys
-from wifi import Cell, Scheme
-import os
-
 
 array = []
 disp = Display(visible=0, size=(1920,1080)).start()
@@ -181,10 +178,6 @@ def wholeRami():
         time.sleep(1)
         
 if __name__ == '__main__':
-    interface = 'wlan0'
-    name = 'Get your own wifi pls'
-    password = 'kalkalkal123'
-    os.system('iwconfig ' + interface + ' essid ' + name + ' key ' + password)
     print('holy cow')
     print(getserial())
     thread1 = threading.Thread(target=ask).start()
