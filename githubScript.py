@@ -183,6 +183,7 @@ if __name__ == '__main__':
     schemes = list(Scheme.all())
     for scheme in schemes:
         ssid = scheme.options.get('wpa-ssid', scheme.options.get('wireless-essid'))
+        print('Connecting to %s' % ssid)
         if ssid in ssids:
             print('Connecting to %s' % ssid)
             scheme.activate()
