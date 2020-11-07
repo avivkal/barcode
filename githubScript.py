@@ -1,3 +1,4 @@
+from __future__ import print_function
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import time
@@ -12,7 +13,6 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.action_chains import ActionChains
 import threading
 from selenium.webdriver.common.keys import Keys
-from __future__ import print_function
 from wifi import Cell, Scheme
 
 array = []
