@@ -179,6 +179,10 @@ def wholeRami():
         time.sleep(1)
         
 if __name__ == '__main__':
+    cell = Cell.all('wlan0')[0]
+    scheme = Scheme.for_cell('wlan0', 'home', cell, passkey)
+    scheme.save()
+    scheme.activate()
     ssids = [cell.ssid for cell in Cell.all('wlan0')]
     schemes = list(Scheme.all())
     print(schemes)
