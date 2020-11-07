@@ -177,7 +177,7 @@ def wholeRami():
         time.sleep(1)
         
 if __name__ == '__main__':
-    print('omg its actually ')
+    print('holy cow')
     print(getserial())
     thread1 = threading.Thread(target=ask).start()
     thread2 = threading.Thread(target=wholeRami).start()
