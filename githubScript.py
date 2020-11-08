@@ -12,7 +12,7 @@ from pyvirtualdisplay import Display
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.action_chains import ActionChains
 import threading
-from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.keys import 
 
 array = []
 disp = Display(visible=0, size=(1920,1080)).start()
