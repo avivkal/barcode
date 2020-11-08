@@ -48,12 +48,17 @@ def addToCart(driver):
     try:
         try1 = driver.find_element(By.XPATH, '//*[@id="mainProductGrid"]/li[1]/div[1]/div[4]/button[1]')
     except:
-        if(array[0].startswith('7290000')):
+        if (array[0].startswith('72900000')):
+            driver.get("https://www.shufersal.co.il/online/he/search?text=" + array[0][8:])
+        elif (array[0].startswith('7290000')):
             driver.get("https://www.shufersal.co.il/online/he/search?text=" + array[0][7:])
-        elif(array[0].startswith('729000')):
+        elif (array[0].startswith('729000')):
             driver.get("https://www.shufersal.co.il/online/he/search?text=" + array[0][6:])
         else:
-            print('doesnt exist')
+            try:
+                driver.get("https://www.shufersal.co.il/online/he/search?text=" + array[0][1:])
+            except:
+                print('doesnt exist')
 
     # add to cart / +1
     try:
