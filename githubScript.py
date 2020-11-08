@@ -127,13 +127,12 @@ def addToCartRami(driver):
         try312 = driver.find_element(By.XPATH, '//*[@id="destination"]')
         try312.send_keys(array[0])
         try312.send_keys(Keys.ENTER)
-        time.sleep(1)
+        time.sleep(3)
         hover = ActionChains(driver).move_to_element(driver.find_element(By.XPATH, '//*[@id="product-' + array[0] + '"]'))
         hover.perform()
     except:
         print('failed')
    
-    time.sleep(1)
     print('proceed')
     try:
         try313 = driver.find_element(By.XPATH, '//*[@id="product-'+array[0]+'"]/div/div[1]/div[3]/div/div/div/div/button')
@@ -146,16 +145,11 @@ def addToCartRami(driver):
         except:
           print('failed')
 
-    time.sleep(3)
-    try:
-        try31211 = driver.find_element(By.XPATH, '//*[@id="close-btn"]')
-        try31211.click()
-    except:
-        print('didnt appear')
 
 def logInRami(driver):
     elem81 = driver.find_element(By.XPATH, '//*[@id="cart"]/div/div/div[1]/div/div/div/div[1]/div/div/div/span[2]/div/button[1]')
     elem81.click()
+    time.sleep(1)
     loginEmail = driver.find_element_by_id('email')
     loginEmail.send_keys(email)
     loginPassword = driver.find_element_by_id('password')
@@ -175,11 +169,12 @@ def wholeRami():
             driver.set_window_size(1920, 1080)
             driver.get("https://www.rami-levy.co.il/he/shop")
             logInRami(driver)
-            time.sleep(3)
+            time.sleep(5)
             # driver = webdriver.Chrome()
             addToCartRami(driver)
-            time.sleep(5)
+            time.sleep(1)
             priceCheckRami(driver)
+            time.sleep(1)
             array.pop(0)
             driver.quit()
         time.sleep(1)
