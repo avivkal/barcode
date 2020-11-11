@@ -44,21 +44,22 @@ def getserial():
   return cpuserial
 
 def addToCart(driver):
-    driver.get("https://www.shufersal.co.il/online/he/search?text=" + array[0])
-    try:
-        try1 = driver.find_element(By.XPATH, '//*[@id="mainProductGrid"]/li[1]/div[1]/div[4]/button[1]')
-    except:
-        if (array[0].startswith('72900000')):
-            driver.get("https://www.shufersal.co.il/online/he/search?text=" + array[0][8:])
-        elif (array[0].startswith('7290000')):
-            driver.get("https://www.shufersal.co.il/online/he/search?text=" + array[0][7:])
-        elif (array[0].startswith('729000')):
-            driver.get("https://www.shufersal.co.il/online/he/search?text=" + array[0][6:])
-        else:
+    if (array[0].startswith('72900000')):
+        driver.get("https://www.shufersal.co.il/online/he/search?text=" + array[0][8:])
+    elif (array[0].startswith('7290000')):
+        driver.get("https://www.shufersal.co.il/online/he/search?text=" + array[0][7:])
+    elif (array[0].startswith('729000')):
+        driver.get("https://www.shufersal.co.il/online/he/search?text=" + array[0][6:])
+    else:
+        try:
+            driver.get("https://www.shufersal.co.il/online/he/search?text=" + array[0])
+            try1 = driver.find_element(By.XPATH, '//*[@id="mainProductGrid"]/li[1]/div[1]/div[4]/button[1]')
+        except:
+            print('another')
             try:
-                driver.get("https://www.shufersal.co.il/online/he/search?text=" + array[0][1:])
+                try2 = driver.find_element(By.XPATH, '//*[@id="mainProductGrid"]/li[1]/div[1]/div[5]/button[1]')
             except:
-                print('doesnt exist')
+                driver.get("https://www.shufersal.co.il/online/he/search?text=" + array[0][1:])
 
     # add to cart / +1
     try:
