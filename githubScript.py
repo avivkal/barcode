@@ -15,7 +15,7 @@ import threading
 from selenium.webdriver.common.keys import Keys
 
 array = []
-#disp = Display(visible=0, size=(1920,1080)).start()
+disp = Display(visible=0, size=(1920,1080)).start()
 
 #import nexmo
 
@@ -24,8 +24,8 @@ password = "Avivkalman1"
 customerName="Aviv"
 
 chrome_options = Options()
-#chrome_options.add_argument('--headless')
-#chrome_options.add_argument('--no-sandbox')
+chrome_options.add_argument('--headless')
+chrome_options.add_argument('--no-sandbox')
 chrome_options.add_argument('--disable-dev-shm-usage')
 chrome_options.add_argument('--start-maximized')
 
