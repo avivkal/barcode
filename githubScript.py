@@ -19,8 +19,8 @@ disp = Display(visible=0, size=(1920,1080)).start()
 
 #import nexmo
 
-email = "yaelyo@gmail.com"
-password = "29082704"
+email = "avivkalmanson@gmail.com"
+password = "Avivkalman1"
 customerName="Aviv"
 
 chrome_options = Options()
