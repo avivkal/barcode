@@ -106,18 +106,17 @@ def priceCheck(driver):
         print("order! price is " + ''.join(map(str,re.findall("\d+", price)))[0:-2] + "₪")
 
 def whole():
+    driver = webdriver.Chrome(options=chrome_options)
+    driver.set_window_size(1920, 1080)
+    driver.get("https://www.shufersal.co.il/online/he/login")
+    logIn(driver)
     while True:
         if len(array)>0:
-            driver = webdriver.Chrome(options=chrome_options)
-            driver.set_window_size(1920, 1080)
-            driver.get("https://www.shufersal.co.il/online/he/login")
-            logIn(driver)
             # driver = webdriver.Chrome()
             addToCart(driver)
             time.sleep(5)
             priceCheck(driver)
             array.pop(0)
-            driver.quit()
         time.sleep(1)
 
 
