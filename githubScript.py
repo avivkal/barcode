@@ -120,13 +120,13 @@ def priceCheck(driver):
         print("order! price is " + ''.join(map(str,re.findall("\d+", price)))[0:-2] + "₪")
 
 def whole():
-    pygame.mixer.init()
-    pygame.mixer.music.load("/home/pi/real/barcode/ready.mp3")
-    pygame.mixer.music.play()
     driver = webdriver.Chrome(options=chrome_options)
     driver.set_window_size(1920, 1080)
     driver.get("https://www.shufersal.co.il/online/he/login")
     logIn(driver)
+    pygame.mixer.init()
+    pygame.mixer.music.load("/home/pi/real/barcode/ready.mp3")
+    pygame.mixer.music.play()
     while True:
         if len(array)>0:
             # driver = webdriver.Chrome()
