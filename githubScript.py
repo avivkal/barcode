@@ -13,6 +13,14 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.action_chains import ActionChains
 import threading
 from selenium.webdriver.common.keys import Keys
+import pygame
+
+pygame.mixer.init()
+pygame.mixer.music.load("/home/pi/Downloads/juice.mp3")
+pygame.mixer.music.play()
+while pygame.mixer.music.get_busy() == True:
+    continue
+
 
 array = []
 disp = Display(visible=0, size=(1920,1080)).start()
