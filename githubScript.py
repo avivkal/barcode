@@ -107,7 +107,7 @@ def addToCart(driver):
 
 def logIn(driver):
     pygame.mixer.init()
-    pygame.mixer.music.load("/home/pi/real/barcode/search.mp3")
+    pygame.mixer.music.load("/home/pi/real/barcode/connecting.mp3")
     pygame.mixer.music.play()
     loginEmail = driver.find_element_by_id('j_username')
     loginEmail.send_keys(email)
