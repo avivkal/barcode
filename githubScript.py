@@ -114,9 +114,6 @@ def logIn(driver):
     submit.click()
 
 def priceCheck(driver):
-    pygame.mixer.init()
-    pygame.mixer.music.load("/home/pi/Downloads/juice.mp3")
-    pygame.mixer.music.play()
     elem8 = driver.find_element(By.XPATH, '//*[@id="cartContainer"]/div/div/footer/div[2]/div/div/div[1]/span')
     price = elem8.text
     elem20 = driver.find_element(By.XPATH, '//*[@id="cartTotalItems"]')
