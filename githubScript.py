@@ -46,7 +46,7 @@ def getserial():
 
 def addToCart(driver):
     pygame.mixer.init()
-    pygame.mixer.music.load("/home/pi/Downloads/search.mp3")
+    pygame.mixer.music.load("/home/pi/real/barcode/search.mp3")
     pygame.mixer.music.play()
     if (array[0].startswith('72900000')):
         driver.get("https://www.shufersal.co.il/online/he/search?text=" + array[0][8:])
@@ -75,7 +75,7 @@ def addToCart(driver):
             elem99 = driver.find_element(By.XPATH, '//*[@id="mainProductGrid"]/li[1]/div[1]/div[5]/button[1]')
             elem99.click()
             pygame.mixer.init()
-            pygame.mixer.music.load("/home/pi/Downloads/added.mp3")
+            pygame.mixer.music.load("/home/pi/real/barcode/added.mp3")
             pygame.mixer.music.play()
         except:
             print('hi')
@@ -85,7 +85,7 @@ def addToCart(driver):
                 elem7 = driver.find_element(By.XPATH, '//*[@id="mainProductGrid"]/li[1]/div[1]/div[4]/button[2]')
                 elem7.click()
                 pygame.mixer.init()
-                pygame.mixer.music.load("/home/pi/Downloads/added.mp3")
+                pygame.mixer.music.load("/home/pi/real/barcode/added.mp3")
                 pygame.mixer.music.play()
             except:
                 print('last')
@@ -95,12 +95,12 @@ def addToCart(driver):
                     elem7 = driver.find_element(By.XPATH, '//*[@id="mainProductGrid"]/li[1]/div[1]/div[5]/button[2]')
                     elem7.click()
                     pygame.mixer.init()
-                    pygame.mixer.music.load("/home/pi/Downloads/added.mp3")
+                    pygame.mixer.music.load("/home/pi/real/barcode/added.mp3")
                     pygame.mixer.music.play()
                 except:
                     print('failed')
                     pygame.mixer.init()
-                    pygame.mixer.music.load("/home/pi/Downloads/notFound.mp3")
+                    pygame.mixer.music.load("/home/pi/real/barcode/notFound.mp3")
                     pygame.mixer.music.play()
                     
 
