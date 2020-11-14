@@ -15,11 +15,6 @@ import threading
 from selenium.webdriver.common.keys import Keys
 import pygame
 
-pygame.mixer.init()
-pygame.mixer.music.load("/home/pi/Downloads/juice.mp3")
-pygame.mixer.music.play()
-
-
 array = []
 disp = Display(visible=0, size=(1920,1080)).start()
 
@@ -192,6 +187,9 @@ def wholeRami():
         
 if __name__ == '__main__':
     print('holy cow')
+    pygame.mixer.init()
+    pygame.mixer.music.load("/home/pi/Downloads/juice.mp3")
+    pygame.mixer.music.play()
     print(getserial())
     thread1 = threading.Thread(target=ask).start()
     thread2 = threading.Thread(target=whole).start()
