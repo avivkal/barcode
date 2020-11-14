@@ -45,9 +45,6 @@ def getserial():
   return cpuserial
 
 def addToCart(driver):
-    pygame.mixer.init()
-    pygame.mixer.music.load("/home/pi/real/barcode/search.mp3")
-    pygame.mixer.music.play()
     if (array[0].startswith('72900000')):
         driver.get("https://www.shufersal.co.il/online/he/search?text=" + array[0][8:])
     elif (array[0].startswith('7290000')):
@@ -143,7 +140,7 @@ def whole():
 def ask():
     barcode = input('enter barcode')
     pygame.mixer.init()
-    pygame.mixer.music.load("/home/pi/real/barcode/connecting.mp3")
+    pygame.mixer.music.load("/home/pi/real/barcode/search.mp3")
     pygame.mixer.music.play()
     print('your barcode is' + barcode)
     array.append(barcode)
