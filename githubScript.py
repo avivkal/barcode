@@ -131,8 +131,8 @@ def whole():
         if len(array)>0:
             # driver = webdriver.Chrome()
             addToCart(driver)
-            time.sleep(5)
-            priceCheck(driver)
+            #time.sleep(5)
+            #priceCheck(driver)
             array.pop(0)
         time.sleep(1)
 
