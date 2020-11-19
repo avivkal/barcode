@@ -23,7 +23,7 @@ def internet(host="8.8.8.8", port=53, timeout=3):
 #git ignore - ServiceAccountKey.json !!!!
 array = []
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="./ServiceAccountKey.json"
-cred = credentials.Certificate('./ServiceAccountKey.json')
+cred = credentials.Certificate('/home/pi/real/barcode/ServiceAccountKey.json')
 if not internet():
     print('no internet')
     wifiUsername = input('enter username')
