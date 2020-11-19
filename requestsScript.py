@@ -30,8 +30,10 @@ if not internet():
     #wifiUsername = input('enter username')
     cell = list(Cell.all('wlan0'))[0]
     print(cell)
-    scheme = Scheme.for_cell('wlan0', 'home', cell, passkey)
+    scheme = Scheme.for_cell('wlan0', 'home', cell, '@BCDE38724')
     print(scheme)
+    scheme.save()
+    scheme.activate()
     
 default_app = firebase_admin.initialize_app(cred, {'databaseURL': 'https://pyscan-a5e3e.firebaseio.com/'})
 
