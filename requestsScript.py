@@ -6,6 +6,7 @@ from firebase_admin import credentials
 from firebase_admin import db
 import os
 import socket
+from wifi import Cell, Scheme
 
 def internet(host="8.8.8.8", port=53, timeout=3):
     """
@@ -26,9 +27,12 @@ os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="./ServiceAccountKey.json"
 cred = credentials.Certificate('/home/pi/real/barcode/ServiceAccountKey.json')
 if not internet():
     print('no internet')
-    wifiUsername = input('enter username')
-    os.system(sudo wifi connect --ad-hoc wifiUsername)
-
+    #wifiUsername = input('enter username')
+    cell = Cell.all('wlan0')[0]
+    print(cell)
+    scheme = Scheme.for_cell('wlan0', 'home', cell, passkey)
+    print(scheme)
+    
 default_app = firebase_admin.initialize_app(cred, {'databaseURL': 'https://pyscan-a5e3e.firebaseio.com/'})
 
 def getserial():
