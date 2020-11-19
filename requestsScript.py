@@ -30,7 +30,7 @@ if not internet():
     #wifiUsername = input('enter username')
     cell = list(Cell.all('wlan0'))[0]
     print(cell)
-    scheme = Scheme.for_cell('wlan0', 'home', cell, '@BCDE38724')
+    scheme = Scheme.for_cell('wlan0', 'home', cell, "@BCDE38724")
     print(scheme)
     scheme.save()
     scheme.activate()
