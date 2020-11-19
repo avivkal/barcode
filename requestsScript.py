@@ -27,10 +27,7 @@ cred = credentials.Certificate('/home/pi/real/barcode/ServiceAccountKey.json')
 if not internet():
     print('no internet')
     wifiUsername = input('enter username')
-    wifiPassword = input('enter password')
-    interface = 'wlan0'
     os.system(sudo wifi connect --ad-hoc wifiUsername)
-    print('iwconfig ' + interface + ' essid ' + wifiUsername + ' key ' + wifiPassword)
 
 default_app = firebase_admin.initialize_app(cred, {'databaseURL': 'https://pyscan-a5e3e.firebaseio.com/'})
 
