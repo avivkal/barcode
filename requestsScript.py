@@ -28,7 +28,7 @@ cred = credentials.Certificate('/home/pi/real/barcode/ServiceAccountKey.json')
 if not internet():
     print('no internet')
     #wifiUsername = input('enter username')
-    cell = Cell.all('wlan0')[0]
+    cell = list(Cell.all('wlan0'))[0]
     print(cell)
     scheme = Scheme.for_cell('wlan0', 'home', cell, passkey)
     print(scheme)
