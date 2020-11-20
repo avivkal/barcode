@@ -29,10 +29,10 @@ cred = credentials.Certificate('/home/pi/real/barcode/ServiceAccountKey.json')
 if not internet():
     print('no internet')
     #wifiUsername = input('enter username')
-	os.system('sudo ifconfig wlan0 up')
-	wireless = Wireless()
-	wireless.connect(ssid="Savant@KLM", password="@BCDE38724")
-	os.system('sudo dhclient wlan0') 
+    os.system('sudo ifconfig wlan0 up')	
+    wireless = Wireless()
+    wireless.connect(ssid="Savant@KLM", password="@BCDE38724")
+    os.system('sudo dhclient wlan0') 
     
 default_app = firebase_admin.initialize_app(cred, {'databaseURL': 'https://pyscan-a5e3e.firebaseio.com/'})
 
