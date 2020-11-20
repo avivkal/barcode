@@ -7,7 +7,6 @@ from firebase_admin import db
 import os
 import socket
 from wifi import Cell, Scheme
-from wireless import Wireless 
 
 def internet(host="8.8.8.8", port=53, timeout=3):
     """
@@ -30,8 +29,10 @@ if not internet():
     print('no internet')
     #wifiUsername = input('enter username')
     os.system('sudo ifconfig wlan0 up')	
-    wireless = Wireless()
-    wireless.connect(ssid="Savant@KLM", password="@BCDE38724")
+    cell = lists(Cell.all('wlan0'))[0]
+    scheme = Scheme.for_cell('wlan0', 'home', cell, "@BCDE38724")
+    #scheme.save()
+    #scheme.activate()
     os.system('sudo dhclient wlan0') 
     
 default_app = firebase_admin.initialize_app(cred, {'databaseURL': 'https://pyscan-a5e3e.firebaseio.com/'})
