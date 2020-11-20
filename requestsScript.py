@@ -57,9 +57,9 @@ ref = db.reference('users/')
 snapshot = ref.get()
 print(snapshot)
 print(getserial())
-for snap, val in snapshot.items():
-    if getserial() == val.get('serial'):
-        ref = db.reference('users/' + snap + '/barcodes')
+#for snap, val in snapshot.items():
+   # if getserial() == val.get('serial'):
+ #       ref = db.reference('users/' + snap + '/barcodes')
     # print(snap)
     # print(val.get('serial'))
 
