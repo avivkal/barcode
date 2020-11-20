@@ -34,7 +34,7 @@ if not internet():
     scheme = Scheme.for_cell('wlan0', 'home', cell, "@BCDE38724")
     print(scheme)
     scheme.save()
-    scheme.activate()
+    os.system("dhclient wlan0-home")
 
     
 default_app = firebase_admin.initialize_app(cred, {'databaseURL': 'https://pyscan-a5e3e.firebaseio.com/'})
