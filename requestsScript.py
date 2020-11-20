@@ -30,7 +30,9 @@ if not internet():
     #wifiUsername = input('enter username')
     os.system('sudo ifconfig wlan0 up')	
     cell = list(Cell.all('wlan0'))[0]
+    print(cell)
     scheme = Scheme.for_cell('wlan0', 'home', cell, "@BCDE38724")
+    print(scheme)
     #scheme.save()
     #scheme.activate()
     os.system('sudo dhclient wlan0') 
