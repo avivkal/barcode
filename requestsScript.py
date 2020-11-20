@@ -7,6 +7,7 @@ from firebase_admin import db
 import os
 import socket
 from wifi import Cell, Scheme
+import pygame
 
 def internet(host="8.8.8.8", port=53, timeout=3):
     """
