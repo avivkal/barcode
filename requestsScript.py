@@ -159,6 +159,10 @@ def addToCart():
     data2 = '{"productCodePost":"P_'+array[0]+'","productCode":"P_'+array[0]+'","sellingMethod":"BY_UNIT","qty":"1","frontQuantity":"1","comment":"","affiliateCode":""}'
 
     response2 = session.post('https://www.shufersal.co.il/online/he/cart/add', headers=headers9, params=params2, cookies=myList, data=data2)
+    pygame.mixer.init()
+    pygame.mixer.music.load("/home/pi/real/barcode/added.mp3")
+    pygame.mixer.music.play()
+    
 
 def ask():
     barcode = input('enter barcode')
