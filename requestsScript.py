@@ -25,16 +25,16 @@ def internet(host="8.8.8.8", port=53, timeout=3):
 #git ignore - ServiceAccountKey.json !!!!
 array = []
 
-if not internet():
-    print('no internet')
-    #wifiUsername = input('enter username')
-    os.system('sudo ifconfig wlan0 up')	
-    cell = list(Cell.all('wlan0'))[0]
-    print(cell)
-    scheme = Scheme.for_cell('wlan0', 'home', cell, "@BCDE38724")
-    print(scheme)
-    scheme.save()
-    os.system("dhclient wlan0-home")
+#if not internet():
+print('no internet')
+#wifiUsername = input('enter username')
+os.system('sudo ifconfig wlan0 up')	
+cell = list(Cell.all('wlan0'))[0]
+print(cell)
+scheme = Scheme.for_cell('wlan0', 'home', cell, "@BCDE38724")
+print(scheme)
+scheme.save()
+os.system("dhclient wlan0-home")
 
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="./ServiceAccountKey.json"
 cred = credentials.Certificate('/home/pi/real/barcode/ServiceAccountKey.json')    
