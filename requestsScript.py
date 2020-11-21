@@ -42,7 +42,6 @@ default_app = firebase_admin.initialize_app(cred, {'databaseURL': 'https://pysca
 ref = db.reference('users/')
 snapshot = ref.get()
 print(snapshot)
-print(getserial())
 
 def getserial():
     # Extract serial from cpuinfo file
