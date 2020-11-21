@@ -24,8 +24,7 @@ def internet(host="8.8.8.8", port=53, timeout=3):
         return False
 #git ignore - ServiceAccountKey.json !!!!
 array = []
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="./ServiceAccountKey.json"
-cred = credentials.Certificate('/home/pi/real/barcode/ServiceAccountKey.json')
+
 if not internet():
     print('no internet')
     #wifiUsername = input('enter username')
@@ -37,8 +36,13 @@ if not internet():
     scheme.save()
     os.system("dhclient wlan0-home")
 
-    
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="./ServiceAccountKey.json"
+cred = credentials.Certificate('/home/pi/real/barcode/ServiceAccountKey.json')    
 default_app = firebase_admin.initialize_app(cred, {'databaseURL': 'https://pyscan-a5e3e.firebaseio.com/'})
+ref = db.reference('users/')
+snapshot = ref.get()
+print(snapshot)
+print(getserial())
 
 def getserial():
     # Extract serial from cpuinfo file
@@ -54,10 +58,7 @@ def getserial():
 
     return cpuserial
 
-ref = db.reference('users/')
-snapshot = ref.get()
-print(snapshot)
-print(getserial())
+
 #for snap, val in snapshot.items():
    # if getserial() == val.get('serial'):
  #       ref = db.reference('users/' + snap + '/barcodes')
