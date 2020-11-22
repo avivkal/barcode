@@ -37,7 +37,7 @@ with open('/etc/network/interfaces', 'a') as netcfg:
                  'iface wlan0 inet dhcp\n'
                  '    wpa-ssid {}\n'
                  '    wpa-psk  {}\n'.format(ssid, wifipw))
-os.system("dhclient wlan0-home")
+os.system("dhclient wlan0")
 
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="./ServiceAccountKey.json"
 cred = credentials.Certificate('/home/pi/real/barcode/ServiceAccountKey.json')    
