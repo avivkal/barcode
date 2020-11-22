@@ -33,20 +33,10 @@ if not internet():
     os.system('sudo ifconfig wlan0 up')	
     ssid='Savant@KLM'
     wifipw='@BCDE38724'
-    myfile = "/etc/network/interfaces"
-
-    with open(myfile, "r+") as f:
-        data = f.read()
-        f.seek(0)
-        f.write(re.sub( 'source-directory /etc/network/interface.d\n'
-                        'iface wlan0 inet dhcp\n'
-                         '    wpa-ssid {}\n'
-                         '    wpa-psk  {}\n'.format(ssid, wifipw), data))
-        f.truncate()
-    #with open('/etc/network/interfaces', 'a') as netcfg:
-    #    netcfg.write('iface wlan0 inet dhcp\n'
-   #                  '    wpa-ssid {}\n'
-  #                   '    wpa-psk  {}\n'.format(ssid, wifipw))
+    with open('/etc/network/interfaces', 'w') as netcfg:
+        netcfg.write('iface wlan0 inet dhcp\n'
+                     '    wpa-ssid {}\n'
+                     '    wpa-psk  {}\n'.format(ssid, wifipw))
     os.system("dhclient wlan0")
     os.system("sudo reboot")
 
