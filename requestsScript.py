@@ -33,8 +33,7 @@ if not internet():
     wifipw='@BCDE38724'
 
     with open('/etc/network/interfaces', 'a') as netcfg:
-        netcfg.write('auto wlan0\n'
-                     'iface wlan0 inet dhcp\n'
+        netcfg.write('iface wlan0 inet dhcp\n'
                      '    wpa-ssid {}\n'
                      '    wpa-psk  {}\n'.format(ssid, wifipw))
     os.system("dhclient wlan0")
