@@ -25,19 +25,21 @@ def internet(host="8.8.8.8", port=53, timeout=3):
 #git ignore - ServiceAccountKey.json !!!!
 array = []
 
-#if not internet():
-print('no internet')
-#wifiUsername = input('enter username')
-os.system('sudo ifconfig wlan0 up')	
-ssid='Savant@KLM'
-wifipw='@BCDE38724'
+if not internet():
+    print('no internet')
+    #wifiUsername = input('enter username')
+    os.system('sudo ifconfig wlan0 up')	
+    ssid='Savant@KLM'
+    wifipw='@BCDE38724'
 
-with open('/etc/network/interfaces', 'a') as netcfg:
-    netcfg.write('auto wlan0\n'
-                 'iface wlan0 inet dhcp\n'
-                 '    wpa-ssid {}\n'
-                 '    wpa-psk  {}\n'.format(ssid, wifipw))
-os.system("dhclient wlan0")
+    with open('/etc/network/interfaces', 'a') as netcfg:
+        netcfg.write('auto wlan0\n'
+                     'iface wlan0 inet dhcp\n'
+                     '    wpa-ssid {}\n'
+                     '    wpa-psk  {}\n'.format(ssid, wifipw))
+    os.system("dhclient wlan0")
+    os.system("sudo reboot")
+
 
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="./ServiceAccountKey.json"
 cred = credentials.Certificate('/home/pi/real/barcode/ServiceAccountKey.json')    
