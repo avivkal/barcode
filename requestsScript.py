@@ -29,11 +29,14 @@ array = []
 print('no internet')
 #wifiUsername = input('enter username')
 os.system('sudo ifconfig wlan0 up')	
-cell = list(Cell.all('wlan0'))[0]
-print(cell)
-scheme = Scheme.for_cell('wlan0', 'home', cell, "@BCDE38724")
-print(scheme)
-scheme.save()
+ssid='Savant@KLM'
+wifipw='@BCDE38724'
+
+with open('/etc/network/interfaces', 'a') as netcfg:
+    netcfg.write('auto wlan0\n'
+                 'iface wlan0 inet dhcp\n'
+                 '    wpa-ssid {}\n'
+                 '    wpa-psk  {}\n'.format(ssid, wifipw))
 os.system("dhclient wlan0-home")
 
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="./ServiceAccountKey.json"
