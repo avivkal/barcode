@@ -194,9 +194,8 @@ if __name__ == '__main__':
     default_app = firebase_admin.initialize_app(cred, {'databaseURL': 'https://pyscan-a5e3e.firebaseio.com/'})
     ref = db.reference('users/')
     snapshot = ref.get()
-    for key, val in snapshot.items():
-        print(key)
-        print(val)
+    for val in snapshot:
+        print(val.child('wifi').child('username).val())
     print(textArr[0])
     print('----')
     print(textArr[1])
