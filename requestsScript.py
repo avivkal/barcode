@@ -39,7 +39,7 @@ if not internet():
                      'iface wlan0 inet dhcp\n'
                      '    wpa-ssid {}\n'
                      '    wpa-psk  {}\n'.format(ssid, wifipw))
-     with open('/home/pi/real/barcode/wifiInfo.txt', 'w') as netcfg:
+    with open('/home/pi/real/barcode/wifiInfo.txt', 'w') as netcfg:
         netcfg.write(ssid + ',' + wifipw)
     os.system("dhclient wlan0")
     os.system("sudo reboot")
