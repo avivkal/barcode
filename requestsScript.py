@@ -190,5 +190,9 @@ def ask():
 
 if __name__ == '__main__':
     print('holy cow')
+    ssid='Savant@KLM'
+    wifipw='@BCDE38724'
+    with open('/home/pi/real/barcode/wifiInfo.txt', 'w') as netcfg:
+        netcfg.write(ssid + ',' + wifipw)
     thread1 = threading.Thread(target=ask).start()
     thread2 = threading.Thread(target=whole).start()
