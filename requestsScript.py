@@ -208,5 +208,5 @@ if __name__ == '__main__':
     print(textArr[0])
     print('----')
     print(textArr[1])
-    thread1 = threading.Thread(target=ask, args=(id)).start()
+    thread1 = threading.Thread(target=ask, args=(id,)).start()
     thread2 = threading.Thread(target=whole).start()
