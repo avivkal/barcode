@@ -167,7 +167,7 @@ def addToCart():
     pygame.mixer.music.play()
     
 
-def ask():
+def ask(ref9):
     ref = db.reference('users/' + id)
     barcode = input('enter barcode')
     if(barcode.startswith('72900000')):
@@ -177,7 +177,7 @@ def ask():
     if (barcode.startswith('729000')):
         barcode = barcode[6:]
     print('your barcode is' + barcode)
-    ref.push(barcode)
+    ref9.push(barcode)
     array.append(barcode)
     print(array)
     ask()
