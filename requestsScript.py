@@ -45,13 +45,6 @@ if not internet():
     os.system("sudo reboot")
 
 
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="./ServiceAccountKey.json"
-cred = credentials.Certificate('/home/pi/real/barcode/ServiceAccountKey.json')    
-default_app = firebase_admin.initialize_app(cred, {'databaseURL': 'https://pyscan-a5e3e.firebaseio.com/'})
-ref = db.reference('users/')
-snapshot = ref.get()
-print(snapshot)
-
 def getserial():
     # Extract serial from cpuinfo file
     cpuserial = "0000000000000000"
@@ -190,12 +183,15 @@ def ask():
 
 if __name__ == '__main__':
     print('holy cow')
-    ssid='Savant@KLM'
-    wifipw='@BCDE38724'
-    with open('/home/pi/real/barcode/wifiInfo.txt', 'w') as netcfg:
-        netcfg.write(ssid + ',' + wifipw)
     file = open('/home/pi/real/barcode/wifiInfo.txt', "r")
     textArr = file.readline().split(',')
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="./ServiceAccountKey.json"
+    cred = credentials.Certificate('/home/pi/real/barcode/ServiceAccountKey.json')    
+    default_app = firebase_admin.initialize_app(cred, {'databaseURL': 'https://pyscan-a5e3e.firebaseio.com/'})
+    ref = db.reference('users/')
+    snapshot = ref.get()
+    for key, val in snapshot.items():
+        print(key + val)
     print(textArr[0])
     print('----')
     print(textArr[1])
