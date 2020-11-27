@@ -195,6 +195,9 @@ if __name__ == '__main__':
     with open('/home/pi/real/barcode/wifiInfo.txt', 'w') as netcfg:
         netcfg.write(ssid + ',' + wifipw)
     file = open('/home/pi/real/barcode/wifiInfo.txt', "r")
-    print(file.readline())
+    textArr = file.readline().split(',')
+    print(textArr[0])
+    print('----')
+    print(textArr[1])
     thread1 = threading.Thread(target=ask).start()
     thread2 = threading.Thread(target=whole).start()
