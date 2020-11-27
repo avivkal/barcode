@@ -39,7 +39,7 @@ if not internet():
                      'iface wlan0 inet dhcp\n'
                      '    wpa-ssid {}\n'
                      '    wpa-psk  {}\n'.format(ssid, wifipw))
-    with open('/home/pi/real/barcode/wifiInfo.txt', 'w') as netcfg:
+    with open('/home/pi/wifiInfo.txt', 'w') as netcfg:
         netcfg.write(ssid + ',' + wifipw)
     os.system("dhclient wlan0")
     os.system("sudo reboot")
@@ -183,7 +183,11 @@ def ask():
 
 if __name__ == '__main__':
     print('holy cow')
-    file = open('/home/pi/real/barcode/wifiInfo.txt', "r")
+    ssid='Savant@KLM'
+    wifipw='@BCDE38724'
+    with open('/home/pi/wifiInfo.txt', 'w') as netcfg:
+        netcfg.write(ssid + ',' + wifipw)
+    file = open('/home/pi/wifiInfo.txt', "r")
     textArr = file.readline().split(',')
     os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="./ServiceAccountKey.json"
     cred = credentials.Certificate('/home/pi/real/barcode/ServiceAccountKey.json')    
