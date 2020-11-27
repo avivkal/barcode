@@ -167,7 +167,7 @@ def addToCart():
     pygame.mixer.music.play()
     
 
-def ask():
+def ask(ref6):
     barcode = input('enter barcode')
     if(barcode.startswith('72900000')):
         barcode = barcode[8:]
@@ -176,7 +176,7 @@ def ask():
     if (barcode.startswith('729000')):
         barcode = barcode[6:]
     print('your barcode is' + barcode)
-    ref.push(barcode)
+    ref6.push(barcode)
     array.append(barcode)
     print(array)
     ask()
@@ -200,13 +200,12 @@ if __name__ == '__main__':
         ref3 = db.reference('users/' + val + '/wifi/password')
         if ref2.get() == textArr[0] and ref3.get() == textArr[1]:
             print('found' + val)
-            id = val
+            id = db.reference('users/' + val)
         print(ref2.get())
         print(val)
       #  print(snapshot.child(val).child('wifi').child('username').val())
     print(textArr[0])
     print('----')
     print(textArr[1])
-    print(id)
-    thread1 = threading.Thread(target=ask).start()
+    thread1 = threading.Thread(target=ask, args=(id,)).start()
     thread2 = threading.Thread(target=whole).start()
