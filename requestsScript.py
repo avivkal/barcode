@@ -195,7 +195,7 @@ if __name__ == '__main__':
     ref = db.reference('users/')
     snapshot = ref.get()
     for val in snapshot.items():
-        print(val.child('wifi').child('username').val())
+        print(snapshot.child(val).child('wifi').child('username').val())
     print(textArr[0])
     print('----')
     print(textArr[1])
