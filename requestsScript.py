@@ -195,7 +195,8 @@ if __name__ == '__main__':
     ref = db.reference('users/')
     snapshot = ref.get()
     for val,key in snapshot.items():
-        print(snapshot.child(val).child('wifi').child('username').val())
+        ref2 = db.reference('users/' + val)
+        print(ref2.get())
         print(val)
       #  print(snapshot.child(val).child('wifi').child('username').val())
     print(textArr[0])
