@@ -168,7 +168,7 @@ def addToCart():
     
 
 def ask(ref9):
-    ref = db.reference('users/' + id)
+    ref8 = db.reference('users/' + ref9)
     barcode = input('enter barcode')
     if(barcode.startswith('72900000')):
         barcode = barcode[8:]
@@ -177,7 +177,7 @@ def ask(ref9):
     if (barcode.startswith('729000')):
         barcode = barcode[6:]
     print('your barcode is' + barcode)
-    ref9.push(barcode)
+    ref8.push(barcode)
     array.append(barcode)
     print(array)
     ask()
