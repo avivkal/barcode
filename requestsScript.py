@@ -191,7 +191,8 @@ if __name__ == '__main__':
     ref = db.reference('users/')
     snapshot = ref.get()
     for key, val in snapshot.items():
-        print(key + val)
+        print(key)
+        print(val)
     print(textArr[0])
     print('----')
     print(textArr[1])
