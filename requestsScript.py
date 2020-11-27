@@ -182,6 +182,7 @@ def ask():
     ask()
 
 if __name__ == '__main__':
+    id = 0
     print('holy cow')
     ssid='Savant@KLM'
     wifipw='@BCDE38724'
@@ -199,11 +200,13 @@ if __name__ == '__main__':
         ref3 = db.reference('users/' + val + '/wifi/password')
         if ref2.get() == textArr[0] and ref3.get() == textArr[1]:
             print('found' + val)
+            id = val
         print(ref2.get())
         print(val)
       #  print(snapshot.child(val).child('wifi').child('username').val())
     print(textArr[0])
     print('----')
     print(textArr[1])
+    print(id)
     thread1 = threading.Thread(target=ask).start()
     thread2 = threading.Thread(target=whole).start()
