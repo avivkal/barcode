@@ -198,7 +198,7 @@ if __name__ == '__main__':
         ref2 = db.reference('users/' + val + '/wifi/username')
         ref3 = db.reference('users/' + val + '/wifi/password')
         if ref2.get() == textArr[0] and ref3.get() == textArr[1]:
-            print('found')
+            print('found' + val)
         print(ref2.get())
         print(val)
       #  print(snapshot.child(val).child('wifi').child('username').val())
