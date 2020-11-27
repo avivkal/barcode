@@ -10,6 +10,7 @@ from wifi import Cell, Scheme
 import pygame
 import re
 
+bigRef = 0
 
 def internet(host="8.8.8.8", port=53, timeout=3):
     """
@@ -167,8 +168,7 @@ def addToCart():
     pygame.mixer.music.play()
     
 
-def ask(ref9):
-    ref8 = db.reference('users/' + ref9 + '/barcodes')
+def ask():
     barcode = input('enter barcode')
     if(barcode.startswith('72900000')):
         barcode = barcode[8:]
@@ -177,7 +177,7 @@ def ask(ref9):
     if (barcode.startswith('729000')):
         barcode = barcode[6:]
     print('your barcode is' + barcode)
-    ref8.push(barcode)
+    bigRef.push(barcode)
     array.append(barcode)
     print(array)
     ask()
@@ -201,12 +201,12 @@ if __name__ == '__main__':
         ref3 = db.reference('users/' + val + '/wifi/password')
         if ref2.get() == textArr[0] and ref3.get() == textArr[1]:
             print('found' + val)
-            id = val
+            bigRef = db.reference('users/' + val + '/barcodes')
         print(ref2.get())
         print(val)
       #  print(snapshot.child(val).child('wifi').child('username').val())
     print(textArr[0])
     print('----')
     print(textArr[1])
-    thread1 = threading.Thread(target=ask, args=(id,)).start()
+    thread1 = threading.Thread(target=ask).start()
     thread2 = threading.Thread(target=whole).start()
