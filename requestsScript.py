@@ -105,11 +105,11 @@ def addToCartRami():
         'accept-language': 'he-IL,he;q=0.9,en-US;q=0.8,en;q=0.7',
     }
     dataT = mydict()
-    dataT["username"] = "avivkalmanson@gmail.com"
-    dataT["password"] = "Avivkalman1"
+    dataT["username"] = userEmail
+    dataT["password"] = userPassword
     print(dataT)
     data = '{"username":"avivkalmanson@gmail.com","password":"Avivkalman1"}'
-    response = requests.post('https://api-prod.rami-levy.co.il/api/v1/auth/login', headers=headers, data=data)
+    response = requests.post('https://api-prod.rami-levy.co.il/api/v1/auth/login', headers=headers, data=dataT)
     print(response.text)
     token = json.loads(response.text).get('user').get('token')
     print(token)
