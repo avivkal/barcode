@@ -11,6 +11,8 @@ import pygame
 import re
 
 bigRef = 0
+userEmail = ""
+userPassword = ""
 
 def internet(host="8.8.8.8", port=53, timeout=3):
     """
@@ -98,7 +100,7 @@ def addToCartRami():
         'accept-language': 'he-IL,he;q=0.9,en-US;q=0.8,en;q=0.7',
     }
 
-    data = '{"username":"avivkalmanson@gmail.com","password":"Avivkalman1"}'
+    data = '{"username":userEmail,"password":userPassword}'
 
     response = requests.post('https://api-prod.rami-levy.co.il/api/v1/auth/login', headers=headers, data=data)
     print(response)
@@ -227,8 +229,8 @@ def addToCart():
 
     data = {
       'fail_url': '/login/?error=true',
-      'j_username': 'avivkalmanson@gmail.com',
-      'j_password': 'Avivkalman1',
+      'j_username': userEmail,
+      'j_password': userPassword,
       'CSRFToken': XSRFTOKEN
     }
 
@@ -324,8 +326,12 @@ if __name__ == '__main__':
     userSelect = bigRef.child('details').child('selection').get()
     print('user selected' + userSelect)
     if userSelect == 'Shufersal':
+        userEmail = bigRef.child('details').child('emailShufersal').get()
+        userPassword = bigRef.child('details').child('passwordShufersal').get()
         print('shufersal')
         thread2 = threading.Thread(target=whole).start()
     else:
         print('rami')
+        userEmail = bigRef.child('details').child('emailRami').get()
+        userPassword = bigRef.child('details').child('passwordRami').get()
         thread2 = threading.Thread(target=wholeRami).start()
