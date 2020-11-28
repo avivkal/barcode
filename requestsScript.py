@@ -104,9 +104,10 @@ def addToCartRami():
         'sec-fetch-dest': 'empty',
         'accept-language': 'he-IL,he;q=0.9,en-US;q=0.8,en;q=0.7',
     }
-
-    dataF = '{"username":"%(userEmail)","password":"%(userPassword)"}'
-    print(dataF)
+    dataT = mydict()
+    dataT["username"] = "avivkalmanson@gmail.com"
+    dataT["password"] = "Avivkalman1"
+    print(dataT)
     data = '{"username":"avivkalmanson@gmail.com","password":"Avivkalman1"}'
     response = requests.post('https://api-prod.rami-levy.co.il/api/v1/auth/login', headers=headers, data=data)
     print(response.text)
