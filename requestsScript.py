@@ -39,8 +39,16 @@ if not internet():
     print('no internet')
     #wifiUsername = input('enter username')
     os.system('sudo ifconfig wlan0 up')	
-    ssid='Savant@KLM'
-    wifipw='@BCDE38724'
+    ssid = input('enter wifi username')
+    pygame.mixer.init()
+    pygame.mixer.music.load("/home/pi/real/barcode/wifiUsername.mp3")
+    pygame.mixer.music.play()
+    wifipw = input('enter wifi password')
+    pygame.mixer.init()
+    pygame.mixer.music.load("/home/pi/real/barcode/wifiPassword.mp3")
+    pygame.mixer.music.play()
+    #ssid='Savant@KLM'
+   # wifipw='@BCDE38724'
     with open('/etc/network/interfaces', 'w') as netcfg:
         netcfg.write('source-directory /etc/network/interfaces.d\n'
                      'auto wlan0\n'
