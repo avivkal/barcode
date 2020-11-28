@@ -340,7 +340,7 @@ if __name__ == '__main__':
         userPassword = bigRef.child('details').child('passwordShufersal').get()
         print('shufersal')
         pygame.mixer.init()
-        pygame.mixer.music.load("/home/pi/real/barcode/ready.mp3")
+        pygame.mixer.music.load("/home/pi/real/barcode/shufersal.mp3")
         pygame.mixer.music.play()
         thread2 = threading.Thread(target=whole).start()
     else:
@@ -348,6 +348,6 @@ if __name__ == '__main__':
         userEmail = bigRef.child('details').child('emailRami').get()
         userPassword = bigRef.child('details').child('passwordRami').get()
         pygame.mixer.init()
-        pygame.mixer.music.load("/home/pi/real/barcode/ready.mp3")
+        pygame.mixer.music.load("/home/pi/real/barcode/rami.mp3")
         pygame.mixer.music.play()
         thread2 = threading.Thread(target=wholeRami).start()
