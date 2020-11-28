@@ -15,6 +15,10 @@ bigRef = 0
 userEmail = ""
 userPassword = ""
 
+class mydict(dict):
+    def __str__(self):
+        return json.dumps(self)
+
 def internet(host="8.8.8.8", port=53, timeout=3):
     """
     Host: 8.8.8.8 (google-public-dns-a.google.com)
