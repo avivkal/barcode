@@ -321,5 +321,5 @@ if __name__ == '__main__':
 
     thread1 = threading.Thread(target=ask).start()
     #if bigRef.child('details').child.
-    print(bigRef.child('details').child('selection'))
+    print(bigRef.child('details').child('selection').get())
     thread2 = threading.Thread(target=whole).start()
