@@ -200,6 +200,9 @@ def addToCartRami():
     }
 
     response3 = requests.post('https://api-prod.rami-levy.co.il/api/v1/cart/add-line-to-cart', headers=headers3,data=str(myDict))
+    pygame.mixer.init()
+    pygame.mixer.music.load("/home/pi/real/barcode/added.mp3")
+    pygame.mixer.music.play()
 
 def addToCart():
     session = requests.Session()
