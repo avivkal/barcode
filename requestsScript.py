@@ -109,7 +109,7 @@ def addToCartRami():
     dataT["password"] = userPassword
     print(dataT)
     data = '{"username":"avivkalmanson@gmail.com","password":"Avivkalman1"}'
-    response = requests.post('https://api-prod.rami-levy.co.il/api/v1/auth/login', headers=headers, data=dataT)
+    response = requests.post('https://api-prod.rami-levy.co.il/api/v1/auth/login', headers=headers, data=str(dataT))
     print(response.text)
     token = json.loads(response.text).get('user').get('token')
     print(token)
