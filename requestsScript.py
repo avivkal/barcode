@@ -185,10 +185,6 @@ def ask():
 if __name__ == '__main__':
     id = 0
     print('holy cow')
-    ssid='Savant@KLM'
-    wifipw='@BCDE38724'
-    with open('/home/pi/wifiInfo.txt', 'w') as netcfg:
-        netcfg.write(ssid + ',' + wifipw)
     file = open('/home/pi/wifiInfo.txt', "r")
     textArr = file.readline().split(',')
     os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="./ServiceAccountKey.json"
