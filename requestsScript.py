@@ -357,7 +357,7 @@ if __name__ == '__main__':
     file = open('/home/pi/wifiInfo.txt', "r")
     textArr = file.readline().split(',')
     
-    client = pymongo.MongoClient('mongodb+srv://avivkal:avivkalman1@cluster0.muucp.mongodb.net/database?retryWrites=true&w=majority')
+    client = pymongo.MongoClient('mongodb+srv://avivkal:Avivkalman1@cluster0.muucp.mongodb.net/database?retryWrites=true&w=majority')
     db = client.database.users
     test0 = db.insert_one({"email":"avivkalmanson@gmail.com"})
     print(test0)
