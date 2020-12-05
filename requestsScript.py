@@ -171,48 +171,50 @@ def addToCartRami():
     }
 
     data4 = '{"q":"'+ array[0] +'","store":331,"sort":"relevant","aggs":1}'
+    try:
+        response4 = requests.post('https://www.rami-levy.co.il/api/catalog', headers=headers4, data=data4)
+        json_data = json.loads(response4.text)
+        id = json_data.get('data')[0].get('id')
 
-    response4 = requests.post('https://www.rami-levy.co.il/api/catalog', headers=headers4, data=data4)
-    json_data = json.loads(response4.text)
-    id = json_data.get('data')[0].get('id')
+        found = False
 
-    found = False
+        for item in json_data2:
+            if item.get('C') == id:
+                item["Quantity"] = str(float(item.get('Quantity')) + 1.00)
+                found = True
+                print('found')
 
-    for item in json_data2:
-        if item.get('C') == id:
-            item["Quantity"] = str(float(item.get('Quantity')) + 1.00)
-            found = True
-            print('found')
+        if not found:
+            print('not found')
+            json_data2.append({'C': id, 'Quantity': '1.00'})
 
-    if not found:
-        print('not found')
-        json_data2.append({'C': id, 'Quantity': '1.00'})
+        myDict = mydict()
+        myDict['store'] = 331
+        myDict["is_club"] = 0
+        myDict['items'] = json_data2
 
-    myDict = mydict()
-    myDict['store'] = 331
-    myDict["is_club"] = 0
-    myDict['items'] = json_data2
+        # add the item
+        headers3 = {
+            'authority': 'api-prod.rami-levy.co.il',
+            'accept': 'application/json, text/plain, */*',
+            'authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjIxNzE5ZDM2NzI0OGYyZDAwY2RkMThmM2U5ZmJhNGYxYTU1OTRkYjZlYjI3ODY4ZTlmZmJhNWI0YTdmNTc2Y2IwNDg3N2FiNjY1ODMwYWNjIn0.eyJhdWQiOiIzIiwianRpIjoiMjE3MTlkMzY3MjQ4ZjJkMDBjZGQxOGYzZTlmYmE0ZjFhNTU5NGRiNmV$',
+            'locale': 'he',
+            'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.183 Safari/537.36',
+            'ecomtoken': token,
+            'content-type': 'application/json;charset=UTF-8',
+            'origin': 'https://www.rami-levy.co.il',
+            'sec-fetch-site': 'same-site',
+            'sec-fetch-mode': 'cors',
+            'sec-fetch-dest': 'empty',
+            'accept-language': 'he-IL,he;q=0.9,en-US;q=0.8,en;q=0.7',
+        }
 
-    # add the item
-    headers3 = {
-        'authority': 'api-prod.rami-levy.co.il',
-        'accept': 'application/json, text/plain, */*',
-        'authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjIxNzE5ZDM2NzI0OGYyZDAwY2RkMThmM2U5ZmJhNGYxYTU1OTRkYjZlYjI3ODY4ZTlmZmJhNWI0YTdmNTc2Y2IwNDg3N2FiNjY1ODMwYWNjIn0.eyJhdWQiOiIzIiwianRpIjoiMjE3MTlkMzY3MjQ4ZjJkMDBjZGQxOGYzZTlmYmE0ZjFhNTU5NGRiNmV$',
-        'locale': 'he',
-        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.183 Safari/537.36',
-        'ecomtoken': token,
-        'content-type': 'application/json;charset=UTF-8',
-        'origin': 'https://www.rami-levy.co.il',
-        'sec-fetch-site': 'same-site',
-        'sec-fetch-mode': 'cors',
-        'sec-fetch-dest': 'empty',
-        'accept-language': 'he-IL,he;q=0.9,en-US;q=0.8,en;q=0.7',
-    }
-
-    response3 = requests.post('https://api-prod.rami-levy.co.il/api/v1/cart/add-line-to-cart', headers=headers3,data=str(myDict))
-    pygame.mixer.init()
-    pygame.mixer.music.load("/home/pi/real/barcode/added.mp3")
-    pygame.mixer.music.play()
+        response3 = requests.post('https://api-prod.rami-levy.co.il/api/v1/cart/add-line-to-cart', headers=headers3,data=str(myDict))
+        pygame.mixer.init()
+        pygame.mixer.music.load("/home/pi/real/barcode/added.mp3")
+        pygame.mixer.music.play()
+    except:
+        print('could not add to cart')
 
 def addToCart():
     session = requests.Session()
