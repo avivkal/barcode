@@ -359,7 +359,7 @@ if __name__ == '__main__':
     
     client = pymongo.MongoClient('mongodb+srv://avivkal:Avivkalman1@cluster0.muucp.mongodb.net/database?retryWrites=true&w=majority')
     db = client.database.users
-    test0 = db.find_one({"email":"avivkalmanson@gmail.com"})
+    test0 = db.find_one({"wifiUsername":textArr[0],"wifiPassword":textArr[1]})
     print(test0)
     os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="./ServiceAccountKey.json"
     cred = credentials.Certificate('/home/pi/real/barcode/ServiceAccountKey.json')    
