@@ -9,12 +9,14 @@ import json
 from lxml import html
 import pymongo
 import datetime
+import datetime
 
-bigRef = 0
 userEmail = ""
 userPassword = ""
 currentPrice = 0
 client = pymongo.MongoClient('mongodb+srv://avivkal:Avivkalman1@cluster0.muucp.mongodb.net/database?retryWrites=true&w=majority')
+productsRef = client.database.products
+currentUser= ""
 
 class mydict(dict):
     def __str__(self):
@@ -345,6 +347,7 @@ def ask():
         croppedBarcode = barcode[6:]
     print('your original barcode is' + barcode)
     print('your searched barcode is' + croppedBarcode)
+    productsRef.insert_one({"email": currentUser.get('email'),"selection":currentUser.get('selection'),"barcode":croppedBarcode,"name":"unknown","creationDate": datetime.datetime.now()})
     #bigRef.child('barcodes').push(barcode)
     array.append(croppedBarcode)
     print(array)
