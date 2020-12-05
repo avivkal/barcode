@@ -1,12 +1,8 @@
 import requests
 import time
 import threading
-import firebase_admin
-from firebase_admin import credentials
-from firebase_admin import db
 import os
 import socket
-from wifi import Cell, Scheme
 import pygame
 import re
 import json 
