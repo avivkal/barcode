@@ -221,6 +221,7 @@ def addToCartRami():
 
 def addToCart():
     barcode = array[0]
+    croppedBarcode = array[0]
     if(barcode.startswith('72900000')):
         croppedBarcode = barcode[8:]
     elif (barcode.startswith('7290000')):
@@ -228,6 +229,7 @@ def addToCart():
     elif (barcode.startswith('729000')):
         croppedBarcode = barcode[6:]
     
+    print(croppedBarcode + ' yessss')
     session = requests.Session()
 
     response3 = session.get('https://www.shufersal.co.il/online/he/A')
