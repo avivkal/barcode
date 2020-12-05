@@ -14,6 +14,7 @@ import json
 bigRef = 0
 userEmail = ""
 userPassword = ""
+currentPrice = 0
 
 class mydict(dict):
     def __str__(self):
@@ -254,7 +255,14 @@ def addToCart():
 
     response = session.post('https://www.shufersal.co.il/online/he/j_spring_security_check', headers=headers, cookies=cookies, data=data)
     response5 = session.get('https://www.shufersal.co.il/online/he/A')
-
+    doc = html.fromstring(response5.content)
+    try:
+        link = doc.xpath('//*[@id="cartContainer"]/div/div/footer/div[2]/div/div/div[1]/span/text()')
+        currentPrice = link[1]
+        print(currentPrice)
+    except IndexError:
+        print("No link found")
+        
     JSESSIONID2 = session.cookies.get_dict().get('JSESSIONID')
     XSRFTOKEN2 = session.cookies.get_dict().get('XSRF-TOKEN')
     AWSALB = session.cookies.get_dict().get('AWSALB')
@@ -297,6 +305,18 @@ def addToCart():
     data2 = '{"productCodePost":"P_'+array[0]+'","productCode":"P_'+array[0]+'","sellingMethod":"BY_UNIT","qty":"1","frontQuantity":"1","comment":"","affiliateCode":""}'
 
     response2 = session.post('https://www.shufersal.co.il/online/he/cart/add', headers=headers9, params=params2, cookies=myList, data=data2)
+    responseCheck = session.get('https://www.shufersal.co.il/online/he/A')
+    doc = html.fromstring(responseCheck.content)
+    try:
+        link = doc.xpath('//*[@id="cartContainer"]/div/div/footer/div[2]/div/div/div[1]/span/text()')
+        if link[1]!= currentPrice:
+            print("Product was added to your cart")
+            print(link[1])
+            currentPrice = link[1]
+        else:
+            print("Product could not be added")
+    except IndexError:
+        print("Product could not be added")
     pygame.mixer.init()
     pygame.mixer.music.load("/home/pi/real/barcode/added.mp3")
     pygame.mixer.music.play()
