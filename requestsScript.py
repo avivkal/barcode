@@ -339,14 +339,16 @@ def addToCart():
 
 def ask():
     barcode = input('enter barcode')
+    croppedBarcode = barcode
     if(barcode.startswith('72900000')):
-        barcode = barcode[8:]
+        croppedBarcode = barcode[8:]
     if (barcode.startswith('7290000')):
-        barcode = barcode[7:]
+        croppedBarcode = barcode[7:]
     if (barcode.startswith('729000')):
-        barcode = barcode[6:]
+        croppedBarcode = barcode[6:]
     print('your barcode is' + barcode)
-    bigRef.child('barcodes').push(barcode)
+    print('your barcode is' + croppedBarcode)
+    #bigRef.child('barcodes').push(barcode)
     array.append(barcode)
     print(array)
     ask()
