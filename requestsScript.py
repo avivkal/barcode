@@ -361,19 +361,6 @@ if __name__ == '__main__':
     db = client.database.users
     test0 = db.find_one({"wifiUsername":textArr[0],"wifiPassword":textArr[1]})
     print(test0)
-    os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="./ServiceAccountKey.json"
-    cred = credentials.Certificate('/home/pi/real/barcode/ServiceAccountKey.json')    
-    default_app = firebase_admin.initialize_app(cred, {'databaseURL': 'https://pyscan-a5e3e.firebaseio.com/'})
-    ref = db.reference('users/')
-    snapshot = ref.get()
-    for val,key in snapshot.items():
-        ref2 = db.reference('users/' + val + '/wifi/username')
-        ref3 = db.reference('users/' + val + '/wifi/password')
-        if ref2.get() == textArr[0] and ref3.get() == textArr[1]:
-            print('found' + val)
-            bigRef = db.reference('users/' + val)
-        print(ref2.get())
-        print(val)
       #  print(snapshot.child(val).child('wifi').child('username').val())
     print(textArr[0])
     print('----')
