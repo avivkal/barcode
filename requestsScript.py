@@ -14,6 +14,7 @@ bigRef = 0
 userEmail = ""
 userPassword = ""
 currentPrice = 0
+client = pymongo.MongoClient('mongodb+srv://avivkal:Avivkalman1@cluster0.muucp.mongodb.net/database?retryWrites=true&w=majority')
 
 class mydict(dict):
     def __str__(self):
@@ -355,7 +356,6 @@ if __name__ == '__main__':
     file = open('/home/pi/wifiInfo.txt', "r")
     textArr = file.readline().split(',')
     
-    client = pymongo.MongoClient('mongodb+srv://avivkal:Avivkalman1@cluster0.muucp.mongodb.net/database?retryWrites=true&w=majority')
     db = client.database.users
     currentUser = db.find_one({"wifiUsername":textArr[0],"wifiPassword":textArr[1]})
     print(currentUser)
