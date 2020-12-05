@@ -379,9 +379,10 @@ if __name__ == '__main__':
         pygame.mixer.music.play()
         thread2 = threading.Thread(target=whole).start()
     else:
-        print('rami')
-        userEmail = bigRef.child('details').child('emailRami').get()
-        userPassword = bigRef.child('details').child('passwordRami').get()
+        userEmail = currentUser.get('ramiLevyUsername')
+        print(userEmail)
+        userPassword = currentUser.get('ramiLevyPassword')
+        print(userPassword)
         pygame.mixer.init()
         pygame.mixer.music.load("/home/pi/real/barcode/rami.mp3")
         pygame.mixer.music.play()
