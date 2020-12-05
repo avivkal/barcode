@@ -313,13 +313,14 @@ def addToCart():
             print("Product was added to your cart")
             print(link[1])
             currentPrice = link[1]
+            pygame.mixer.init()
+            pygame.mixer.music.load("/home/pi/real/barcode/added.mp3")
+            pygame.mixer.music.play()
         else:
             print("Product could not be added")
     except IndexError:
         print("Product could not be added")
-    pygame.mixer.init()
-    pygame.mixer.music.load("/home/pi/real/barcode/added.mp3")
-    pygame.mixer.music.play()
+    
     
 
 def ask():
