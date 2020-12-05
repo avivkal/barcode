@@ -215,6 +215,9 @@ def addToCartRami():
         pygame.mixer.music.play()
     except:
         print('could not add to cart')
+        pygame.mixer.init()
+        pygame.mixer.music.load("/home/pi/real/barcode/addedList.mp3")
+        pygame.mixer.music.play()
 
 def addToCart():
     session = requests.Session()
@@ -321,8 +324,14 @@ def addToCart():
             pygame.mixer.music.play()
         else:
             print("Product could not be added")
+            pygame.mixer.init()
+            pygame.mixer.music.load("/home/pi/real/barcode/addedList.mp3")
+            pygame.mixer.music.play()
     except IndexError:
         print("Product could not be added")
+        pygame.mixer.init()
+        pygame.mixer.music.load("/home/pi/real/barcode/addedList.mp3")
+        pygame.mixer.music.play()
     
     
 
