@@ -346,10 +346,10 @@ def ask():
         croppedBarcode = barcode[7:]
     elif (barcode.startswith('729000')):
         croppedBarcode = barcode[6:]
-    print('your barcode is' + barcode)
-    print('your barcode is' + croppedBarcode)
+    print('your original barcode is' + barcode)
+    print('your searched barcode is' + croppedBarcode)
     #bigRef.child('barcodes').push(barcode)
-    array.append(barcode)
+    array.append(croppedBarcode)
     print(array)
     ask()
 
