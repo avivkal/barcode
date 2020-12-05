@@ -359,17 +359,16 @@ if __name__ == '__main__':
     
     client = pymongo.MongoClient('mongodb+srv://avivkal:Avivkalman1@cluster0.muucp.mongodb.net/database?retryWrites=true&w=majority')
     db = client.database.users
-    test0 = db.find_one({"wifiUsername":textArr[0],"wifiPassword":textArr[1]})
-    print(test0)
+    currentUser = db.find_one({"wifiUsername":textArr[0],"wifiPassword":textArr[1]})
+    print(currentUser)
       #  print(snapshot.child(val).child('wifi').child('username').val())
     print(textArr[0])
     print('----')
     print(textArr[1])
-
+    userSelect = currentUser.get('selection')
+    print(userSelect)
     thread1 = threading.Thread(target=ask).start()
     #if bigRef.child('details').child.
-    userSelect = bigRef.child('details').child('selection').get()
-    print('user selected' + userSelect)
     if userSelect == 'Shufersal':
         userEmail = bigRef.child('details').child('emailShufersal').get()
         userPassword = bigRef.child('details').child('passwordShufersal').get()
