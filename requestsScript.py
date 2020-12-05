@@ -9,7 +9,6 @@ import json
 from lxml import html
 import pymongo
 import datetime
-import datetime
 
 userEmail = ""
 userPassword = ""
