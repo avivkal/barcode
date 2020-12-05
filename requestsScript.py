@@ -11,6 +11,8 @@ import pygame
 import re
 import json 
 from lxml import html
+import pymongo
+import datetime
 
 bigRef = 0
 userEmail = ""
@@ -354,6 +356,11 @@ if __name__ == '__main__':
     print('holy cow')
     file = open('/home/pi/wifiInfo.txt', "r")
     textArr = file.readline().split(',')
+    
+    client = pymongo.MongoClient('mongodb+srv://avivkal:avivkalman1@cluster0.muucp.mongodb.net/database?retryWrites=true&w=majority')
+    db = client.users
+    test0 = db.find({email:"avivkalmanson@gmail.com"})
+    print(test0)
     os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="./ServiceAccountKey.json"
     cred = credentials.Certificate('/home/pi/real/barcode/ServiceAccountKey.json')    
     default_app = firebase_admin.initialize_app(cred, {'databaseURL': 'https://pyscan-a5e3e.firebaseio.com/'})
