@@ -333,7 +333,8 @@ def addToCart():
         pygame.mixer.music.load("/home/pi/real/barcode/addedList.mp3")
         pygame.mixer.music.play()
     
-    
+def addProductToDB(barcode):
+    productsRef.insert_one({"email": currentUser.get('email'),"selection":currentUser.get('selection'),"barcode":barcode,"name":"unknown","creationDate": datetime.datetime.now()})
 
 def ask():
     barcode = input('enter barcode')
@@ -346,8 +347,8 @@ def ask():
         croppedBarcode = barcode[6:]
     print('your original barcode is' + barcode)
     print('your searched barcode is' + croppedBarcode)
-    productsRef.insert_one({"email": currentUser.get('email'),"selection":currentUser.get('selection'),"barcode":croppedBarcode,"name":"unknown","creationDate": datetime.datetime.now()})
     #bigRef.child('barcodes').push(barcode)
+    addProductToDB(croppedBarcode)
     array.append(croppedBarcode)
     print(array)
     ask()
