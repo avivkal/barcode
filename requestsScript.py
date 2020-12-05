@@ -342,9 +342,9 @@ def ask():
     croppedBarcode = barcode
     if(barcode.startswith('72900000')):
         croppedBarcode = barcode[8:]
-    else if (barcode.startswith('7290000')):
+    elif (barcode.startswith('7290000')):
         croppedBarcode = barcode[7:]
-    else if (barcode.startswith('729000')):
+    elif (barcode.startswith('729000')):
         croppedBarcode = barcode[6:]
     print('your barcode is' + barcode)
     print('your barcode is' + croppedBarcode)
