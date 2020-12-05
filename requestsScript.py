@@ -370,9 +370,10 @@ if __name__ == '__main__':
     thread1 = threading.Thread(target=ask).start()
     #if bigRef.child('details').child.
     if userSelect == 'Shufersal':
-        userEmail = bigRef.child('details').child('emailShufersal').get()
-        userPassword = bigRef.child('details').child('passwordShufersal').get()
-        print('shufersal')
+        userEmail = currentUser.get('shufersalUsername')
+        print(userEmail)
+        userPassword = currentUser.get('shufersalPassword')
+        print(userPassword)
         pygame.mixer.init()
         pygame.mixer.music.load("/home/pi/real/barcode/shufersal.mp3")
         pygame.mixer.music.play()
