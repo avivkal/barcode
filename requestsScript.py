@@ -366,7 +366,7 @@ if __name__ == '__main__':
     print('----')
     print(textArr[1])
     userSelect = currentUser.get('selection')
-    print(userSelect)
+    print(userSelect + ' realllll')
     thread1 = threading.Thread(target=ask).start()
     #if bigRef.child('details').child.
     if userSelect == 'Shufersal':
