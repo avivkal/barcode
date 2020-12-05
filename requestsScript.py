@@ -220,6 +220,14 @@ def addToCartRami():
         pygame.mixer.music.play()
 
 def addToCart():
+    barcode = array[0]
+    if(barcode.startswith('72900000')):
+        croppedBarcode = barcode[8:]
+    elif (barcode.startswith('7290000')):
+        croppedBarcode = barcode[7:]
+    elif (barcode.startswith('729000')):
+        croppedBarcode = barcode[6:]
+    
     session = requests.Session()
 
     response3 = session.get('https://www.shufersal.co.il/online/he/A')
@@ -308,7 +316,7 @@ def addToCart():
         ('cartContext[recommendationType]', 'REGULAR'),
     )
 
-    data2 = '{"productCodePost":"P_'+array[0]+'","productCode":"P_'+array[0]+'","sellingMethod":"BY_UNIT","qty":"1","frontQuantity":"1","comment":"","affiliateCode":""}'
+    data2 = '{"productCodePost":"P_'+croppedBarcode+'","productCode":"P_'+croppedBarcode+'","sellingMethod":"BY_UNIT","qty":"1","frontQuantity":"1","comment":"","affiliateCode":""}'
 
     response2 = session.post('https://www.shufersal.co.il/online/he/cart/add', headers=headers9, params=params2, cookies=myList, data=data2)
     responseCheck = session.get('https://www.shufersal.co.il/online/he/A')
@@ -338,18 +346,10 @@ def addProductToDB(barcode):
 
 def ask():
     barcode = input('enter barcode')
-    croppedBarcode = barcode
-    if(barcode.startswith('72900000')):
-        croppedBarcode = barcode[8:]
-    elif (barcode.startswith('7290000')):
-        croppedBarcode = barcode[7:]
-    elif (barcode.startswith('729000')):
-        croppedBarcode = barcode[6:]
     print('your original barcode is' + barcode)
-    print('your searched barcode is' + croppedBarcode)
     #bigRef.child('barcodes').push(barcode)
-    addProductToDB(croppedBarcode)
-    array.append(croppedBarcode)
+    addProductToDB(barcode)
+    array.append(barcode)
     print(array)
     ask()
 
