@@ -358,8 +358,8 @@ if __name__ == '__main__':
     textArr = file.readline().split(',')
     
     client = pymongo.MongoClient('mongodb+srv://avivkal:avivkalman1@cluster0.muucp.mongodb.net/database?retryWrites=true&w=majority')
-    db = client.database.users
-    test0 = db.find({"email":"avivkalmanson@gmail.com"})
+    db = client.users
+    test0 = db.find_one({"email":"avivkalmanson@gmail.com"})
     print(test0)
     os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="./ServiceAccountKey.json"
     cred = credentials.Certificate('/home/pi/real/barcode/ServiceAccountKey.json')    
