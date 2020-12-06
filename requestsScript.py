@@ -390,7 +390,7 @@ if __name__ == '__main__':
         print(userEmail)
         userPassword = currentUser.get('ramiLevyPassword')
         print(userPassword)
-        playMusic('rami')
+        playMusic('rami1')
         #pygame.mixer.init()
         #pygame.mixer.music.load("/home/pi/real/barcode/rami.mp3")
         #pygame.mixer.music.play()
