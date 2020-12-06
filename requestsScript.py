@@ -216,9 +216,11 @@ def addToCartRami():
 
         response3 = requests.post('https://api-prod.rami-levy.co.il/api/v1/cart/add-line-to-cart', headers=headers3,data=str(myDict))
         playMusic('added')
+        addProductToDB(barcode,True)
     except:
         print('could not add to cart')
         playMusic('addedList')
+        addProductToDB(barcode,False)
 
 def addToCart():
     barcode = array[0]
