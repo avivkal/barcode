@@ -21,6 +21,11 @@ class mydict(dict):
     def __str__(self):
         return json.dumps(self)
 
+def playMusic (fileName):
+    pygame.mixer.init()
+    pygame.mixer.music.load("/home/pi/real/barcode/" + fileName + ".mp3")
+    pygame.mixer.music.play()
+
 def internet(host="8.8.8.8", port=53, timeout=3):
     """
     Host: 8.8.8.8 (google-public-dns-a.google.com)
@@ -61,7 +66,6 @@ if not internet():
         netcfg.write(ssid + ',' + wifipw)
     os.system("dhclient wlan0")
     os.system("sudo reboot")
-
 
 def getserial():
     # Extract serial from cpuinfo file
@@ -386,7 +390,8 @@ if __name__ == '__main__':
         print(userEmail)
         userPassword = currentUser.get('ramiLevyPassword')
         print(userPassword)
-        pygame.mixer.init()
-        pygame.mixer.music.load("/home/pi/real/barcode/rami.mp3")
-        pygame.mixer.music.play()
+        playMusic('rami')
+        #pygame.mixer.init()
+        #pygame.mixer.music.load("/home/pi/real/barcode/rami.mp3")
+        #pygame.mixer.music.play()
         thread2 = threading.Thread(target=wholeRami).start()
