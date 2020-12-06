@@ -22,9 +22,10 @@ class mydict(dict):
         return json.dumps(self)
 
 def playMusic (fileName):
-    pygame.mixer.init()
-    pygame.mixer.music.load("/home/pi/real/barcode/" + fileName + ".mp3")
-    pygame.mixer.music.play()
+    if currentUser.get('sound') == True:
+        pygame.mixer.init()
+        pygame.mixer.music.load("/home/pi/real/barcode/" + fileName + ".mp3")
+        pygame.mixer.music.play()
 
 def internet(host="8.8.8.8", port=53, timeout=3):
     """
