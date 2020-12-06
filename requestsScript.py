@@ -331,21 +331,24 @@ def addToCart():
             print(link[1])
             currentPrice = link[1]
             playMusic('added')
+            addProductToDB(barcode,True)
         else:
             print("Product could not be added")
             playMusic('addedList')
+            addProductToDB(barcode,False)
     except IndexError:
         print("Product could not be added")
         playMusic('addedList')
+        addProductToDB(barcode,False)
     
-def addProductToDB(barcode):
-    productsRef.insert_one({"email": currentUser.get('email'),"selection":currentUser.get('selection'),"barcode":barcode,"name":"unknown","creationDate": datetime.datetime.now()})
+def addProductToDB(barcode,added):
+    productsRef.insert_one({"email": currentUser.get('email'),"selection":currentUser.get('selection'),"barcode":barcode,"name":"unknown","creationDate": datetime.datetime.now(),"added":added})
 
 def ask():
     barcode = input('enter barcode')
     print('your original barcode is' + barcode)
     #bigRef.child('barcodes').push(barcode)
-    addProductToDB(barcode)
+    #addProductToDB(barcode,true)
     array.append(barcode)
     print(array)
     ask()
