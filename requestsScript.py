@@ -214,14 +214,10 @@ def addToCartRami():
         }
 
         response3 = requests.post('https://api-prod.rami-levy.co.il/api/v1/cart/add-line-to-cart', headers=headers3,data=str(myDict))
-        pygame.mixer.init()
-        pygame.mixer.music.load("/home/pi/real/barcode/added.mp3")
-        pygame.mixer.music.play()
+        playMusic('added')
     except:
         print('could not add to cart')
-        pygame.mixer.init()
-        pygame.mixer.music.load("/home/pi/real/barcode/addedList.mp3")
-        pygame.mixer.music.play()
+        playMusic('addedList')
 
 def addToCart():
     barcode = array[0]
@@ -333,19 +329,13 @@ def addToCart():
             print("Product was added to your cart")
             print(link[1])
             currentPrice = link[1]
-            pygame.mixer.init()
-            pygame.mixer.music.load("/home/pi/real/barcode/added.mp3")
-            pygame.mixer.music.play()
+            playMusic('added')
         else:
             print("Product could not be added")
-            pygame.mixer.init()
-            pygame.mixer.music.load("/home/pi/real/barcode/addedList.mp3")
-            pygame.mixer.music.play()
+            playMusic('addedList')
     except IndexError:
         print("Product could not be added")
-        pygame.mixer.init()
-        pygame.mixer.music.load("/home/pi/real/barcode/addedList.mp3")
-        pygame.mixer.music.play()
+        playMusic('addedList')
     
 def addProductToDB(barcode):
     productsRef.insert_one({"email": currentUser.get('email'),"selection":currentUser.get('selection'),"barcode":barcode,"name":"unknown","creationDate": datetime.datetime.now()})
