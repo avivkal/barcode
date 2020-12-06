@@ -344,7 +344,9 @@ def addToCart():
         addProductToDB(barcode,False)
     
 def addProductToDB(barcode,added):
-    productsRef.insert_one({"email": currentUser.get('email'),"selection":currentUser.get('selection'),"barcode":barcode,"name":"unknown","creationDate": datetime.datetime.now(),"added":added})
+    response = requests.get('https://chp.co.il/autocompletion/product_extended', params=((('term', '7290004132231'),)))
+    name = json.loads(response.text)[0].get('value')
+    productsRef.insert_one({"email": currentUser.get('email'),"selection":currentUser.get('selection'),"barcode":barcode,"name":name,"creationDate": datetime.datetime.now(),"added":added})
 
 def ask():
     barcode = input('enter barcode')
