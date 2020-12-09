@@ -9,6 +9,7 @@ import json
 from lxml import html
 import pymongo
 import datetime
+from bs4 import BeautifulSoup
 
 userEmail = ""
 userPassword = ""
@@ -350,8 +351,9 @@ def ask():
     barcode = input('enter barcode')
     print('your original barcode is' + barcode)
     response8 = requests.get('https://www.shufersal.co.il/online/he/search?text=' + barcode)
-    print(response8.content)
-
+    soup = BeautifulSoup(response8.content, 'html.parser')
+    mydivs = soup.findAll("span", {"class": "number"})
+    print(mydivs)
     #bigRef.child('barcodes').push(barcode)
     #addProductToDB(barcode,true)
     array.append(barcode)
