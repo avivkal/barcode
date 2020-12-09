@@ -349,22 +349,28 @@ def addProductToDB(barcode,added):
     soup = BeautifulSoup(response8.content, 'html.parser')
     mydivs = soup.select('li > div > div > div > div > span > span')[0].text.strip()
     print(mydivs) #crop!!!
-    headers88 = {
-        'authority': 'api-prod.rami-levy.co.il',
-        'accept': 'application/json, text/plain, */*',
+    headers9 = {
+        'authority': 'www.rami-levy.co.il',
+        'sec-ch-ua': '"Google Chrome";v="87", " Not;A Brand";v="99", "Chromium";v="87"',
         'locale': 'he',
-        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.183 Safari/537.36',
-        'ecomtoken': 'faa5dc4c-66db-483c-a767-49ce5becaf93',
+        'authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjIxNzE5ZDM2NzI0OGYyZDAwY2RkMThmM2U5ZmJhNGYxYTU1OTRkYjZlYjI3ODY4ZTlmZmJhNWI0YTdmNTc2Y2IwNDg3N2FiNjY1ODMwYWNjIn0.eyJhdWQiOiIzIiwianRpIjoiMjE3MTlkMzY3MjQ4ZjJkMDBjZGQxOGYzZTlmYmE0ZjFhNTU5NGRiNmV$',
         'content-type': 'application/json;charset=UTF-8',
+        'accept': 'application/json, text/plain, */*',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36',
+        'sec-ch-ua-mobile': '?0',
+        'ecomtoken': '48837ef29656a9678d28e2b08734104e5ac412f505d9eb89bc46eb07fd2794c4',
         'origin': 'https://www.rami-levy.co.il',
-        'sec-fetch-site': 'same-site',
+        'sec-fetch-site': 'same-origin',
         'sec-fetch-mode': 'cors',
         'sec-fetch-dest': 'empty',
+        'referer': 'https://www.rami-levy.co.il/he/shop/search?q=8717163647226',
         'accept-language': 'he-IL,he;q=0.9,en-US;q=0.8,en;q=0.7',
+        'cookie': 'visid_incap_2021397=nYC3WoN+QvionmgCV/KAuv7Ujl8AAAAAQUIPAAAAAAAWVrDAqj4FIiHmqWNHAXS4; i18n_redirected=he; _ga=GA1.3.652806923.1603196161; visid_incap_2256378=uy5pV0DkRWmN9TDryS1KRQjVjl8AAAAAQUIPAAAAAABvCCZmFxadU5djeOszvRh5; reese84=3:WaqpGFdm3jgYolW4kfPvqQ==:aOidVe3pgJqok3ziQypZq5XGr1jNlDHhXVcrj/UtmEP1YK5scz8DS5SuBJWebq5aUAciBTdZ03ssqHzQMqi/G3tppVyIb1bMn7bZA6qBYLJucdXf2kAZcBjcdICDjVtRUC22KdmTg0VKKMusFS42vk1+X0j3otcu6qlFk1P6FfYOqIu+w0pCGahCRFD2pJk3qPI5x+DzbyUwBH53Mu99gw+eeJk+xEzFCwnoMbdCVFfaKsDAGozqTITUi856ChPskhU8Ovs9AugnQA/7xVu3mKc8xS4YM9IEBZdekQlJlKuGPPItDvUDYBoeVVEexNi2nKc/5bcpueS7Zx0uNz0OPeSyjBarRtFtQypXpKJjjOj4m5duoJiT37pqzjtnJPk4f2liaYFb63FJa9m/Z37fhAve4GDUHePnEDtRpTZimyfcBum7aZd088s8dUELsMAZNN/cH+OvceMMtGJcA5rA7Q==:sbhOCwCaZ7+S+y5BWD44AsNPlwxYg4tstQ3bjra4/kQ=; _gid=GA1.3.618706417.1607465195; auth.strategy=local; _gat=1',
     }
-    response99 = requests.post('https://www.rami-levy.co.il/api/catalog/', headers=headers88, data={"q":"8717163647226","store":331,"sort":"relevant","aggs":1})
-    print(response99)
-    print(response99.content)
+
+    data9 = '{"q":"8717163647226","store":331,"sort":"relevant","aggs":1}'
+    response9 = requests.post('https://www.rami-levy.co.il/api/catalog', headers=headers9, data=data9)
+    print(response9)
     productsRef.insert_one({"email": currentUser.get('email'),"selection":currentUser.get('selection'),"barcode":barcode,"creationDate": datetime.datetime.now(),"added":added})
 
 def ask():
