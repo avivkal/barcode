@@ -349,7 +349,7 @@ def addProductToDB(barcode,added):
     soup = BeautifulSoup(response8.content, 'html.parser')
     mydivs = soup.select('li > div > div > div > div > span > span')[0].text.strip()
     print(mydivs) #crop!!!
-    headers = {
+    headers88 = {
         'authority': 'api-prod.rami-levy.co.il',
         'accept': 'application/json, text/plain, */*',
         'locale': 'he',
@@ -362,9 +362,9 @@ def addProductToDB(barcode,added):
         'sec-fetch-dest': 'empty',
         'accept-language': 'he-IL,he;q=0.9,en-US;q=0.8,en;q=0.7',
     }
-    response9 = requests.post('https://www.rami-levy.co.il/api/catalog/', headers=headers, data=str({"q":"8717163647226","store":331,"sort":"relevant","aggs":1}))
-    print(response9)
-    print(response9.content)
+    response99 = requests.post('https://www.rami-levy.co.il/api/catalog/', headers=headers88, data={"q":"8717163647226","store":331,"sort":"relevant","aggs":1})
+    print(response99)
+    print(response99.content)
     productsRef.insert_one({"email": currentUser.get('email'),"selection":currentUser.get('selection'),"barcode":barcode,"creationDate": datetime.datetime.now(),"added":added})
 
 def ask():
