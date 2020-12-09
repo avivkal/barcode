@@ -346,6 +346,11 @@ def addToCart():
     
 def addProductToDB(barcode,added):
     croppedBarcode = barcode
+    shufersalPrice = 'לא נמצא'
+    ramiPrice = 'לא נמצא'
+    image = ''
+    name = ''
+    
     if(barcode.startswith('72900000')):
         croppedBarcode = barcode[8:]
     elif (barcode.startswith('7290000')):
