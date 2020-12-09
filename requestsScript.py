@@ -374,6 +374,8 @@ def addProductToDB(barcode,added):
     dataDict["aggs"] = 1
     response9 = requests.post('https://www.rami-levy.co.il/api/catalog', headers=headers9, data=str(dataDict))
     ramiPrice = json.loads(response9.text).get('data')[0].get('price').get('price')
+    response10 = requests.get('https://kalmanscan.herokuapp.com/products/getDataPartial/' + barcode)
+    print(response10.content)
     productsRef.insert_one({"email": currentUser.get('email'),"selection":currentUser.get('selection'),"barcode":barcode,"creationDate": datetime.datetime.now(),"added":added, "shufersalPrice": shufersalPrice, "ramiLevyPrice":ramiPrice})
 
 def ask():
