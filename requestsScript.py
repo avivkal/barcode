@@ -353,7 +353,7 @@ def ask():
     response8 = requests.get('https://www.shufersal.co.il/online/he/search?text=' + barcode)
     soup = BeautifulSoup(response8.content, 'html.parser')
     mydivs1 = soup.findAll("span", {"class": "price"})
-    mydivs = mydivs1.findAll("span", {"class": "number"})
+    mydivs = mydivs1.find("span", {"class": "number"})
     print(mydivs)
     #bigRef.child('barcodes').push(barcode)
     #addProductToDB(barcode,true)
