@@ -345,7 +345,7 @@ def addToCart():
         addProductToDB(barcode,False)
     
 def addProductToDB(barcode,added):
-    response8 = requests.get('https://www.shufersal.co.il/online/he/search?text=' + croppedBarcode)
+    response8 = requests.get('https://www.shufersal.co.il/online/he/search?text=' + barcode)
     soup = BeautifulSoup(response8.content, 'html.parser')
     mydivs = soup.select('li > div > div > div > div > span > span')[0].text.strip()
     print(mydivs) #crop!!!
