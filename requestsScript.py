@@ -378,7 +378,7 @@ def addProductToDB(barcode,added):
     image = json.loads(response10.text).get('image')
     name = json.loads(response10.text).get('name')
     print(name)
-    productsRef.insert_one({"email": currentUser.get('email'),"selection":currentUser.get('selection'),"barcode":barcode,"creationDate": datetime.datetime.now(),"added":added, "shufersalPrice": shufersalPrice, "ramiLevyPrice":ramiPrice})
+    productsRef.insert_one({"email": currentUser.get('email'),"selection":currentUser.get('selection'),"barcode":barcode,"creationDate": datetime.datetime.now(),"added":added, "shufersalPrice": shufersalPrice, "ramiLevyPrice":ramiPrice,"image": image,"name": name})
 
 def ask():
     barcode = input('enter barcode')
