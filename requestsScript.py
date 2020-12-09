@@ -345,7 +345,14 @@ def addToCart():
         addProductToDB(barcode,False)
     
 def addProductToDB(barcode,added):
-    response8 = requests.get('https://www.shufersal.co.il/online/he/search?text=' + barcode)
+    croppedBarcode = barcode
+    if(barcode.startswith('72900000')):
+        croppedBarcode = barcode[8:]
+    elif (barcode.startswith('7290000')):
+        croppedBarcode = barcode[7:]
+    elif (barcode.startswith('729000')):
+        croppedBarcode = barcode[6:]
+    response8 = requests.get('https://www.shufersal.co.il/online/he/search?text=' + croppedBarcode)
     soup = BeautifulSoup(response8.content, 'html.parser')
     shufersalPrice = float(soup.select('li > div > div > div > div > span > span')[0].text.strip())
     print(shufersalPrice) #crop!!!
