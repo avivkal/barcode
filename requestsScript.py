@@ -352,10 +352,13 @@ def addProductToDB(barcode,added):
         croppedBarcode = barcode[7:]
     elif (barcode.startswith('729000')):
         croppedBarcode = barcode[6:]
-    response8 = requests.get('https://www.shufersal.co.il/online/he/search?text=' + croppedBarcode)
-    soup = BeautifulSoup(response8.content, 'html.parser')
-    shufersalPrice = float(soup.select('li > div > div > div > div > span > span')[0].text.strip())
-    print(shufersalPrice) #crop!!!
+    try:
+        response8 = requests.get('https://www.shufersal.co.il/online/he/search?text=' + croppedBarcode)
+        soup = BeautifulSoup(response8.content, 'html.parser')
+        shufersalPrice = float(soup.select('li > div > div > div > div > span > span')[0].text.strip())
+        print(shufersalPrice) #crop!!!
+    except:
+        print('shufersal not found')
     headers9 = {
         'authority': 'www.rami-levy.co.il',
         'sec-ch-ua': '"Google Chrome";v="87", " Not;A Brand";v="99", "Chromium";v="87"',
@@ -379,12 +382,15 @@ def addProductToDB(barcode,added):
     dataDict["store"] = 331
     dataDict["sort"] = "relevant"
     dataDict["aggs"] = 1
-    response9 = requests.post('https://www.rami-levy.co.il/api/catalog', headers=headers9, data=str(dataDict))
-    ramiPrice = json.loads(response9.text).get('data')[0].get('price').get('price')
-    response10 = requests.get('https://kalmanscan.herokuapp.com/products/getDataPartial/' + barcode)
-    image = json.loads(response10.text).get('image')
-    name = json.loads(response10.text).get('name')
-    print(name)
+    try:
+        response9 = requests.post('https://www.rami-levy.co.il/api/catalog', headers=headers9, data=str(dataDict))
+        ramiPrice = json.loads(response9.text).get('data')[0].get('price').get('price')
+        response10 = requests.get('https://kalmanscan.herokuapp.com/products/getDataPartial/' + barcode)
+        image = json.loads(response10.text).get('image')
+        name = json.loads(response10.text).get('name')
+        print(name)
+    except:
+        print('rami levy not found')
     productsRef.insert_one({"email": currentUser.get('email'),"selection":currentUser.get('selection'),"barcode":barcode,"creationDate": datetime.datetime.now(),"added":added, "shufersalPrice": shufersalPrice, "ramiLevyPrice":ramiPrice,"image": image,"name": name})
 
 def ask():
