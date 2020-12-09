@@ -233,11 +233,6 @@ def addToCart():
     elif (barcode.startswith('729000')):
         croppedBarcode = barcode[6:]
     
-    response8 = requests.get('https://www.shufersal.co.il/online/he/search?text=' + croppedBarcode)
-    soup = BeautifulSoup(response8.content, 'html.parser')
-    mydivs = soup.select('li > div > div > div > div > span > span')[0].text.strip()
-    print(mydivs)
-    
     print(croppedBarcode + ' yessss')
     session = requests.Session()
 
@@ -350,6 +345,10 @@ def addToCart():
         addProductToDB(barcode,False)
     
 def addProductToDB(barcode,added):
+    response8 = requests.get('https://www.shufersal.co.il/online/he/search?text=' + croppedBarcode)
+    soup = BeautifulSoup(response8.content, 'html.parser')
+    mydivs = soup.select('li > div > div > div > div > span > span')[0].text.strip()
+    print(mydivs) #crop!!!
     productsRef.insert_one({"email": currentUser.get('email'),"selection":currentUser.get('selection'),"barcode":barcode,"creationDate": datetime.datetime.now(),"added":added})
 
 def ask():
