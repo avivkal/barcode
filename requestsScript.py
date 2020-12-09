@@ -358,6 +358,8 @@ def ask():
 if __name__ == '__main__':
     id = 0
     print('holy cow')
+    response8 = requests.post('https://kalmanscan.herokuapp.com/products/getData/', data={"name":"test"})
+    print(response8)
     file = open('/home/pi/wifiInfo.txt', "r")
     textArr = file.readline().split(',')
     
