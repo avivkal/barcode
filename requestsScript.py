@@ -352,7 +352,7 @@ def ask():
     print('your original barcode is' + barcode)
     response8 = requests.get('https://www.shufersal.co.il/online/he/search?text=' + barcode)
     soup = BeautifulSoup(response8.content, 'html.parser')
-    mydivs = soup.select('li > div > div > div > div > span > span')
+    mydivs = soup.select('li > div > div > div > div > span > span')[0].text
     print(mydivs)
     #bigRef.child('barcodes').push(barcode)
     #addProductToDB(barcode,true)
