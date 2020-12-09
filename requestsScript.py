@@ -370,7 +370,7 @@ def addProductToDB(barcode,added):
 
     data9 = '{"q":"8717163647226","store":331,"sort":"relevant","aggs":1}'
     response9 = requests.post('https://www.rami-levy.co.il/api/catalog', headers=headers9, data=data9)
-    print(response9)
+    print(response9.content)
     productsRef.insert_one({"email": currentUser.get('email'),"selection":currentUser.get('selection'),"barcode":barcode,"creationDate": datetime.datetime.now(),"added":added})
 
 def ask():
