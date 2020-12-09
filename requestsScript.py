@@ -349,6 +349,9 @@ def addProductToDB(barcode,added):
 def ask():
     barcode = input('enter barcode')
     print('your original barcode is' + barcode)
+    response8 = requests.get('https://www.shufersal.co.il/online/he/search?text=' + barcode)
+    print(response8.content)
+
     #bigRef.child('barcodes').push(barcode)
     #addProductToDB(barcode,true)
     array.append(barcode)
@@ -358,8 +361,6 @@ def ask():
 if __name__ == '__main__':
     id = 0
     print('holy cow')
-    response8 = requests.post('https://kalmanscan.herokuapp.com/products/getData/', data={"name":"test"})
-    print(response8.content)
     file = open('/home/pi/wifiInfo.txt', "r")
     textArr = file.readline().split(',')
     
