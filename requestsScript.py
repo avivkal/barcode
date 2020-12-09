@@ -390,12 +390,15 @@ def addProductToDB(barcode,added):
     try:
         response9 = requests.post('https://www.rami-levy.co.il/api/catalog', headers=headers9, data=str(dataDict))
         ramiPrice = json.loads(response9.text).get('data')[0].get('price').get('price')
-        response10 = requests.get('https://kalmanscan.herokuapp.com/products/getDataPartial/' + barcode)
-        image = json.loads(response10.text).get('image')
-        name = json.loads(response10.text).get('name')
-        print(name)
     except:
         print('rami levy not found')
+    try:
+        response10 = requests.get('https://kalmanscan.herokuapp.com/products/getDataPartial/' + barcode)
+        name = json.loads(response10.text).get('name')
+        image = json.loads(response10.text).get('image')
+        print(name)
+    except:
+        print('name/image not found')  
     productsRef.insert_one({"email": currentUser.get('email'),"selection":currentUser.get('selection'),"barcode":barcode,"creationDate": datetime.datetime.now(),"added":added, "shufersalPrice": shufersalPrice, "ramiLevyPrice":ramiPrice,"image": image,"name": name})
 
 def ask():
