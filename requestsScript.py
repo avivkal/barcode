@@ -347,8 +347,8 @@ def addToCart():
 def addProductToDB(barcode,added):
     response8 = requests.get('https://www.shufersal.co.il/online/he/search?text=' + barcode)
     soup = BeautifulSoup(response8.content, 'html.parser')
-    mydivs = soup.select('li > div > div > div > div > span > span')[0].text.strip()
-    print(mydivs) #crop!!!
+    shufersalPrice = soup.select('li > div > div > div > div > span > span')[0].text.strip()
+    print(shufersalPrice) #crop!!!
     headers9 = {
         'authority': 'www.rami-levy.co.il',
         'sec-ch-ua': '"Google Chrome";v="87", " Not;A Brand";v="99", "Chromium";v="87"',
@@ -371,8 +371,7 @@ def addProductToDB(barcode,added):
     data9 = '{"q":"8717163647226","store":331,"sort":"relevant","aggs":1}'
     response9 = requests.post('https://www.rami-levy.co.il/api/catalog', headers=headers9, data=data9)
     ramiPrice = json.loads(response9.text).get('data')[0].get('price').get('price')
-    print(ramiPrice)
-    productsRef.insert_one({"email": currentUser.get('email'),"selection":currentUser.get('selection'),"barcode":barcode,"creationDate": datetime.datetime.now(),"added":added})
+    productsRef.insert_one({"email": currentUser.get('email'),"selection":currentUser.get('selection'),"barcode":barcode,"creationDate": datetime.datetime.now(),"added":added, "shufersalPrice": shufersalPrice, "ramiLevyPrice":ramiPrice})
 
 def ask():
     barcode = input('enter barcode')
