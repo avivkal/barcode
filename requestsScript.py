@@ -394,6 +394,10 @@ def addProductToDB(barcode,added):
         print('rami levy not found')
     try:
         response10 = requests.get('https://kalmanscan.herokuapp.com/products/getDataPartial/' + barcode)
+        
+        response11 = requests.get('https://chp.co.il/autocompletion/product_extended?term=' + barcode)
+        print(response11.content)
+        print(json.loads(response11.text).get('data')[0].value)
         name = json.loads(response10.text).get('name')
         image = json.loads(response10.text).get('image')
         print(name)
