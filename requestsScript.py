@@ -400,7 +400,7 @@ def addProductToDB(barcode,added):
         #name = json.loads(response10.text).get('name')
         response12 = requests.get('https://chp.co.il/%D7%AA%D7%9C%20%D7%90%D7%91%D7%99%D7%91/0/0/'+ barcode +'/0')
         soup = BeautifulSoup(response12.content, 'html.parser')
-        checkk = soup.select('td > img')
+        checkk = soup.select('td > img')[0].get('data-uri')
         print(checkk)
         image = json.loads(response10.text).get('image')
         print(name)
