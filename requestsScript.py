@@ -396,8 +396,7 @@ def addProductToDB(barcode,added):
         response10 = requests.get('https://kalmanscan.herokuapp.com/products/getDataPartial/' + barcode)
         
         response11 = requests.get('https://chp.co.il/autocompletion/product_extended?term=' + barcode)
-        print(response11.content)
-        print(json.loads(response11.text)[0].value)
+        print(json.loads(response11.text))
         name = json.loads(response10.text).get('name')
         image = json.loads(response10.text).get('image')
         print(name)
