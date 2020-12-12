@@ -14,8 +14,6 @@ from bs4 import BeautifulSoup
 userEmail = ""
 userPassword = ""
 currentPrice = 0
-client = pymongo.MongoClient('mongodb+srv://avivkal:Avivkalman1@cluster0.muucp.mongodb.net/database?retryWrites=true&w=majority')
-productsRef = client.database.products
 currentUser= ""
 
 class mydict(dict):
@@ -89,6 +87,8 @@ def getserial():
  #       ref = db.reference('users/' + snap + '/barcodes')
     # print(snap)
     # print(val.get('serial'))
+client = pymongo.MongoClient('mongodb+srv://avivkal:Avivkalman1@cluster0.muucp.mongodb.net/database?retryWrites=true&w=majority')
+productsRef = client.database.products
 
 
 
