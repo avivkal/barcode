@@ -91,8 +91,8 @@ def getserial():
     # print(val.get('serial'))
  
 
-client = pymongo.MongoClient(os.getenv("DATABASE_URI"))
-#client = pymongo.MongoClient('mongodb+srv://avivkal:Avivkalman1@cluster0.muucp.mongodb.net/database?retryWrites=true&w=majority')
+#client = pymongo.MongoClient(os.getenv("DATABASE_URI"))
+client = pymongo.MongoClient('mongodb+srv://avivkal:Avivkalman1@cluster0.muucp.mongodb.net/database?retryWrites=true&w=majority')
 productsRef = client.database.products
 
 
