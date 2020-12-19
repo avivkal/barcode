@@ -11,12 +11,15 @@ import pymongo
 import datetime
 from bs4 import BeautifulSoup
 from dotenv import load_dotenv
+from pathlib import Path
 
 userEmail = ""
 userPassword = ""
 currentPrice = 0
 currentUser= ""
-load_dotenv()
+
+env_path = Path('/home/pi/real/barcode/.env')
+load_dotenv(dotenv_path=env_path)
 
 class mydict(dict):
     def __str__(self):
