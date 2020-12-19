@@ -39,12 +39,10 @@ def internet(host="8.8.8.8", port=53, timeout=3):
     except socket.error as ex:
         print(ex)
         return False
-#git ignore - ServiceAccountKey.json !!!!
 array = []
 
 if not internet():
     print('no internet')
-    #wifiUsername = input('enter username')
     os.system('sudo ifconfig wlan0 up')	
     pygame.mixer.init()
     pygame.mixer.music.load("/home/pi/real/barcode/wifiUsername.mp3")
@@ -54,8 +52,6 @@ if not internet():
     pygame.mixer.music.load("/home/pi/real/barcode/wifiPassword.mp3")
     pygame.mixer.music.play()
     wifipw = input('enter wifi password')
-    #ssid='Savant@KLM'
-   # wifipw='@BCDE38724'
     with open('/etc/network/interfaces', 'w') as netcfg:
         netcfg.write('source-directory /etc/network/interfaces.d\n'
                      'auto wlan0\n'
