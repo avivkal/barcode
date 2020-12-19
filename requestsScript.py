@@ -19,7 +19,7 @@ currentPrice = 0
 currentUser= ""
 
 env_path = Path('/home/pi/real/barcode/.')
-load_dotenv(dotenv_path=env_path)
+load_dotenv(os.path.join('/home/pi/real/barcode/', '.env'))
 
 class mydict(dict):
     def __str__(self):
