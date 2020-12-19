@@ -18,7 +18,7 @@ userPassword = ""
 currentPrice = 0
 currentUser= ""
 
-project_folder = os.path.expanduser('/home/pi/real/barcode/')
+project_folder = os.path.expanduser('~/home/pi/real/barcode/')
 env_path = Path('/home/pi/real/barcode/.')
 load_dotenv(os.path.join(project_folder, '.env'))
 
