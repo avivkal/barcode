@@ -88,8 +88,10 @@ def getserial():
  #       ref = db.reference('users/' + snap + '/barcodes')
     # print(snap)
     # print(val.get('serial'))
-print(os.getenv("DATABASE_URI"))
-client = pymongo.MongoClient('mongodb+srv://avivkal:Avivkalman1@cluster0.muucp.mongodb.net/database?retryWrites=true&w=majority')
+ 
+
+client = pymongo.MongoClient(os.getenv("DATABASE_URI"))
+#client = pymongo.MongoClient('mongodb+srv://avivkal:Avivkalman1@cluster0.muucp.mongodb.net/database?retryWrites=true&w=majority')
 productsRef = client.database.products
 
 
