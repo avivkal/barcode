@@ -18,7 +18,7 @@ userPassword = ""
 currentPrice = 0
 currentUser= ""
 
-env_path = Path('/home/pi/real/barcode/.env')
+env_path = Path('.')
 load_dotenv(dotenv_path=env_path)
 
 class mydict(dict):
