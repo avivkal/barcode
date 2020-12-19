@@ -10,11 +10,13 @@ from lxml import html
 import pymongo
 import datetime
 from bs4 import BeautifulSoup
+from dotenv import load_dotenv
 
 userEmail = ""
 userPassword = ""
 currentPrice = 0
 currentUser= ""
+load_dotenv()
 
 class mydict(dict):
     def __str__(self):
@@ -83,6 +85,7 @@ def getserial():
  #       ref = db.reference('users/' + snap + '/barcodes')
     # print(snap)
     # print(val.get('serial'))
+print(os.getenv("DATABASE_URI"))
 client = pymongo.MongoClient('mongodb+srv://avivkal:Avivkalman1@cluster0.muucp.mongodb.net/database?retryWrites=true&w=majority')
 productsRef = client.database.products
 
