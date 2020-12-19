@@ -20,7 +20,7 @@ currentUser= ""
 
 BASEDIR = os.path.abspath(os.path.dirname('/home/pi/real/barcode/'))
 load_dotenv(os.path.join(BASEDIR, '.env'))
-
+print(os.getenv("DATABASE_URI"))
 
 class mydict(dict):
     def __str__(self):
