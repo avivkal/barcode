@@ -18,10 +18,6 @@ userPassword = ""
 currentPrice = 0
 currentUser= ""
 
-BASEDIR = os.path.abspath(os.path.dirname('/home/pi/real/barcode/'))
-load_dotenv(os.path.join(BASEDIR, '.env'))
-print(os.getenv("DATABASE_URI"))
-
 class mydict(dict):
     def __str__(self):
         return json.dumps(self)
@@ -91,7 +87,8 @@ def getserial():
     # print(val.get('serial'))
  
 
-#client = pymongo.MongoClient(os.getenv("DATABASE_URI"))
+os.environ['USER'] = 'Bob'
+print(os.environ.get('USER'))
 client = pymongo.MongoClient('mongodb+srv://avivkal:Avivkalman1@cluster0.muucp.mongodb.net/database?retryWrites=true&w=majority')
 productsRef = client.database.products
 
