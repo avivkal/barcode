@@ -428,7 +428,7 @@ if __name__ == '__main__':
     textArr = file.readline().split(',')
     
     db = client.database.users
-    currentUser = db.find_one({"wifiUsername":textArr[0],"wifiPassword":textArr[1]})
+    currentUser = db.find_one({"wifiUsername":textArr[0]})
     print(currentUser)
       #  print(snapshot.child(val).child('wifi').child('username').val())
     print(textArr[0])
