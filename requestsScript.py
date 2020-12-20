@@ -10,8 +10,6 @@ from lxml import html
 import pymongo
 import datetime
 from bs4 import BeautifulSoup
-from dotenv import load_dotenv
-from pathlib import Path
 
 userEmail = ""
 userPassword = ""
