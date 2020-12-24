@@ -431,7 +431,7 @@ if __name__ == '__main__':
         textArr = file.readline().split(',')
 
         responseTest = requests.post('http://scanly.net/login/wifivalidation', data={"wifiUsername":textArr[0],"wifiPassword":textArr[1]})
-        currentUser = json.loads(responseTest.text)
+        currentUser = json.loads(responseTest.text[0])
         print(currentUser)
         #db = client.database.users
         #currentUser = db.find_one({"wifiUsername":textArr[0]})
