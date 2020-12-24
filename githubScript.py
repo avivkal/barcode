@@ -10,6 +10,7 @@ from lxml import html
 import pymongo
 import datetime
 from bs4 import BeautifulSoup
+import traceback
 
 userEmail = ""
 userPassword = ""
@@ -82,15 +83,23 @@ def getserial():
 def wholeRami():
     while True:
         if len(array) > 0:
-            addToCartRami()
-            array.pop(0)
+            try:
+                addToCartRami()
+            except Exception:
+                traceback.print_exc()
+            finally:
+                array.pop(0)
         time.sleep(1)
 
 def whole():
     while True:
         if len(array) > 0:
-            addToCart()
-            array.pop(0)
+            try:
+                addToCart()
+            except Exception:
+                traceback.print_exc()
+            finally:
+                array.pop(0)
         time.sleep(1)
         
 def addToCartRami():
