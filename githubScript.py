@@ -91,7 +91,7 @@ client = pymongo.MongoClient('mongodb+srv://avivkal:Avivkalman1@cluster0.muucp.m
 productsRef = client.database.products
 
 responseTest = requests.post('http://scanly.net/login/wifivalidation', data={"wifiUsername":"Savant@KLM","wifiPassword":"@BCDE38724"})
-print(responseTest.response)
+print(responseTest.text)
 
 
 def wholeRami():
