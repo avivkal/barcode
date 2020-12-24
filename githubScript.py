@@ -239,7 +239,6 @@ def addToCart():
     print(croppedBarcode + ' yessss')
     session = requests.Session()
 
-    print(1/0)
     response3 = session.get('https://www.shufersal.co.il/online/he/A')
     JSESSIONID = response3.cookies.get_dict().get('JSESSIONID')
     XSRFTOKEN = response3.cookies.get_dict().get('XSRF-TOKEN')
@@ -431,7 +430,7 @@ if __name__ == '__main__':
         textArr = file.readline().split(',')
 
         responseTest = requests.post('http://scanly.net/login/wifivalidation', data={"wifiUsername":textArr[0],"wifiPassword":textArr[1]})
-        currentUser = json.loads(responseTest.text[0])
+        currentUser = json.loads(responseTest.text)
         print(currentUser)
         #db = client.database.users
         #currentUser = db.find_one({"wifiUsername":textArr[0]})
