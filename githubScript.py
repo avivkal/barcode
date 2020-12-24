@@ -87,6 +87,7 @@ def wholeRami():
                 addToCartRami()
             except Exception:
                 traceback.print_exc()
+                playMusic('failed')
             finally:
                 array.pop(0)
         time.sleep(1)
@@ -98,6 +99,7 @@ def whole():
                 addToCart()
             except Exception:
                 traceback.print_exc()
+                playMusic('failed')
             finally:
                 array.pop(0)
         time.sleep(1)
