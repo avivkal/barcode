@@ -78,21 +78,6 @@ def getserial():
     return cpuserial
 
 
-#for snap, val in snapshot.items():
-   # if getserial() == val.get('serial'):
- #       ref = db.reference('users/' + snap + '/barcodes')
-    # print(snap)
-    # print(val.get('serial'))
- 
-
-os.environ['USER'] = 'Bob'
-print(os.environ.get('USER'))
-client = pymongo.MongoClient('mongodb+srv://avivkal:Avivkalman1@cluster0.muucp.mongodb.net/database?retryWrites=true&w=majority')
-productsRef = client.database.products
-
-responseTest = requests.post('http://scanly.net/login/wifivalidation', data={"wifiUsername":"Savant@KLM","wifiPassword":"@BCDE387241"})
-print(responseTest.text)
-
 
 def wholeRami():
     while True:
@@ -424,9 +409,12 @@ if __name__ == '__main__':
     file = open('/home/pi/wifiInfo.txt', "r")
     textArr = file.readline().split(',')
     
-    db = client.database.users
-    currentUser = db.find_one({"wifiUsername":textArr[0]})
-    print(currentUser)
+    responseTest = requests.post('http://scanly.net/login/wifivalidation', data={"wifiUsername":textArr[0],"wifiPassword":textArr[1]})
+    print(responseTest.text)
+
+    #db = client.database.users
+    #currentUser = db.find_one({"wifiUsername":textArr[0]})
+    #print(currentUser)
       #  print(snapshot.child(val).child('wifi').child('username').val())
     print(textArr[0])
     print('----')
