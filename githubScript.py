@@ -391,8 +391,10 @@ def addProductToDB(barcode,added):
         #image = json.loads(response10.text).get('image')
         print(name)
     except:
-        print('name/image not found')  
-    productsRef.insert_one({"email": currentUser.get('email'),"selection":currentUser.get('selection'),"barcode":barcode,"creationDate": datetime.datetime.now(),"added":added, "shufersalPrice": shufersalPrice, "ramiLevyPrice":ramiPrice,"image": image,"name": name})
+        print('name/image not found')
+    responseOfAdding = requests.post('http://scanly.net/products/addData', data={"email": currentUser.get('email'),"selection":currentUser.get('selection'),"barcode":barcode,"creationDate": datetime.datetime.now(),"added":added, "shufersalPrice": shufersalPrice, "ramiLevyPrice":ramiPrice,"image": image,"name": name})
+    print(responseOfAdding.text)
+    #productsRef.insert_one({"email": currentUser.get('email'),"selection":currentUser.get('selection'),"barcode":barcode,"creationDate": datetime.datetime.now(),"added":added, "shufersalPrice": shufersalPrice, "ramiLevyPrice":ramiPrice,"image": image,"name": name})
 
 def ask():
     barcode = input('enter barcode')
