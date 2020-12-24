@@ -232,6 +232,7 @@ def addToCart():
     print(croppedBarcode + ' yessss')
     session = requests.Session()
 
+    print(1/0)
     response3 = session.get('https://www.shufersal.co.il/online/he/A')
     JSESSIONID = response3.cookies.get_dict().get('JSESSIONID')
     XSRFTOKEN = response3.cookies.get_dict().get('XSRF-TOKEN')
