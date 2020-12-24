@@ -27,6 +27,11 @@ def playMusic (fileName):
         pygame.mixer.music.load("/home/pi/real/barcode/" + fileName + ".mp3")
         pygame.mixer.music.play()
 
+def playMusicMandatory (fileName):
+    pygame.mixer.init()
+    pygame.mixer.music.load("/home/pi/real/barcode/" + fileName + ".mp3")
+    pygame.mixer.music.play()
+
 def internet(host="8.8.8.8", port=53, timeout=3):
     """
     Host: 8.8.8.8 (google-public-dns-a.google.com)
@@ -87,7 +92,7 @@ def wholeRami():
                 addToCartRami()
             except Exception:
                 traceback.print_exc()
-                playMusic('failed')
+                playMusicMandatory('failed')
             finally:
                 array.pop(0)
         time.sleep(1)
@@ -99,7 +104,7 @@ def whole():
                 addToCart()
             except Exception:
                 traceback.print_exc()
-                playMusic('failed')
+                playMusicMandatory('failed')
             finally:
                 array.pop(0)
         time.sleep(1)
@@ -455,5 +460,5 @@ if __name__ == '__main__':
             thread2 = threading.Thread(target=wholeRami).start()
     except Exception:
         traceback.print_exc()
-        playMusic('failed')
+        playMusicMandatory('failed')
     
