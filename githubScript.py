@@ -348,6 +348,7 @@ def addProductToDB(barcode,added):
         response8 = requests.get('https://www.shufersal.co.il/online/he/search?text=' + croppedBarcode)
         soup = BeautifulSoup(response8.content, 'html.parser')
         shufersalPrice = float(soup.select('li > div > div > div > div > span > span')[0].text.strip())
+        print(type(shufersalPrice))
         print(shufersalPrice) #crop!!!
     except:
         print('shufersal not found')
