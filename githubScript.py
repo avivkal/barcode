@@ -459,7 +459,7 @@ if __name__ == '__main__':
             playMusic('rami')
             thread2 = threading.Thread(target=wholeRami).start()
     except Exception:
+        playMusicMandatory('failed')
         traceback.print_exc()
         print('oof')
-        playMusicMandatory('failed')
     
