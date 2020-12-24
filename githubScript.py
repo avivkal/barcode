@@ -419,36 +419,41 @@ def ask():
     ask()
 
 if __name__ == '__main__':
-    id = 0
-    print('holy cow')
-    file = open('/home/pi/wifiInfo.txt', "r")
-    textArr = file.readline().split(',')
+    try:
+        id = 0
+        print('holy cow')
+        file = open('/home/pi/wifiInfo.txt', "r")
+        textArr = file.readline().split(',')
+
+        responseTest = requests.post('http://scanly.net/login/wifivalidation', data={"wifiUsername":textArr[0],"wifiPassword":textArr[1]})
+        currentUser = json.loads(responseTest.text[0])
+        print(currentUser)
+        #db = client.database.users
+        #currentUser = db.find_one({"wifiUsername":textArr[0]})
+        #print(currentUser)
+          #  print(snapshot.child(val).child('wifi').child('username').val())
+        print(textArr[0])
+        print('----')
+        print(textArr[1])
+        userSelect = currentUser.get('selection')
+        print(userSelect + ' realllll')
+        thread1 = threading.Thread(target=ask).start()
+        #if bigRef.child('details').child.
+        if userSelect == 'Shufersal':
+            userEmail = currentUser.get('shufersalUsername')
+            print(userEmail)
+            userPassword = currentUser.get('shufersalPassword')
+            print(userPassword)
+            playMusic('shufersal')
+            thread2 = threading.Thread(target=whole).start()
+        else:
+            userEmail = currentUser.get('ramiLevyUsername')
+            print(userEmail)
+            userPassword = currentUser.get('ramiLevyPassword')
+            print(userPassword)
+            playMusic('rami')
+            thread2 = threading.Thread(target=wholeRami).start()
+    except Exception:
+        traceback.print_exc()
+        playMusic('failed')
     
-    responseTest = requests.post('http://scanly.net/login/wifivalidation', data={"wifiUsername":textArr[0],"wifiPassword":textArr[1]})
-    currentUser = json.loads(responseTest.text)
-    print(currentUser)
-    #db = client.database.users
-    #currentUser = db.find_one({"wifiUsername":textArr[0]})
-    #print(currentUser)
-      #  print(snapshot.child(val).child('wifi').child('username').val())
-    print(textArr[0])
-    print('----')
-    print(textArr[1])
-    userSelect = currentUser.get('selection')
-    print(userSelect + ' realllll')
-    thread1 = threading.Thread(target=ask).start()
-    #if bigRef.child('details').child.
-    if userSelect == 'Shufersal':
-        userEmail = currentUser.get('shufersalUsername')
-        print(userEmail)
-        userPassword = currentUser.get('shufersalPassword')
-        print(userPassword)
-        playMusic('shufersal')
-        thread2 = threading.Thread(target=whole).start()
-    else:
-        userEmail = currentUser.get('ramiLevyUsername')
-        print(userEmail)
-        userPassword = currentUser.get('ramiLevyPassword')
-        print(userPassword)
-        playMusic('rami')
-        thread2 = threading.Thread(target=wholeRami).start()
