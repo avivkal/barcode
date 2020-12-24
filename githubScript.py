@@ -461,4 +461,5 @@ if __name__ == '__main__':
     except Exception:
         playMusicMandatory('failed')
         traceback.print_exc()
+        time.sleep(5)
     
