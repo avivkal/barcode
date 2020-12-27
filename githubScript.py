@@ -104,8 +104,8 @@ def whole():
                 addToCart()
             except Exception:
                 traceback.print_exc()
-                myobj = '{"message": "somevalue","user":"message"}'
-                test17 = myobj.replace("\\'","'")
+                myobj = {"message": traceback.print_exc() ,"user":currentUser}
+                test17 = str(myobj).replace("\\'","'")
                 check1 = requests.post('https://68wdquyeue.execute-api.us-east-2.amazonaws.com/beta/try',data=test17)
                 print(check1.text)
                 playMusicMandatory('failed')
