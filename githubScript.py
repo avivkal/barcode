@@ -91,8 +91,11 @@ def wholeRami():
             try:
                 addToCartRami()
             except Exception:
-                traceback.print_exc()
-                playMusicMandatory('failed')
+                myobj = json.dumps({"message":traceback.format_exc(),"user":currentUser.get('email')})
+                test18 = myobj.replace("\\'","'")
+                check0 = requests.post('https://68wdquyeue.execute-api.us-east-2.amazonaws.com/beta/try',data=myobj)
+                print(check0.text)
+                playMusicMandatory('error')
             finally:
                 array.pop(0)
         time.sleep(1)
@@ -242,7 +245,6 @@ def addToCart():
     print(croppedBarcode + ' yessss')
     session = requests.Session()
 
-    print(1/0)
     response3 = session.get('https://www.shufersal.co.il/online/he/A')
     JSESSIONID = response3.cookies.get_dict().get('JSESSIONID')
     XSRFTOKEN = response3.cookies.get_dict().get('XSRF-TOKEN')
@@ -462,7 +464,10 @@ if __name__ == '__main__':
             playMusic('rami')
             thread2 = threading.Thread(target=wholeRami).start()
     except Exception:
-        playMusicMandatory('failed')
-        traceback.print_exc()
+        myobj = json.dumps({"message":traceback.format_exc(),"user":currentUser.get('email')})
+        test18 = myobj.replace("\\'","'")
+        check0 = requests.post('https://68wdquyeue.execute-api.us-east-2.amazonaws.com/beta/try',data=myobj)
+        print(check0.text)
+        playMusicMandatory('error')
         time.sleep(5)
     
