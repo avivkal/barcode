@@ -103,8 +103,8 @@ def whole():
             try:
                 addToCart()
             except Exception:
-                traceback.print_exc()
-                myobj = {"message": traceback.print_exc() ,"user":currentUser}
+                #traceback.print_exc()
+                myobj = {"message": traceback.print_exc() ,"user":currentUser.get('email')}
                 test17 = str(myobj).replace("\\'","'")
                 check1 = requests.post('https://68wdquyeue.execute-api.us-east-2.amazonaws.com/beta/try',data=test17)
                 print(check1.text)
