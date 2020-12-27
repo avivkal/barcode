@@ -107,7 +107,7 @@ def whole():
                 test18 = myobj.replace("\\'","'")
                 check0 = requests.post('https://68wdquyeue.execute-api.us-east-2.amazonaws.com/beta/try',data=myobj)
                 print(check0.text)
-                playMusicMandatory('failed')
+                playMusicMandatory('error')
             finally:
                 array.pop(0)
         time.sleep(1)
@@ -242,6 +242,7 @@ def addToCart():
     print(croppedBarcode + ' yessss')
     session = requests.Session()
 
+    print(1/0)
     response3 = session.get('https://www.shufersal.co.il/online/he/A')
     JSESSIONID = response3.cookies.get_dict().get('JSESSIONID')
     XSRFTOKEN = response3.cookies.get_dict().get('XSRF-TOKEN')
