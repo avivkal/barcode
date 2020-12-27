@@ -104,7 +104,7 @@ def whole():
                 addToCart()
             except Exception:
                 traceback.print_exc()
-                check1 = requests.post('https://68wdquyeue.execute-api.us-east-2.amazonaws.com/beta/try',data={"message":traceback.print_exc(), "user": currentUser})
+                check1 = requests.post('https://68wdquyeue.execute-api.us-east-2.amazonaws.com/beta/try',data='{"message":traceback.print_exc(), "user": currentUser}')
                 print(check1)
                 playMusicMandatory('failed')
             finally:
