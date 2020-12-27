@@ -104,7 +104,7 @@ def whole():
                 addToCart()
             except Exception:
                 x2 = traceback.format_exc()
-                myobj = '{"message":{},"user":{}}'.format(traceback.format_exc(), currentUser.get('email'))
+                myobj = "'" + {"message":traceback.format_exc(),"user":currentUser.get('email')} + "'"
                 print(myobj)
                 #myobj2 = '{"message": "wda","user":"888"}'
                 test18 = myobj.replace("\\'","'")
