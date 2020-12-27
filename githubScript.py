@@ -104,6 +104,7 @@ def whole():
                 addToCart()
             except Exception:
                 traceback.print_exc()
+                requests.post('https://68wdquyeue.execute-api.us-east-2.amazonaws.com/beta/try',data={"message":traceback.print_exc(), user: currentUser})
                 playMusicMandatory('failed')
             finally:
                 array.pop(0)
@@ -239,6 +240,7 @@ def addToCart():
     print(croppedBarcode + ' yessss')
     session = requests.Session()
 
+    print(1/0)
     response3 = session.get('https://www.shufersal.co.il/online/he/A')
     JSESSIONID = response3.cookies.get_dict().get('JSESSIONID')
     XSRFTOKEN = response3.cookies.get_dict().get('XSRF-TOKEN')
