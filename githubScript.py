@@ -103,15 +103,10 @@ def whole():
             try:
                 addToCart()
             except Exception:
-                x2 = traceback.format_exc()
                 myobj = json.dumps({"message":traceback.format_exc(),"user":currentUser.get('email')})
-                print(myobj)
-                #myobj2 = '{"message": "wda","user":"888"}'
                 test18 = myobj.replace("\\'","'")
                 check0 = requests.post('https://68wdquyeue.execute-api.us-east-2.amazonaws.com/beta/try',data=myobj)
                 print(check0.text)
-                #check1 = requests.post('https://68wdquyeue.execute-api.us-east-2.amazonaws.com/beta/try',data=(myobj2.replace("\\'","'")))
-                #print(check1.text)
                 playMusicMandatory('failed')
             finally:
                 array.pop(0)
