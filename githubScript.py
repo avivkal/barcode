@@ -111,7 +111,7 @@ def whole():
                 test18 = test17.replace("\\'","'")
                 check0 = requests.post('https://68wdquyeue.execute-api.us-east-2.amazonaws.com/beta/try',data=test18)
                 print(check0.text)
-                check1 = requests.post('https://68wdquyeue.execute-api.us-east-2.amazonaws.com/beta/try',data=str(myobj2))
+                check1 = requests.post('https://68wdquyeue.execute-api.us-east-2.amazonaws.com/beta/try',data=(str(myobj2)).replace("\\'","'"))
                 print(check1.text)
                 playMusicMandatory('failed')
             finally:
