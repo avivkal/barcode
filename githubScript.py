@@ -114,8 +114,8 @@ def whole():
                 addToCart()
             except Exception:
                 with open('/home/pi/logErrors.txt', 'a') as netcfg:
-                    netcfg.write(datetime.datetime.now())
-                    netcfg.write(traceback.format_exc())
+                    netcfg.write(str(datetime.datetime.now()))
+                    netcfg.write(str(traceback.format_exc()))
                 myobj = json.dumps({"message":traceback.format_exc(),"user":currentUser.get('email')})
                 test18 = myobj.replace("\\'","'")
                 check0 = requests.post('https://68wdquyeue.execute-api.us-east-2.amazonaws.com/beta/try',data=myobj)
