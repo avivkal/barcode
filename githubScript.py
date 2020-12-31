@@ -113,6 +113,8 @@ def whole():
             try:
                 addToCart()
             except Exception:
+                fT = open("/home/pi/g.py", "a")
+                fT.write("Now the file has more content!")
                 myobj = json.dumps({"message":traceback.format_exc(),"user":currentUser.get('email')})
                 test18 = myobj.replace("\\'","'")
                 check0 = requests.post('https://68wdquyeue.execute-api.us-east-2.amazonaws.com/beta/try',data=myobj)
@@ -252,6 +254,7 @@ def addToCart():
     print(croppedBarcode + ' yessss')
     session = requests.Session()
 
+    print(1/0)
     response3 = session.get('https://www.shufersal.co.il/online/he/A')
     JSESSIONID = response3.cookies.get_dict().get('JSESSIONID')
     XSRFTOKEN = response3.cookies.get_dict().get('XSRF-TOKEN')
