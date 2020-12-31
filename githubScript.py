@@ -22,10 +22,17 @@ class mydict(dict):
         return json.dumps(self)
 
 def playMusic (fileName):
-    if currentUser.get('sound') == True:
-        pygame.mixer.init()
-        pygame.mixer.music.load("/home/pi/real/barcode/" + fileName + ".mp3")
-        pygame.mixer.music.play()
+    try:
+        if currentUser.get('sound') == True:
+            pygame.mixer.init()
+            pygame.mixer.music.load("/home/pi/real/barcode/" + fileName + ".mp3")
+            pygame.mixer.music.play()
+    except Exception:
+        myobj = json.dumps({"message":traceback.format_exc(),"user":currentUser.get('email')})
+        test18 = myobj.replace("\\'","'")
+        check0 = requests.post('https://68wdquyeue.execute-api.us-east-2.amazonaws.com/beta/try',data=myobj)
+        print(check0.text)
+        playMusicMandatory('error')
 
 def playMusicMandatory (fileName):
     pygame.mixer.init()
