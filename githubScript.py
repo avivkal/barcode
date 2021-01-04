@@ -425,7 +425,7 @@ def addProductToDB(barcode,added):
         print(name)
     except:
         print('name/image not found')
-    responseOfAdding = requests.post('http://scanly.net/products/addData', headers={'auth-token':currentUser.get('token')},data={"email": currentUser.get('email'),"selection":currentUser.get('selection'),"barcode":barcode,"creationDate": datetime.datetime.now(),"added":str(added), "shufersalPrice": shufersalPrice, "ramiLevyPrice":ramiPrice,"image": image,"name": name})
+    responseOfAdding = requests.post('https://scanly.net/api/products/addData', headers={'auth-token':currentUser.get('token')},data={"email": currentUser.get('email'),"selection":currentUser.get('selection'),"barcode":barcode,"creationDate": datetime.datetime.now(),"added":str(added), "shufersalPrice": shufersalPrice, "ramiLevyPrice":ramiPrice,"image": image,"name": name})
     print(responseOfAdding.text)
     #productsRef.insert_one({"email": currentUser.get('email'),"selection":currentUser.get('selection'),"barcode":barcode,"creationDate": datetime.datetime.now(),"added":added, "shufersalPrice": shufersalPrice, "ramiLevyPrice":ramiPrice,"image": image,"name": name})
 
@@ -445,7 +445,7 @@ if __name__ == '__main__':
         file = open('/home/pi/wifiInfo.txt', "r")
         textArr = file.readline().split(',')
 
-        responseTest = requests.post('http://scanly.net/login/wifivalidation', data={"wifiUsername":textArr[0],"wifiPassword":textArr[1]})
+        responseTest = requests.post('https://scanly.net/api/login/wifivalidation', data={"wifiUsername":textArr[0],"wifiPassword":textArr[1]})
         currentUser = json.loads(responseTest.text)
         print(currentUser)
         #db = client.database.users
