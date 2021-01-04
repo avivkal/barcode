@@ -425,7 +425,7 @@ def addProductToDB(barcode,added):
         print(name)
     except:
         print('name/image not found')
-    responseOfAdding = requests.post('https://scanly.net/api/products/addData', headers={'auth-token':currentUser.get('token')},data={"email": currentUser.get('email'),"selection":currentUser.get('selection'),"barcode":barcode,"creationDate": datetime.datetime.now(),"added":str(added), "shufersalPrice": shufersalPrice, "ramiLevyPrice":ramiPrice,"image": image,"name": name})
+    responseOfAdding = requests.post('https://scanly.net/api/products/addData', headers={'Authorization':currentUser.get('token')},data={"email": currentUser.get('email'),"selection":currentUser.get('selection'),"barcode":barcode,"creationDate": datetime.datetime.now(),"added":str(added), "shufersalPrice": shufersalPrice, "ramiLevyPrice":ramiPrice,"image": image,"name": name})
     print(responseOfAdding.text)
     #productsRef.insert_one({"email": currentUser.get('email'),"selection":currentUser.get('selection'),"barcode":barcode,"creationDate": datetime.datetime.now(),"added":added, "shufersalPrice": shufersalPrice, "ramiLevyPrice":ramiPrice,"image": image,"name": name})
 
