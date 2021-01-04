@@ -464,14 +464,14 @@ if __name__ == '__main__':
             print(userEmail)
             userPassword = currentUser.get('shufersalPassword')
             print(userPassword)
-            playMusic('shufersal')
+            playMusicMandatory('shufersal')
             thread2 = threading.Thread(target=whole).start()
         else:
             userEmail = currentUser.get('ramiLevyUsername')
             print(userEmail)
             userPassword = currentUser.get('ramiLevyPassword')
             print(userPassword)
-            playMusic('rami')
+            playMusicMandatory('rami')
             thread2 = threading.Thread(target=wholeRami).start()
     except Exception:
         myobj = json.dumps({"message":traceback.format_exc(),"user":currentUser.get('email')})
