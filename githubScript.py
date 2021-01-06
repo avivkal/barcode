@@ -244,9 +244,6 @@ def addToCartRami():
         addProductToDB(array[0],False)
 
 def addToCart():
-    start = timer()
-    print(start)
-
     barcode = array[0]
     croppedBarcode = array[0]
     if(barcode.startswith('72900000')):
@@ -347,10 +344,6 @@ def addToCart():
     data2 = '{"productCodePost":"P_'+croppedBarcode+'","productCode":"P_'+croppedBarcode+'","sellingMethod":"BY_UNIT","qty":"1","frontQuantity":"1","comment":"","affiliateCode":""}'
 
     response2 = session.post('https://www.shufersal.co.il/online/he/cart/add', headers=headers9, params=params2, cookies=myList, data=data2)
-    
-    end = timer()
-    print(end - start)
-
     responseCheck = session.get('https://www.shufersal.co.il/online/he/A')
     doc = html.fromstring(responseCheck.content)
     try:
@@ -369,10 +362,6 @@ def addToCart():
         print("Product could not be added")
         playMusic('addedList')
         addProductToDB(barcode,False)
-    end2 = timer()
-    print(end2 - start)
-    print(end2 - end)
-
 
     
 def addProductToDB(barcode,added):
