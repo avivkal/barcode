@@ -11,6 +11,7 @@ import pymongo
 import datetime
 from bs4 import BeautifulSoup
 import traceback
+from timeit import default_timer as timer
 
 
 start = 0
@@ -115,7 +116,7 @@ def whole():
     while True:
         if len(array) > 0:
             try:
-                start = time.time()
+                start = timer()
                 print(start)
                 addToCart()
             except Exception:
@@ -351,7 +352,7 @@ def addToCart():
 
     response2 = session.post('https://www.shufersal.co.il/online/he/cart/add', headers=headers9, params=params2, cookies=myList, data=data2)
     
-    end = time.time()
+    end = timer()
     print(end - start)
 
     responseCheck = session.get('https://www.shufersal.co.il/online/he/A')
