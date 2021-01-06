@@ -11,7 +11,6 @@ import pymongo
 import datetime
 from bs4 import BeautifulSoup
 import traceback
-from timeit import default_timer as timer
 
 userEmail = ""
 userPassword = ""
@@ -146,7 +145,6 @@ def addToCartRami():
     dataT["username"] = userEmail
     dataT["password"] = userPassword
     print(dataT)
-    data = '{"username":"avivkalmanson@gmail.com","password":"Avivkalman1"}'
     response = requests.post('https://api-prod.rami-levy.co.il/api/v1/auth/login', headers=headers, data=str(dataT))
     print(response.text)
     token = json.loads(response.text).get('user').get('token')
@@ -338,7 +336,6 @@ def addToCart():
         'sec-fetch-site': 'same-origin',
         'sec-fetch-mode': 'cors',
         'sec-fetch-dest': 'empty',
-        # 'referer': 'https://www.shufersal.co.il/online/he/promo/A?utm_source=google&utm_medium=search&utm_campaign=online_july&utm_content=brand&gclid=Cj0KCQiAhs79BRD0ARIsAC6XpaVfCi8XrCqiYqcCasNWN3IWzsunDlOZZ4S1ntk1cjcN-uIptY47ahgaAuCuEALw_wcB',
         'accept-language': 'he-IL,he;q=0.9,en-US;q=0.8,en;q=0.7',
     }
 
@@ -427,28 +424,21 @@ def addProductToDB(barcode,added):
         ramiPrice = json.loads(response9.text).get('data')[0].get('price').get('price')
     except:
         print('rami levy not found')
-    try:
-        #response10 = requests.get('https://kalmanscan.herokuapp.com/products/getDataPartial/' + barcode)
-        
+    try:        
         response11 = requests.get('https://chp.co.il/autocompletion/product_extended?term=' + barcode)
         name = json.loads(response11.text)[0].get('value')
-        #name = json.loads(response10.text).get('name')
         response12 = requests.get('https://chp.co.il/%D7%AA%D7%9C%20%D7%90%D7%91%D7%99%D7%91/0/0/'+ barcode +'/0')
         soup = BeautifulSoup(response12.content, 'html.parser')
         image = soup.select('td > img')[0].get('data-uri')
-        #image = json.loads(response10.text).get('image')
         print(name)
     except:
         print('name/image not found')
     responseOfAdding = requests.post('https://scanly.net/api/products/addData', headers={'Authorization':currentUser.get('token')},data={"email": currentUser.get('email'),"selection":currentUser.get('selection'),"barcode":barcode,"creationDate": datetime.datetime.now(),"added":str(added), "shufersalPrice": shufersalPrice, "ramiLevyPrice":ramiPrice,"image": image,"name": name})
     print(responseOfAdding.text)
-    #productsRef.insert_one({"email": currentUser.get('email'),"selection":currentUser.get('selection'),"barcode":barcode,"creationDate": datetime.datetime.now(),"added":added, "shufersalPrice": shufersalPrice, "ramiLevyPrice":ramiPrice,"image": image,"name": name})
 
 def ask():
     barcode = input('enter barcode')
     print('your original barcode is' + barcode)
-    #bigRef.child('barcodes').push(barcode)
-    #addProductToDB(barcode,true)
     array.append(barcode)
     print(array)
     ask()
@@ -463,17 +453,12 @@ if __name__ == '__main__':
         responseTest = requests.post('https://scanly.net/api/login/wifivalidation', data={"wifiUsername":textArr[0],"wifiPassword":textArr[1]})
         currentUser = json.loads(responseTest.text)
         print(currentUser)
-        #db = client.database.users
-        #currentUser = db.find_one({"wifiUsername":textArr[0]})
-        #print(currentUser)
-          #  print(snapshot.child(val).child('wifi').child('username').val())
         print(textArr[0])
         print('----')
         print(textArr[1])
         userSelect = currentUser.get('selection')
         print(userSelect + ' realllll')
         thread1 = threading.Thread(target=ask).start()
-        #if bigRef.child('details').child.
         if userSelect == 'Shufersal':
             userEmail = currentUser.get('shufersalUsername')
             print(userEmail)
