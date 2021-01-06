@@ -116,7 +116,7 @@ def whole():
         if len(array) > 0:
             try:
                 start = time.time()
-                print("hello")
+                print(start)
                 addToCart()
             except Exception:
                 with open('/home/pi/logErrors.txt', 'a') as netcfg:
