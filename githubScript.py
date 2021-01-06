@@ -13,8 +13,6 @@ from bs4 import BeautifulSoup
 import traceback
 from timeit import default_timer as timer
 
-
-start = 0
 userEmail = ""
 userPassword = ""
 currentPrice = 0
@@ -116,8 +114,6 @@ def whole():
     while True:
         if len(array) > 0:
             try:
-                start = timer()
-                print(start)
                 addToCart()
             except Exception:
                 with open('/home/pi/logErrors.txt', 'a') as netcfg:
@@ -250,6 +246,9 @@ def addToCartRami():
         addProductToDB(array[0],False)
 
 def addToCart():
+    start = timer()
+    print(start)
+
     barcode = array[0]
     croppedBarcode = array[0]
     if(barcode.startswith('72900000')):
