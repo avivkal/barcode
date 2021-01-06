@@ -17,7 +17,7 @@ userPassword = ""
 currentPrice = 0
 currentUser= ""
 
-os.system("touch /home/pi/test.txt")
+os.system("touch /home/pi/logErrors.txt")
 
 class mydict(dict):
     def __str__(self):
