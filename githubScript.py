@@ -372,6 +372,11 @@ def addToCart():
         print("Product could not be added")
         playMusic('addedList')
         addProductToDB(barcode,False)
+    end2 = timer()
+    print(end2 - start)
+    print(end2 - end)
+
+
     
 def addProductToDB(barcode,added):
     croppedBarcode = barcode
