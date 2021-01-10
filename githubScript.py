@@ -93,7 +93,7 @@ def getserial():
 
     return cpuserial
 
-hashedID = bcrypt.hashpw(getserial(), bcrypt.gensalt())
+hashedID = bcrypt.hashpw(getserial().encode('utf8'), bcrypt.gensalt())
 print(hashedID)
 print(getserial())
 
