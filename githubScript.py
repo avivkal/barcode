@@ -93,8 +93,6 @@ def getserial():
 
     return cpuserial
 
-hashedID = bcrypt.hashpw(getserial().encode('utf8'), bcrypt.gensalt())
-print(hashedID)
 print(getserial())
 
 def wholeRami():
@@ -438,11 +436,7 @@ def ask():
 if __name__ == '__main__':
     try:
         id = 0
-        print('holy cow')
-        file = open('/home/pi/wifiInfo.txt', "r")
-        textArr = file.readline().split(',')
-
-        responseTest = requests.post('https://scanly.net/api/login/wifivalidation', data={"wifiUsername":textArr[0],"wifiPassword":textArr[1]})
+        responseTest = requests.post('https://scanly.net/api/login/idValidation', data={"deviceID":bcrypt.hashpw(getserial().encode('utf8'), bcrypt.gensalt())})
         currentUser = json.loads(responseTest.text)
         print(currentUser)
         print(textArr[0])
