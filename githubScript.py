@@ -58,25 +58,25 @@ array = []
 
 if not internet():
     print('no internet')
-    os.system('sudo ifconfig wlan0 up')	
-    pygame.mixer.init()
-    pygame.mixer.music.load("/home/pi/real/barcode/wifiUsername.mp3")
-    pygame.mixer.music.play()
-    ssid = input('enter wifi username')
-    pygame.mixer.init()
-    pygame.mixer.music.load("/home/pi/real/barcode/wifiPassword.mp3")
-    pygame.mixer.music.play()
-    wifipw = input('enter wifi password')
-    with open('/etc/network/interfaces', 'w') as netcfg:
-        netcfg.write('source-directory /etc/network/interfaces.d\n'
-                     'auto wlan0\n'
-                     'iface wlan0 inet dhcp\n'
-                     '    wpa-ssid {}\n'
-                     '    wpa-psk  {}\n'.format(ssid, wifipw))
-    with open('/home/pi/wifiInfo.txt', 'w') as netcfg:
-        netcfg.write(ssid + ',' + wifipw)
-    os.system("dhclient wlan0")
-    os.system("sudo reboot")
+    os.system('sudo wifi-connect')	
+    #pygame.mixer.init()
+    #pygame.mixer.music.load("/home/pi/real/barcode/wifiUsername.mp3")
+    #pygame.mixer.music.play()
+    #ssid = input('enter wifi username')
+    #pygame.mixer.init()
+    #pygame.mixer.music.load("/home/pi/real/barcode/wifiPassword.mp3")
+    #pygame.mixer.music.play()
+    #wifipw = input('enter wifi password')
+    #with open('/etc/network/interfaces', 'w') as netcfg:
+    #    netcfg.write('source-directory /etc/network/interfaces.d\n'
+    #                 'auto wlan0\n'
+    #                 'iface wlan0 inet dhcp\n'
+    #                 '    wpa-ssid {}\n'
+    #                 '    wpa-psk  {}\n'.format(ssid, wifipw))
+    #with open('/home/pi/wifiInfo.txt', 'w') as netcfg:
+    #    netcfg.write(ssid + ',' + wifipw)
+    #os.system("dhclient wlan0")
+    #os.system("sudo reboot")
 
 def getserial():
     # Extract serial from cpuinfo file
