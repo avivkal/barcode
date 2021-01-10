@@ -11,7 +11,6 @@ import pymongo
 import datetime
 from bs4 import BeautifulSoup
 import traceback
-import bcrypt
 
 userEmail = ""
 userPassword = ""
@@ -436,7 +435,7 @@ def ask():
 if __name__ == '__main__':
     try:
         id = 0
-        responseTest = requests.post('https://scanly.net/api/login/idValidation', data={"deviceID":bcrypt.hashpw(getserial().encode('utf8'), bcrypt.gensalt())})
+        responseTest = requests.post('https://scanly.net/api/login/idValidation', data={"deviceID":getserial()})
         currentUser = json.loads(responseTest.text)
         print(currentUser)
         print(textArr[0])
