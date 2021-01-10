@@ -11,6 +11,7 @@ import pymongo
 import datetime
 from bs4 import BeautifulSoup
 import traceback
+import bcrypt
 
 userEmail = ""
 userPassword = ""
@@ -92,7 +93,9 @@ def getserial():
 
     return cpuserial
 
-
+hashedID = bcrypt.hashpw(getserial(), bcrypt.gensalt())
+print(hashedID)
+print(getserial())
 
 def wholeRami():
     while True:
