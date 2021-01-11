@@ -59,7 +59,7 @@ array = []
 if not internet():
     print('no internet')
     playMusicMandatory('noInternet')
-    os.system('sudo wifi-connect')	
+    os.system('sudo wifi-connect --ui-directory /home/pi/scanly-ui-wifi/build --portal-ssid Scanly')	
     playMusicMandatory('wifiConnected')
     #pygame.mixer.init()
     #pygame.mixer.music.load("/home/pi/real/barcode/wifiUsername.mp3")
