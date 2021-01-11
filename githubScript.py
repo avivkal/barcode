@@ -56,9 +56,11 @@ def internet(host="8.8.8.8", port=53, timeout=3):
         return False
 array = []
 
-while not internet():
+if not internet():
     print('no internet')
+    playMusicMandatory('noInternet')
     os.system('sudo wifi-connect')	
+    playMusicMandatory('wifiConnected')
     #pygame.mixer.init()
     #pygame.mixer.music.load("/home/pi/real/barcode/wifiUsername.mp3")
     #pygame.mixer.music.play()
