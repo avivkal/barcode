@@ -130,56 +130,68 @@ def whole():
         time.sleep(1)
         
 def addToCartRami():
+    items = dict()
+
     headers = {
-        'authority': 'api-prod.rami-levy.co.il',
-        'accept': 'application/json, text/plain, */*',
-        'locale': 'he',
-        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.183 Safari/537.36',
-        'ecomtoken': 'faa5dc4c-66db-483c-a767-49ce5becaf93',
-        'content-type': 'application/json;charset=UTF-8',
-        'origin': 'https://www.rami-levy.co.il',
-        'sec-fetch-site': 'same-site',
-        'sec-fetch-mode': 'cors',
-        'sec-fetch-dest': 'empty',
-        'accept-language': 'he-IL,he;q=0.9,en-US;q=0.8,en;q=0.7',
-    }
+            'authority': 'api-prod.rami-levy.co.il',
+            'accept': 'application/json, text/plain, */*',
+            'locale': 'he',
+            'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.183 Safari/537.36',
+            'ecomtoken': 'faa5dc4c-66db-483c-a767-49ce5becaf93',
+            'content-type': 'application/json;charset=UTF-8',
+            'origin': 'https://www.rami-levy.co.il',
+            'sec-fetch-site': 'same-site',
+            'sec-fetch-mode': 'cors',
+            'sec-fetch-dest': 'empty',
+            'accept-language': 'he-IL,he;q=0.9,en-US;q=0.8,en;q=0.7',
+        }
     dataT = mydict()
     dataT["username"] = userEmail
     dataT["password"] = userPassword
+
     print(dataT)
-    response = requests.post('https://api-prod.rami-levy.co.il/api/v1/auth/login', headers=headers, data=str(dataT))
+    response = requests.post('https://api-prod.rami-levy.co.il/api/v2/site/auth/login', headers=headers, data=str(dataT))
     print(response.text)
     token = json.loads(response.text).get('user').get('token')
+
+    # print(json.loads(response.text).get('cart').get('items'))
+    try:
+        items = json.loads(response.text).get('cart').get('items')
+        print(json.loads(response.text).get('cart').get('items'))
+        print(items)
+    except:
+        print('couldnt get items')
+    # print(items)
     print(token)
 
-    headers5 = {
-        'authority': 'api-prod.rami-levy.co.il',
-        'content-length': '0',
-        'accept': 'application/json, text/plain, */*',
-        'authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjIxNzE5ZDM2NzI0OGYyZDAwY2RkMThmM2U5ZmJhNGYxYTU1OTRkYjZlYjI3ODY4ZTlmZmJhNWI0YTdmNTc2Y2IwNDg3N2FiNjY1ODMwYWNjIn0.eyJhdWQiOiIzIiwianRpIjoiMjE3MTlkMzY3MjQ4ZjJkMDBjZGQxOGYzZTlmYmE0ZjFhNTU5NGRiNmV$',
-        'locale': 'he',
-        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.183 Safari/537.36',
-        'ecomtoken': token,
-        'origin': 'https://www.rami-levy.co.il',
-        'sec-fetch-site': 'same-site',
-        'sec-fetch-mode': 'cors',
-        'sec-fetch-dest': 'empty',
-        'accept-language': 'he-IL,he;q=0.9,en-US;q=0.8,en;q=0.7',
-    }
-
-    response = requests.post('https://api-prod.rami-levy.co.il/api/v1/clubs/user', headers=headers5)
+    # headers5 = {
+    #     'authority': 'api-prod.rami-levy.co.il',
+    #     'content-length': '0',
+    #     'accept': 'application/json, text/plain, */*',
+    #     'authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjIxNzE5ZDM2NzI0OGYyZDAwY2RkMThmM2U5ZmJhNGYxYTU1OTRkYjZlYjI3ODY4ZTlmZmJhNWI0YTdmNTc2Y2IwNDg3N2FiNjY1ODMwYWNjIn0.eyJhdWQiOiIzIiwianRpIjoiMjE3MTlkMzY3MjQ4ZjJkMDBjZGQxOGYzZTlmYmE0ZjFhNTU5NGRiNmV$',
+    #     'locale': 'he',
+    #     'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.183 Safari/537.36',
+    #     'ecomtoken': token,
+    #     'origin': 'https://www.rami-levy.co.il',
+    #     'sec-fetch-site': 'same-site',
+    #     'sec-fetch-mode': 'cors',
+    #     'sec-fetch-dest': 'empty',
+    #     'accept-language': 'he-IL,he;q=0.9,en-US;q=0.8,en;q=0.7',
+    # }
+    #
+    # response = requests.post('https://api-prod.rami-levy.co.il/api/v1/clubs/user', headers=headers5)
 
     # get items
 
-    response = requests.post('https://api-prod.rami-levy.co.il/api/v1/cart/get-cart', headers=headers5)
-    json_data2 = json.loads(response.text).get('items')
-    for x in json_data2:
-        x["C"] = x["id"]
-        del x["id"]
-        x["Quantity"] = x["quantity"]
-        del x["quantity"]
-
-    print(json_data2)
+    # response = requests.post('https://api-prod.rami-levy.co.il/api/v1/cart/get-cart', headers=headers5)
+    # json_data2 = json.loads(response.text).get('items')
+    # for x in json_data2:
+    #     x["C"] = x["id"]
+    #     del x["id"]
+    #     x["Quantity"] = x["quantity"]
+    #     del x["quantity"]
+    #
+    # print(json_data2)
 
     # get item id
     headers4 = {
@@ -198,28 +210,42 @@ def addToCartRami():
         'cookie': 'auth.strategy=local; visid_incap_2021397=sPFFpK/PS+yAr9pm0NxBfgthvV8AAAAAQUIPAAAAAACG0TuuytzAgRk4nmIM2Grf; nlbi_2021397=xQ8oAoumGwpmuO7x9kJt1wAAAABcQGX8CSG+JykVzN7Ua9S4; i18n_redirected=he; visid_incap_2256378=4sxLhhFyRkm/BXSJuTPTEqFhvV8AAAAAQUIPAAAAAACjvb9h96jNw+uKdS8Mz2Y1; _ga=GA1.3.1561077822.1606246785; _gid=GA1.3.621100251.1606246785; incap_ses_820_2021397=DCz8AnFF9gNkMvSq5jlhC1wtvl8AAAAABk92NFgi5a2ruqG8FjcVVQ==; incap_ses_820_2256378=LO6CDVjbuxIcUvmq5jlhC7M8vl8AAAAAa2Rw5jYxX3iAE69/0pnMJg==; _gat=1; nlbi_2021397_2147483646=ILMkJ4VcjkvIt+Ws9kJt1wAAAAC2uFNzR0L3P6aSNRsR/O1k; reese84=3:/oznrNAzeeagyLr+R25PVQ==:reGYoDLEa29iKN92S0yDCJZNZiPnt154ZzaZwUYYLWrWALbZwxURDfov13cP8jvioYZPnS3/QAlluVnikIJA8YIC+ZwuYfesjNHEpsjPiYo2Lz3VoUUP4skHdk+RYRry3kh7uTS4FQ7oza1pp2PqBcNlJZUptgUGo3LE+s/EA3INWpLDLUipa3D5X3nyWLZbdNisZSf03+jfualxV7aljYbDu54ljcixzkSvlTkpm3SkjQ+oqBUhkPq/O70EDyhneBPndmtWDJlNhRndFbNrFJAN5FJMa9HPp72/m1VDdJ1c8hBZgH6Uc78CfgaEuALfEjAewsQRDIVQV6vFBQLIDvJSq2EAC2JufRpetOFpKyjCs5cDL6Tnr4VAHg9JbpM+JZMN4K93NM+4yoTO09Fd/eiN+pkRgQ6V6uMfytB7KM2oTHP+BEyNq2I7IfJoyjc/3LSohLfYCkhbKdAoAzIb3Q==:E5dgZOiqtWh/7VBMjg3xqeHMIwpfGguLRtwMxp3OpRs=',
     }
 
-    data4 = '{"q":"'+ array[0] +'","store":331,"sort":"relevant","aggs":1}'
+    data4 = '{"q":"' + array[0] + '","store":331,"sort":"relevant","aggs":1}'
     try:
         response4 = requests.post('https://www.rami-levy.co.il/api/catalog', headers=headers4, data=data4)
         json_data = json.loads(response4.text)
         id = json_data.get('data')[0].get('id')
+        print(id)
 
         found = False
 
-        for item in json_data2:
-            if item.get('C') == id:
-                item["Quantity"] = str(float(item.get('Quantity')) + 1.00)
+        for item in items:
+            print(item)
+            if item == str(id):
+                print(items[item])
+                items[item] = items[item] + 1
                 found = True
                 print('found')
 
         if not found:
             print('not found')
-            json_data2.append({'C': id, 'Quantity': '1.00'})
+            items[id] = 1
 
+        print(items)
+
+        for key, value in items.items():
+            print(value)
+            print(items[key])
+            items[key] = str(value)
+
+        # print(sub)
+        print(items)
         myDict = mydict()
-        myDict['store'] = 331
+        myDict['store'] = "331"
         myDict["is_club"] = 0
-        myDict['items'] = json_data2
+        myDict['items'] = items
+        print(str(items))
+        print(myDict)
 
         # add the item
         headers3 = {
@@ -237,7 +263,8 @@ def addToCartRami():
             'accept-language': 'he-IL,he;q=0.9,en-US;q=0.8,en;q=0.7',
         }
 
-        response3 = requests.post('https://api-prod.rami-levy.co.il/api/v1/cart/add-line-to-cart', headers=headers3,data=str(myDict))
+        response3 = requests.post('https://www.rami-levy.co.il/api/cart', headers=headers3,data=str(myDict))
+        print(response3.text)
         playMusic('added')
         addProductToDB(array[0],True)
     except:
