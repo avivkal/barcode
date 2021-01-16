@@ -22,6 +22,22 @@ os.system("touch /home/pi/logErrors.txt")
 class mydict(dict):
     def __str__(self):
         return json.dumps(self)
+    
+def getserial():
+    # Extract serial from cpuinfo file
+    cpuserial = "0000000000000000"
+    try:
+        f = open('/proc/cpuinfo', 'r')
+        for line in f:
+            if line[0:6] == 'Serial':
+                cpuserial = line[10:26]
+        f.close()
+    except:
+        cpuserial = "ERROR000000000"
+
+    return cpuserial
+
+print(getserial())
 
 def playMusic (fileName):
     try:
@@ -80,21 +96,6 @@ if not internet():
     #os.system("dhclient wlan0")
     #os.system("sudo reboot")
 
-def getserial():
-    # Extract serial from cpuinfo file
-    cpuserial = "0000000000000000"
-    try:
-        f = open('/proc/cpuinfo', 'r')
-        for line in f:
-            if line[0:6] == 'Serial':
-                cpuserial = line[10:26]
-        f.close()
-    except:
-        cpuserial = "ERROR000000000"
-
-    return cpuserial
-
-print(getserial())
 
 def wholeRami():
     while True:
