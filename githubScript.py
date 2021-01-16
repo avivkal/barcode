@@ -30,7 +30,7 @@ def playMusic (fileName):
             pygame.mixer.music.load("/home/pi/real/barcode/" + fileName + ".mp3")
             pygame.mixer.music.play()
     except Exception:
-        myobj = json.dumps({"message":traceback.format_exc(),"user":currentUser.get('email')})
+        myobj = json.dumps({"message":traceback.format_exc(),"user":getserial()})
         test18 = myobj.replace("\\'","'")
         check0 = requests.post('https://68wdquyeue.execute-api.us-east-2.amazonaws.com/beta/try',data=myobj)
         print(check0.text)
@@ -102,7 +102,7 @@ def wholeRami():
             try:
                 addToCartRami()
             except Exception:
-                myobj = json.dumps({"message":traceback.format_exc(),"user":currentUser.get('email')})
+                myobj = json.dumps({"message":traceback.format_exc(),"user":getserial()})
                 test18 = myobj.replace("\\'","'")
                 check0 = requests.post('https://68wdquyeue.execute-api.us-east-2.amazonaws.com/beta/try',data=myobj)
                 print(check0.text)
@@ -120,7 +120,7 @@ def whole():
                 with open('/home/pi/logErrors.txt', 'a') as netcfg:
                     netcfg.write(str(datetime.datetime.now()))
                     netcfg.write(str(traceback.format_exc()))
-                myobj = json.dumps({"message":traceback.format_exc(),"user":currentUser.get('email')})
+                myobj = json.dumps({"message":traceback.format_exc(),"user":getserial()})
                 test18 = myobj.replace("\\'","'")
                 check0 = requests.post('https://68wdquyeue.execute-api.us-east-2.amazonaws.com/beta/try',data=myobj)
                 print(check0.text)
@@ -485,7 +485,7 @@ if __name__ == '__main__':
             playMusicMandatory('rami')
             thread2 = threading.Thread(target=wholeRami).start()
     except Exception:
-        myobj = json.dumps({"message":traceback.format_exc(),"user":currentUser.get('email')})
+        myobj = json.dumps({"message":traceback.format_exc(),"user":getserial()})
         test18 = myobj.replace("\\'","'")
         check0 = requests.post('https://68wdquyeue.execute-api.us-east-2.amazonaws.com/beta/try',data=myobj)
         print(check0.text)
