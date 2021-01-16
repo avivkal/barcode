@@ -281,7 +281,7 @@ def addToCart():
         croppedBarcode = barcode[7:]
     elif (barcode.startswith('729000')):
         croppedBarcode = barcode[6:]
-    
+    print(1/0)
     print(croppedBarcode + ' yessss')
     session = requests.Session()
 
