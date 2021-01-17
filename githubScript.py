@@ -40,8 +40,8 @@ def getserial():
 
 print(getserial())
 url = pyqrcode.create(getserial())
-url.svg('uca-url.svg', scale=2)
-url.eps('uca-url.eps', scale=2)
+url.svg('uca-url.svg', scale=1)
+url.eps('uca-url.eps', scale=1)
 print(url.terminal(quiet_zone=1))
 
 def playMusic (fileName):
