@@ -11,6 +11,7 @@ import pymongo
 import datetime
 from bs4 import BeautifulSoup
 import traceback
+import pyqrcode
 
 userEmail = ""
 userPassword = ""
@@ -38,6 +39,10 @@ def getserial():
     return cpuserial
 
 print(getserial())
+url = pyqrcode.create(getserial())
+url.svg('uca-url.svg', scale=8)
+url.eps('uca-url.eps', scale=2)
+print(url.terminal(quiet_zone=1))
 
 def playMusic (fileName):
     try:
