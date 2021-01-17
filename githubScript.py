@@ -40,7 +40,7 @@ def getserial():
 
 print(getserial())
 url = pyqrcode.create(getserial())
-url.svg('uca-url.svg', scale=8)
+url.svg('uca-url.svg', scale=2)
 url.eps('uca-url.eps', scale=2)
 print(url.terminal(quiet_zone=1))
 
