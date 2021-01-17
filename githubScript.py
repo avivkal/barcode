@@ -39,10 +39,10 @@ def getserial():
     return cpuserial
 
 print(getserial())
-url = pyqrcode.create(getserial())
+url = pyqrcode.create(getserial(),version=10)
 url.svg('uca-url.svg', scale=8)
 url.eps('uca-url.eps', scale=2)
-print(url.terminal(quiet_zone=0.3))
+print(url.terminal(quiet_zone=1))
 
 def playMusic (fileName):
     try:
