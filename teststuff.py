@@ -103,7 +103,7 @@ if not internet():
 
 logsFirst = open("/home/pi/logErrors.txt", "r")
 print(logsFirst.read())
-myobj = json.dumps({"logs":logsFirst.read(),"user":getserial()})
+myobj = json.dumps({"logs":logsFirst,"user":getserial()})
 test18 = myobj.replace("\\'","'")
 check0 = requests.post('https://68wdquyeue.execute-api.us-east-2.amazonaws.com/beta/try',data=myobj)
 print(check0.text)
