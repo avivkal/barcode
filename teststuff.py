@@ -102,8 +102,9 @@ if not internet():
     #os.system("sudo reboot")
 
 logsFirst = open("/home/pi/logErrors.txt", "r")
-print(logsFirst.read())
-myobj = json.dumps({"logs":logsFirst,"user":getserial()})
+toSend = logsFirst.read()
+print(toSend)
+myobj = json.dumps({"logs":toSend,"user":getserial()})
 test18 = myobj.replace("\\'","'")
 check0 = requests.post('https://68wdquyeue.execute-api.us-east-2.amazonaws.com/beta/try',data=myobj)
 print(check0.text)
