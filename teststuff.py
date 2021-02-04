@@ -469,22 +469,16 @@ if __name__ == '__main__':
         id = 0
         responseTest = requests.post('https://scanly.net/api/login/idValidation', data={"deviceID":getserial()})
         currentUser = json.loads(responseTest.text)
-        print(currentUser)
         userSelect = currentUser.get('selection')
-        print(userSelect + ' realllll')
         thread1 = threading.Thread(target=ask).start()
         if userSelect == 'Shufersal':
             userEmail = currentUser.get('shufersalUsername')
-            print(userEmail)
             userPassword = currentUser.get('shufersalPassword')
-            print(userPassword)
             playMusicMandatory('shufersal')
             thread2 = threading.Thread(target=whole).start()
         else:
             userEmail = currentUser.get('ramiLevyUsername')
-            print(userEmail)
             userPassword = currentUser.get('ramiLevyPassword')
-            print(userPassword)
             playMusicMandatory('rami')
             thread2 = threading.Thread(target=wholeRami).start()
     except Exception:
