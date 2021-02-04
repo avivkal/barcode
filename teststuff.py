@@ -12,6 +12,9 @@ import datetime
 from bs4 import BeautifulSoup
 import traceback
 import pyqrcode
+
+os.system("sudo pip3 install schedule")
+
 import schedule
 
 userEmail = ""
