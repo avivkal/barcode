@@ -24,6 +24,10 @@ currentUser= ""
 
 def job():
    print("I'm working...")
+   
+def scheduleTask():
+   schedule.run_pending()
+   time.sleep(1)
 
 schedule.every(1).minutes.do(job)
 
@@ -479,6 +483,7 @@ if __name__ == '__main__':
         currentUser = json.loads(responseTest.text)
         userSelect = currentUser.get('selection')
         thread1 = threading.Thread(target=ask).start()
+        thread3 = threading.Thread(target=scheduleTask).start()
         if userSelect == 'Shufersal':
             userEmail = currentUser.get('shufersalUsername')
             userPassword = currentUser.get('shufersalPassword')
