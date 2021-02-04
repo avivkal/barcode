@@ -56,7 +56,6 @@ print(getserial())
 url = pyqrcode.create(getserial(),version=3)
 url.svg('uca-url.svg', scale=8)
 url.eps('uca-url.eps', scale=2)
-print(url.terminal(quiet_zone=1))
 
 def playMusic (fileName):
     try:
@@ -168,20 +167,16 @@ def addToCartRami():
     dataT["username"] = userEmail
     dataT["password"] = userPassword
 
-    print(dataT)
     response = requests.post('https://api-prod.rami-levy.co.il/api/v2/site/auth/login', headers=headers, data=str(dataT))
-    print(response.text)
     token = json.loads(response.text).get('user').get('token')
 
     # print(json.loads(response.text).get('cart').get('items'))
     try:
         items = json.loads(response.text).get('cart').get('items')
-        print(json.loads(response.text).get('cart').get('items'))
-        print(items)
     except:
         print('couldnt get items')
     # print(items)
-    print(token)
+    
 
     # headers5 = {
     #     'authority': 'api-prod.rami-levy.co.il',
@@ -234,14 +229,12 @@ def addToCartRami():
         response4 = requests.post('https://www.rami-levy.co.il/api/catalog', headers=headers4, data=data4)
         json_data = json.loads(response4.text)
         id = json_data.get('data')[0].get('id')
-        print(id)
+        
 
         found = False
 
         for item in items:
-            print(item)
             if item == str(id):
-                print(items[item])
                 items[item] = items[item] + 1
                 found = True
                 print('found')
@@ -250,21 +243,15 @@ def addToCartRami():
             print('not found')
             items[id] = 1
 
-        print(items)
 
         for key, value in items.items():
-            print(value)
-            print(items[key])
             items[key] = str(value)
 
         # print(sub)
-        print(items)
         myDict = mydict()
         myDict['store'] = "331"
         myDict["is_club"] = 0
         myDict['items'] = items
-        print(str(items))
-        print(myDict)
 
         # add the item
         headers3 = {
@@ -307,8 +294,6 @@ def addToCart():
     response3 = session.get('https://www.shufersal.co.il/online/he/A')
     JSESSIONID = response3.cookies.get_dict().get('JSESSIONID')
     XSRFTOKEN = response3.cookies.get_dict().get('XSRF-TOKEN')
-    print(XSRFTOKEN)
-    print(JSESSIONID)
 
     cookies = {
         'miglog-cart': '20b6b657-d481-4991-b431-c0f6876b49f8',
@@ -429,7 +414,6 @@ def addProductToDB(barcode,added):
         response8 = requests.get('https://www.shufersal.co.il/online/he/search?text=' + croppedBarcode)
         soup = BeautifulSoup(response8.content, 'html.parser')
         shufersalPrice = float(soup.select('li > div > div > div > div > span > span')[0].text.strip())
-        print(type(shufersalPrice))
         print(shufersalPrice) #crop!!!
     except:
         print('shufersal not found')
@@ -471,7 +455,7 @@ def addProductToDB(barcode,added):
     except:
         print('name/image not found')
     responseOfAdding = requests.post('https://scanly.net/api/products/addData', headers={'Authorization':currentUser.get('token')},data={"email": currentUser.get('email'),"selection":currentUser.get('selection'),"barcode":barcode,"creationDate": datetime.datetime.now(),"added":str(added), "shufersalPrice": shufersalPrice, "ramiLevyPrice":ramiPrice,"image": image,"name": name})
-    print(responseOfAdding.text)
+    print(responseOfAdding)
 
 def ask():
     barcode = input('enter barcode')
