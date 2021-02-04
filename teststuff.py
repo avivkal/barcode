@@ -82,7 +82,7 @@ def playMusicMandatory (fileName):
         pygame.mixer.init()
         pygame.mixer.music.load("/home/pi/real/barcode/" + fileName + ".mp3")
         pygame.mixer.music.play()
-    except:
+    except Exception:
         logError()
 
 def internet(host="8.8.8.8", port=53, timeout=3):
