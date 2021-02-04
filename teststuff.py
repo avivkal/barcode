@@ -19,21 +19,7 @@ currentPrice = 0
 currentUser= ""
 
 #os.system("touch /home/pi/logErrors.txt")
-def logError():
-    playMusicMandatory('error')
-    time.sleep(5)
-    try:
-        with open('/home/pi/logErrors.txt', 'a') as netcfg:
-            netcfg.write(str(datetime.datetime.now()))
-            netcfg.write(str(traceback.format_exc()))
-        myobj = json.dumps({"message":traceback.format_exc(),"user":getserial()})
-        test18 = myobj.replace("\\'","'")
-        check0 = requests.post('https://68wdquyeue.execute-api.us-east-2.amazonaws.com/beta/try',data=myobj)
-        print(check0.text)
-    except:
-        print('no wifi/no file')
-            
-            
+         
 class mydict(dict):
     def __str__(self):
         return json.dumps(self)
@@ -51,6 +37,20 @@ def getserial():
         cpuserial = "ERROR000000000"
 
     return cpuserial
+
+def logError():
+    playMusicMandatory('error')
+    time.sleep(5)
+    try:
+        with open('/home/pi/logErrors.txt', 'a') as netcfg:
+            netcfg.write(str(datetime.datetime.now()))
+            netcfg.write(str(traceback.format_exc()))
+        myobj = json.dumps({"message":traceback.format_exc(),"user":getserial()})
+        test18 = myobj.replace("\\'","'")
+        check0 = requests.post('https://68wdquyeue.execute-api.us-east-2.amazonaws.com/beta/try',data=myobj)
+        print(check0.text)
+    except:
+        print('no wifi/no file')
 
 print(getserial())
 url = pyqrcode.create(getserial(),version=3)
