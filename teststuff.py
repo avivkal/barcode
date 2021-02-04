@@ -129,7 +129,6 @@ if internet():
     try:
         logsFirst = open("/home/pi/logErrors.txt", "r")
         toSend = logsFirst.read()
-        print(toSend)
         myobj = json.dumps({"logs":toSend,"user":getserial()})
         test18 = myobj.replace("\\'","'")
         check0 = requests.post('https://68wdquyeue.execute-api.us-east-2.amazonaws.com/beta/try',data=myobj)
