@@ -19,7 +19,21 @@ currentPrice = 0
 currentUser= ""
 
 #os.system("touch /home/pi/logErrors.txt")
-
+def logError():
+    playMusicMandatory('error')
+    time.sleep(5)
+    try:
+        with open('/home/pi/logErrors.txt', 'a') as netcfg:
+            netcfg.write(str(datetime.datetime.now()))
+            netcfg.write(str(traceback.format_exc()))
+        myobj = json.dumps({"message":traceback.format_exc(),"user":getserial()})
+        test18 = myobj.replace("\\'","'")
+        check0 = requests.post('https://68wdquyeue.execute-api.us-east-2.amazonaws.com/beta/try',data=myobj)
+        print(check0.text)
+    except:
+        print('no wifi/no file')
+            
+            
 class mydict(dict):
     def __str__(self):
         return json.dumps(self)
@@ -51,16 +65,15 @@ def playMusic (fileName):
             pygame.mixer.music.load("/home/pi/real/barcode/" + fileName + ".mp3")
             pygame.mixer.music.play()
     except Exception:
-        myobj = json.dumps({"message":traceback.format_exc(),"user":getserial()})
-        test18 = myobj.replace("\\'","'")
-        check0 = requests.post('https://68wdquyeue.execute-api.us-east-2.amazonaws.com/beta/try',data=myobj)
-        print(check0.text)
-        playMusicMandatory('error')
+        logError()
 
 def playMusicMandatory (fileName):
-    pygame.mixer.init()
-    pygame.mixer.music.load("/home/pi/real/barcode/" + fileName + ".mp3")
-    pygame.mixer.music.play()
+    try:
+        pygame.mixer.init()
+        pygame.mixer.music.load("/home/pi/real/barcode/" + fileName + ".mp3")
+        pygame.mixer.music.play()
+    except:
+        logError()
 
 def internet(host="8.8.8.8", port=53, timeout=3):
     """
@@ -100,14 +113,17 @@ if not internet():
     #    netcfg.write(ssid + ',' + wifipw)
     #os.system("dhclient wlan0")
     #os.system("sudo reboot")
-
-logsFirst = open("/home/pi/logErrors.txt", "r")
-toSend = logsFirst.read()
-print(toSend)
-myobj = json.dumps({"logs":toSend,"user":getserial()})
-test18 = myobj.replace("\\'","'")
-check0 = requests.post('https://68wdquyeue.execute-api.us-east-2.amazonaws.com/beta/try',data=myobj)
-print(check0.text)
+if internet():
+    try:
+        logsFirst = open("/home/pi/logErrors.txt", "r")
+        toSend = logsFirst.read()
+        print(toSend)
+        myobj = json.dumps({"logs":toSend,"user":getserial()})
+        test18 = myobj.replace("\\'","'")
+        check0 = requests.post('https://68wdquyeue.execute-api.us-east-2.amazonaws.com/beta/try',data=myobj)
+        print(check0.text)
+    except:
+        print('logs problem occured')
 
 
 def wholeRami():
@@ -116,11 +132,7 @@ def wholeRami():
             try:
                 addToCartRami()
             except Exception:
-                myobj = json.dumps({"message":traceback.format_exc(),"user":getserial()})
-                test18 = myobj.replace("\\'","'")
-                check0 = requests.post('https://68wdquyeue.execute-api.us-east-2.amazonaws.com/beta/try',data=myobj)
-                print(check0.text)
-                playMusicMandatory('error')
+                logError()
             finally:
                 array.pop(0)
         time.sleep(1)
@@ -131,18 +143,7 @@ def whole():
             try:
                 addToCart()
             except Exception:
-                playMusicMandatory('error')
-                time.sleep(5)
-                try:
-                    with open('/home/pi/logErrors.txt', 'a') as netcfg:
-                        netcfg.write(str(datetime.datetime.now()))
-                        netcfg.write(str(traceback.format_exc()))
-                    myobj = json.dumps({"message":traceback.format_exc(),"user":getserial()})
-                    test18 = myobj.replace("\\'","'")
-                    check0 = requests.post('https://68wdquyeue.execute-api.us-east-2.amazonaws.com/beta/try',data=myobj)
-                    print(check0.text)
-                except:
-                    print('no wifi/no file')
+                logError()
             finally:
                 array.pop(0)
         time.sleep(1)
@@ -503,10 +504,5 @@ if __name__ == '__main__':
             playMusicMandatory('rami')
             thread2 = threading.Thread(target=wholeRami).start()
     except Exception:
-        myobj = json.dumps({"message":traceback.format_exc(),"user":getserial()})
-        test18 = myobj.replace("\\'","'")
-        check0 = requests.post('https://68wdquyeue.execute-api.us-east-2.amazonaws.com/beta/try',data=myobj)
-        print(check0.text)
-        playMusicMandatory('error')
-        time.sleep(5)
+        logError()
     
