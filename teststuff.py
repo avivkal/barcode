@@ -13,10 +13,6 @@ from bs4 import BeautifulSoup
 import traceback
 import pyqrcode
 
-os.system("sudo pip3 install schedule")
-
-import schedule
-
 userEmail = ""
 userPassword = ""
 currentPrice = 0
@@ -26,11 +22,12 @@ def job():
    print("I'm working...")
    
 def scheduleTask():
+   os.system("sudo pip3 install schedule")
+   import schedule
+   schedule.every(1).minutes.do(job)
    while 1:
       schedule.run_pending()
       time.sleep(1)
-
-schedule.every(1).minutes.do(job)
 
 #os.system("touch /home/pi/logErrors.txt")
          
