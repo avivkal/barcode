@@ -19,7 +19,7 @@ currentPrice = 0
 currentUser= ""
 
 def job():
-   print("I'm working...")
+   requests.post('https://scanly.net/api/count/inc')
    
 def scheduleTask():
    os.system("sudo pip3 install schedule")
