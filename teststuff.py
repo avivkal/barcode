@@ -26,8 +26,9 @@ def job():
    print("I'm working...")
    
 def scheduleTask():
-   schedule.run_pending()
-   time.sleep(1)
+   while 1:
+      schedule.run_pending()
+      time.sleep(1)
 
 schedule.every(1).minutes.do(job)
 
