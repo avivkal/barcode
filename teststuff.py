@@ -12,11 +12,17 @@ import datetime
 from bs4 import BeautifulSoup
 import traceback
 import pyqrcode
+import schedule
 
 userEmail = ""
 userPassword = ""
 currentPrice = 0
 currentUser= ""
+
+def job():
+   print("I'm working...")
+
+schedule.every(1).minutes.do(job)
 
 #os.system("touch /home/pi/logErrors.txt")
          
