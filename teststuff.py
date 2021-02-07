@@ -18,19 +18,6 @@ userPassword = ""
 currentPrice = 0
 currentUser= ""
 
-def job():
-   res = requests.post('https://scanly.net/api/count/inc')
-   print(res.text)
-   
-def scheduleTask():
-   os.system("sudo pip3 install schedule")
-   import schedule
-   schedule.every().day.at("14:28").do(job)
-   #schedule.every(1).minutes.do(job)
-   while 1:
-      schedule.run_pending()
-      time.sleep(1)
-
 #os.system("touch /home/pi/logErrors.txt")
          
 class mydict(dict):
@@ -50,6 +37,21 @@ def getserial():
         cpuserial = "ERROR000000000"
 
     return cpuserial
+
+
+def job():
+   myData = json.dumps({"id":getserial()})
+   res = requests.post('https://scanly.net/api/count/inc',data=myData)
+   print(res.text)
+   
+def scheduleTask():
+   os.system("sudo pip3 install schedule")
+   import schedule
+   schedule.every().day.at("14:28").do(job)
+   #schedule.every(1).minutes.do(job)
+   while 1:
+      schedule.run_pending()
+      time.sleep(1)
 
 def logError():
     playMusicMandatory('error')
