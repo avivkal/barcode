@@ -244,12 +244,10 @@ def addToCartRami():
 
     data4 = '{"q":"' + array[0] + '","store":331,"sort":"relevant","aggs":1}'
     try:
-        added = False
         response4 = requests.post('https://www.rami-levy.co.il/api/catalog', headers=headers4, data=data4)
         json_data = json.loads(response4.text)
         for product in json_data.get('data'):
             if product.get('barcode') == array[0]:
-                added = True
                 id = product.get('id')
 
                 found = False
@@ -293,15 +291,11 @@ def addToCartRami():
                 print(response3.text)
                 playMusic('added')
                 addProductToDB(array[0], True)
-        if not added:
-            print('could not add to cart')
-            playMusic('addedList')
-            addProductToDB(array[0], False)
     except:
         print('could not add to cart')
         playMusic('addedList')
         addProductToDB(array[0], False)
-
+         
 def addToCart():
     barcode = array[0]
     croppedBarcode = array[0]
