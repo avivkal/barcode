@@ -40,7 +40,7 @@ def getserial():
 
 
 def job():
-   myData = json.dumps({"id":getserial()})
+   myData = {"id":getserial()}
    res = requests.post('https://scanly.net/api/count/inc',data=myData)
    print(res.text)
    
