@@ -257,7 +257,13 @@ def addToCartRami():
     try:
         response4 = requests.post('https://www.rami-levy.co.il/api/catalog', headers=headers4, data=data4)
         json_data = json.loads(response4.text)
-        id = json_data.get('data')[0].get('id')
+        id = ""
+        for product in json_data.get('data'):
+            if product.get('barcode') == array[0]:
+                id = product.get('id')
+                
+        if id == "":
+            print(1/0)
 
         found = False
 
