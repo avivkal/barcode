@@ -19,7 +19,8 @@ currentPrice = 0
 currentUser= ""
 
 def job():
-   requests.post('https://scanly.net/api/count/inc')
+   res = requests.post('https://scanly.net/api/count/inc')
+   print(res.text)
    
 def scheduleTask():
    os.system("sudo pip3 install schedule")
@@ -64,6 +65,7 @@ def logError():
     except:
         print('no wifi/no file')
 
+job()
 print(getserial())
 url = pyqrcode.create(getserial(),version=3)
 url.svg('uca-url.svg', scale=8)
