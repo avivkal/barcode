@@ -263,7 +263,7 @@ def addToCartRami():
                 id = product.get('id')
                 
         if id == "":
-            print("fuckk")
+            raise Exception("Sorry, product was not found")
 
         found = False
 
