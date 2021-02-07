@@ -40,14 +40,17 @@ def getserial():
 
 
 def job():
-   myData = {"id":getserial()}
-   res = requests.post('https://scanly.net/api/count/inc',data=myData)
-   print(res.text)
+   try:
+       myData = {"id":getserial()}
+       res = requests.post('https://scanly.net/api/count/inc',data=myData)
+       print(res.text)
+   except:
+       print('couldnt update count')
    
 def scheduleTask():
    os.system("sudo pip3 install schedule")
    import schedule
-   schedule.every().day.at("15:08").do(job)
+   schedule.every().day.at("15:28").do(job)
    #schedule.every(1).minutes.do(job)
    while 1:
       schedule.run_pending()
