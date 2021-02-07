@@ -5,7 +5,7 @@ import os
 import socket
 import pygame
 import re
-import json 
+import json
 from lxml import html
 import pymongo
 import datetime
@@ -16,14 +16,16 @@ import pyqrcode
 userEmail = ""
 userPassword = ""
 currentPrice = 0
-currentUser= ""
+currentUser = ""
 
-#os.system("touch /home/pi/logErrors.txt")
+
+# os.system("touch /home/pi/logErrors.txt")
 
 class mydict(dict):
     def __str__(self):
         return json.dumps(self)
-    
+
+
 def getserial():
     # Extract serial from cpuinfo file
     cpuserial = "0000000000000000"
@@ -38,29 +40,65 @@ def getserial():
 
     return cpuserial
 
+
+def job():
+    try:
+        myData = {"id": getserial()}
+        res = requests.post('https://scanly.net/api/count/inc', data=myData)
+        print(res.text)
+    except:
+        print('couldnt update count')
+
+
+def scheduleTask():
+    os.system("sudo pip3 install schedule")
+    import schedule
+    schedule.every().day.at("15:00").do(job)
+    # schedule.every(1).minutes.do(job)
+    while 1:
+        schedule.run_pending()
+        time.sleep(1)
+
+
+def logError():
+    playMusicMandatory('error')
+    time.sleep(5)
+    try:
+        with open('/home/pi/logErrors.txt', 'a') as netcfg:
+            netcfg.write(str(datetime.datetime.now()))
+            netcfg.write(str(traceback.format_exc()))
+        myobj = json.dumps({"message": traceback.format_exc(), "user": getserial()})
+        test18 = myobj.replace("\\'", "'")
+        check0 = requests.post('https://68wdquyeue.execute-api.us-east-2.amazonaws.com/beta/try', data=myobj)
+        print(check0.text)
+    except:
+        print('no wifi/no file')
+
+
 print(getserial())
-url = pyqrcode.create(getserial(),version=3)
+url = pyqrcode.create(getserial(), version=3)
 url.svg('uca-url.svg', scale=8)
 url.eps('uca-url.eps', scale=2)
-print(url.terminal(quiet_zone=1))
 
-def playMusic (fileName):
+
+def playMusic(fileName):
     try:
         if currentUser.get('sound') == True:
             pygame.mixer.init()
             pygame.mixer.music.load("/home/pi/real/barcode/" + fileName + ".mp3")
             pygame.mixer.music.play()
     except Exception:
-        myobj = json.dumps({"message":traceback.format_exc(),"user":getserial()})
-        test18 = myobj.replace("\\'","'")
-        check0 = requests.post('https://68wdquyeue.execute-api.us-east-2.amazonaws.com/beta/try',data=myobj)
-        print(check0.text)
-        playMusicMandatory('error')
+        logError()
 
-def playMusicMandatory (fileName):
-    pygame.mixer.init()
-    pygame.mixer.music.load("/home/pi/real/barcode/" + fileName + ".mp3")
-    pygame.mixer.music.play()
+
+def playMusicMandatory(fileName):
+    try:
+        pygame.mixer.init()
+        pygame.mixer.music.load("/home/pi/real/barcode/" + fileName + ".mp3")
+        pygame.mixer.music.play()
+    except Exception:
+        logError()
+
 
 def internet(host="8.8.8.8", port=53, timeout=3):
     """
@@ -75,31 +113,43 @@ def internet(host="8.8.8.8", port=53, timeout=3):
     except socket.error as ex:
         print(ex)
         return False
+
+
 array = []
 
 if not internet():
     print('no internet')
     playMusicMandatory('noInternet')
-    os.system('sudo wifi-connect --ui-directory /home/pi/scanly-ui-wifi/build --portal-ssid Scanly')	
+    os.system('sudo wifi-connect --ui-directory /home/pi/scanly-ui-wifi/build --portal-ssid Scanly')
     playMusicMandatory('wifiConnected')
-    #pygame.mixer.init()
-    #pygame.mixer.music.load("/home/pi/real/barcode/wifiUsername.mp3")
-    #pygame.mixer.music.play()
-    #ssid = input('enter wifi username')
-    #pygame.mixer.init()
-    #pygame.mixer.music.load("/home/pi/real/barcode/wifiPassword.mp3")
-    #pygame.mixer.music.play()
-    #wifipw = input('enter wifi password')
-    #with open('/etc/network/interfaces', 'w') as netcfg:
+    # pygame.mixer.init()
+    # pygame.mixer.music.load("/home/pi/real/barcode/wifiUsername.mp3")
+    # pygame.mixer.music.play()
+    # ssid = input('enter wifi username')
+    # pygame.mixer.init()
+    # pygame.mixer.music.load("/home/pi/real/barcode/wifiPassword.mp3")
+    # pygame.mixer.music.play()
+    # wifipw = input('enter wifi password')
+    # with open('/etc/network/interfaces', 'w') as netcfg:
     #    netcfg.write('source-directory /etc/network/interfaces.d\n'
     #                 'auto wlan0\n'
     #                 'iface wlan0 inet dhcp\n'
     #                 '    wpa-ssid {}\n'
     #                 '    wpa-psk  {}\n'.format(ssid, wifipw))
-    #with open('/home/pi/wifiInfo.txt', 'w') as netcfg:
+    # with open('/home/pi/wifiInfo.txt', 'w') as netcfg:
     #    netcfg.write(ssid + ',' + wifipw)
-    #os.system("dhclient wlan0")
-    #os.system("sudo reboot")
+    # os.system("dhclient wlan0")
+    # os.system("sudo reboot")
+if internet():
+    try:
+        logsFirst = open("/home/pi/logErrors.txt", "r")
+        toSend = logsFirst.read()
+        myobj = json.dumps({"logs": toSend, "user": getserial()})
+        test18 = myobj.replace("\\'", "'")
+        check0 = requests.post('https://68wdquyeue.execute-api.us-east-2.amazonaws.com/beta/try', data=myobj)
+        print(check0.text)
+    except:
+        print('logs problem occured')
 
 
 def wholeRami():
@@ -108,14 +158,11 @@ def wholeRami():
             try:
                 addToCartRami()
             except Exception:
-                myobj = json.dumps({"message":traceback.format_exc(),"user":getserial()})
-                test18 = myobj.replace("\\'","'")
-                check0 = requests.post('https://68wdquyeue.execute-api.us-east-2.amazonaws.com/beta/try',data=myobj)
-                print(check0.text)
-                playMusicMandatory('error')
+                logError()
             finally:
                 array.pop(0)
         time.sleep(1)
+
 
 def whole():
     while True:
@@ -123,52 +170,42 @@ def whole():
             try:
                 addToCart()
             except Exception:
-                with open('/home/pi/logErrors.txt', 'a') as netcfg:
-                    netcfg.write(str(datetime.datetime.now()))
-                    netcfg.write(str(traceback.format_exc()))
-                myobj = json.dumps({"message":traceback.format_exc(),"user":getserial()})
-                test18 = myobj.replace("\\'","'")
-                check0 = requests.post('https://68wdquyeue.execute-api.us-east-2.amazonaws.com/beta/try',data=myobj)
-                print(check0.text)
-                playMusicMandatory('error')
+                logError()
             finally:
                 array.pop(0)
         time.sleep(1)
-        
+
+
 def addToCartRami():
     items = dict()
 
     headers = {
-            'authority': 'api-prod.rami-levy.co.il',
-            'accept': 'application/json, text/plain, */*',
-            'locale': 'he',
-            'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.183 Safari/537.36',
-            'ecomtoken': 'faa5dc4c-66db-483c-a767-49ce5becaf93',
-            'content-type': 'application/json;charset=UTF-8',
-            'origin': 'https://www.rami-levy.co.il',
-            'sec-fetch-site': 'same-site',
-            'sec-fetch-mode': 'cors',
-            'sec-fetch-dest': 'empty',
-            'accept-language': 'he-IL,he;q=0.9,en-US;q=0.8,en;q=0.7',
-        }
+        'authority': 'api-prod.rami-levy.co.il',
+        'accept': 'application/json, text/plain, */*',
+        'locale': 'he',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.183 Safari/537.36',
+        'ecomtoken': 'faa5dc4c-66db-483c-a767-49ce5becaf93',
+        'content-type': 'application/json;charset=UTF-8',
+        'origin': 'https://www.rami-levy.co.il',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        'accept-language': 'he-IL,he;q=0.9,en-US;q=0.8,en;q=0.7',
+    }
     dataT = mydict()
     dataT["username"] = userEmail
     dataT["password"] = userPassword
 
-    print(dataT)
-    response = requests.post('https://api-prod.rami-levy.co.il/api/v2/site/auth/login', headers=headers, data=str(dataT))
-    print(response.text)
+    response = requests.post('https://api-prod.rami-levy.co.il/api/v2/site/auth/login', headers=headers,
+                             data=str(dataT))
     token = json.loads(response.text).get('user').get('token')
 
     # print(json.loads(response.text).get('cart').get('items'))
     try:
         items = json.loads(response.text).get('cart').get('items')
-        print(json.loads(response.text).get('cart').get('items'))
-        print(items)
     except:
         print('couldnt get items')
     # print(items)
-    print(token)
 
     # headers5 = {
     #     'authority': 'api-prod.rami-levy.co.il',
@@ -220,15 +257,18 @@ def addToCartRami():
     try:
         response4 = requests.post('https://www.rami-levy.co.il/api/catalog', headers=headers4, data=data4)
         json_data = json.loads(response4.text)
-        id = json_data.get('data')[0].get('id')
-        print(id)
+        id = ""
+        for product in json_data.get('data'):
+            if str(product.get('barcode')) == str(array[0]):
+                id = product.get('id')
+                
+        if id == "":
+            raise Exception("Sorry, product was not found")
 
         found = False
 
         for item in items:
-            print(item)
             if item == str(id):
-                print(items[item])
                 items[item] = items[item] + 1
                 found = True
                 print('found')
@@ -237,21 +277,14 @@ def addToCartRami():
             print('not found')
             items[id] = 1
 
-        print(items)
-
         for key, value in items.items():
-            print(value)
-            print(items[key])
             items[key] = str(value)
 
         # print(sub)
-        print(items)
         myDict = mydict()
         myDict['store'] = "331"
         myDict["is_club"] = 0
         myDict['items'] = items
-        print(str(items))
-        print(myDict)
 
         # add the item
         headers3 = {
@@ -269,33 +302,31 @@ def addToCartRami():
             'accept-language': 'he-IL,he;q=0.9,en-US;q=0.8,en;q=0.7',
         }
 
-        response3 = requests.post('https://www.rami-levy.co.il/api/cart', headers=headers3,data=str(myDict))
+        response3 = requests.post('https://www.rami-levy.co.il/api/cart', headers=headers3, data=str(myDict))
         print(response3.text)
         playMusic('added')
-        addProductToDB(array[0],True)
+        addProductToDB(array[0], True)
     except:
         print('could not add to cart')
         playMusic('addedList')
-        addProductToDB(array[0],False)
+        addProductToDB(array[0], False)
+
 
 def addToCart():
     barcode = array[0]
     croppedBarcode = array[0]
-    if(barcode.startswith('72900000')):
+    if (barcode.startswith('72900000')):
         croppedBarcode = barcode[8:]
     elif (barcode.startswith('7290000')):
         croppedBarcode = barcode[7:]
     elif (barcode.startswith('729000')):
         croppedBarcode = barcode[6:]
-    
-    print(croppedBarcode + ' yessss')
+
     session = requests.Session()
 
     response3 = session.get('https://www.shufersal.co.il/online/he/A')
     JSESSIONID = response3.cookies.get_dict().get('JSESSIONID')
     XSRFTOKEN = response3.cookies.get_dict().get('XSRF-TOKEN')
-    print(XSRFTOKEN)
-    print(JSESSIONID)
 
     cookies = {
         'miglog-cart': '20b6b657-d481-4991-b431-c0f6876b49f8',
@@ -322,13 +353,14 @@ def addToCart():
     }
 
     data = {
-      'fail_url': '/login/?error=true',
-      'j_username': userEmail,
-      'j_password': userPassword,
-      'CSRFToken': XSRFTOKEN
+        'fail_url': '/login/?error=true',
+        'j_username': userEmail,
+        'j_password': userPassword,
+        'CSRFToken': XSRFTOKEN
     }
 
-    response = session.post('https://www.shufersal.co.il/online/he/j_spring_security_check', headers=headers, cookies=cookies, data=data)
+    response = session.post('https://www.shufersal.co.il/online/he/j_spring_security_check', headers=headers,
+                            cookies=cookies, data=data)
     response5 = session.get('https://www.shufersal.co.il/online/he/A')
     doc = html.fromstring(response5.content)
     try:
@@ -337,7 +369,7 @@ def addToCart():
         print(currentPrice)
     except IndexError:
         print("No link found")
-        
+
     JSESSIONID2 = session.cookies.get_dict().get('JSESSIONID')
     XSRFTOKEN2 = session.cookies.get_dict().get('XSRF-TOKEN')
     AWSALB = session.cookies.get_dict().get('AWSALB')
@@ -353,7 +385,6 @@ def addToCart():
     myList["XSRF-TOKEN"] = XSRFTOKEN2
     myList["JSESSIONID"] = JSESSIONID2
     myList["miglog-cart"] = '20b6b657-d481-4991-b431-c0f6876b49f8'
-
 
     headers9 = {
         'authority': 'www.shufersal.co.il',
@@ -376,37 +407,38 @@ def addToCart():
         ('cartContext[recommendationType]', 'REGULAR'),
     )
 
-    data2 = '{"productCodePost":"P_'+croppedBarcode+'","productCode":"P_'+croppedBarcode+'","sellingMethod":"BY_UNIT","qty":"1","frontQuantity":"1","comment":"","affiliateCode":""}'
+    data2 = '{"productCodePost":"P_' + croppedBarcode + '","productCode":"P_' + croppedBarcode + '","sellingMethod":"BY_UNIT","qty":"1","frontQuantity":"1","comment":"","affiliateCode":""}'
 
-    response2 = session.post('https://www.shufersal.co.il/online/he/cart/add', headers=headers9, params=params2, cookies=myList, data=data2)
+    response2 = session.post('https://www.shufersal.co.il/online/he/cart/add', headers=headers9, params=params2,
+                             cookies=myList, data=data2)
     responseCheck = session.get('https://www.shufersal.co.il/online/he/A')
     doc = html.fromstring(responseCheck.content)
     try:
         link = doc.xpath('//*[@id="cartContainer"]/div/div/footer/div[2]/div/div/div[1]/span/text()')
-        if link[1]!= currentPrice:
+        if link[1] != currentPrice:
             print("Product was added to your cart")
             print(link[1])
             currentPrice = link[1]
             playMusic('added')
-            addProductToDB(barcode,True)
+            addProductToDB(barcode, True)
         else:
             print("Product could not be added")
             playMusic('addedList')
-            addProductToDB(barcode,False)
+            addProductToDB(barcode, False)
     except IndexError:
         print("Product could not be added")
         playMusic('addedList')
-        addProductToDB(barcode,False)
+        addProductToDB(barcode, False)
 
-    
-def addProductToDB(barcode,added):
+
+def addProductToDB(barcode, added):
     croppedBarcode = barcode
     shufersalPrice = 'לא נמצא'
     ramiPrice = 'לא נמצא'
     image = ''
     name = ''
-    
-    if(barcode.startswith('72900000')):
+
+    if (barcode.startswith('72900000')):
         croppedBarcode = barcode[8:]
     elif (barcode.startswith('7290000')):
         croppedBarcode = barcode[7:]
@@ -416,8 +448,7 @@ def addProductToDB(barcode,added):
         response8 = requests.get('https://www.shufersal.co.il/online/he/search?text=' + croppedBarcode)
         soup = BeautifulSoup(response8.content, 'html.parser')
         shufersalPrice = float(soup.select('li > div > div > div > div > span > span')[0].text.strip())
-        print(type(shufersalPrice))
-        print(shufersalPrice) #crop!!!
+        print(shufersalPrice)  # crop!!!
     except:
         print('shufersal not found')
     headers9 = {
@@ -448,17 +479,23 @@ def addProductToDB(barcode,added):
         ramiPrice = json.loads(response9.text).get('data')[0].get('price').get('price')
     except:
         print('rami levy not found')
-    try:        
+    try:
         response11 = requests.get('https://chp.co.il/autocompletion/product_extended?term=' + barcode)
         name = json.loads(response11.text)[0].get('value')
-        response12 = requests.get('https://chp.co.il/%D7%AA%D7%9C%20%D7%90%D7%91%D7%99%D7%91/0/0/'+ barcode +'/0')
+        response12 = requests.get('https://chp.co.il/%D7%AA%D7%9C%20%D7%90%D7%91%D7%99%D7%91/0/0/' + barcode + '/0')
         soup = BeautifulSoup(response12.content, 'html.parser')
         image = soup.select('td > img')[0].get('data-uri')
         print(name)
     except:
         print('name/image not found')
-    responseOfAdding = requests.post('https://scanly.net/api/products/addData', headers={'Authorization':currentUser.get('token')},data={"email": currentUser.get('email'),"selection":currentUser.get('selection'),"barcode":barcode,"creationDate": datetime.datetime.now(),"added":str(added), "shufersalPrice": shufersalPrice, "ramiLevyPrice":ramiPrice,"image": image,"name": name})
-    print(responseOfAdding.text)
+    responseOfAdding = requests.post('https://scanly.net/api/products/addData',
+                                     headers={'Authorization': currentUser.get('token')},
+                                     data={"email": currentUser.get('email'), "selection": currentUser.get('selection'),
+                                           "barcode": barcode, "creationDate": datetime.datetime.now(),
+                                           "added": str(added), "shufersalPrice": shufersalPrice,
+                                           "ramiLevyPrice": ramiPrice, "image": image, "name": name})
+    print(responseOfAdding)
+
 
 def ask():
     barcode = input('enter barcode')
@@ -467,34 +504,24 @@ def ask():
     print(array)
     ask()
 
+
 if __name__ == '__main__':
     try:
         id = 0
-        responseTest = requests.post('https://scanly.net/api/login/idValidation', data={"deviceID":getserial()})
+        responseTest = requests.post('https://scanly.net/api/login/idValidation', data={"deviceID": getserial()})
         currentUser = json.loads(responseTest.text)
-        print(currentUser)
         userSelect = currentUser.get('selection')
-        print(userSelect + ' realllll')
         thread1 = threading.Thread(target=ask).start()
+        thread3 = threading.Thread(target=scheduleTask).start()
         if userSelect == 'Shufersal':
             userEmail = currentUser.get('shufersalUsername')
-            print(userEmail)
             userPassword = currentUser.get('shufersalPassword')
-            print(userPassword)
             playMusicMandatory('shufersal')
             thread2 = threading.Thread(target=whole).start()
         else:
             userEmail = currentUser.get('ramiLevyUsername')
-            print(userEmail)
             userPassword = currentUser.get('ramiLevyPassword')
-            print(userPassword)
             playMusicMandatory('rami')
             thread2 = threading.Thread(target=wholeRami).start()
     except Exception:
-        myobj = json.dumps({"message":traceback.format_exc(),"user":getserial()})
-        test18 = myobj.replace("\\'","'")
-        check0 = requests.post('https://68wdquyeue.execute-api.us-east-2.amazonaws.com/beta/try',data=myobj)
-        print(check0.text)
-        playMusicMandatory('error')
-        time.sleep(5)
-    
+        logError()
