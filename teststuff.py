@@ -47,7 +47,7 @@ def job():
 def scheduleTask():
    os.system("sudo pip3 install schedule")
    import schedule
-   schedule.every().day.at("15:02").do(job)
+   schedule.every().day.at("15:08").do(job)
    #schedule.every(1).minutes.do(job)
    while 1:
       schedule.run_pending()
