@@ -295,10 +295,10 @@ def addToCartRami():
                 addedRami = true
                 playMusic('added')
                 addProductToDB(array[0], True)
-            if not addedRami:
-                print('could not add to cart')
-                playMusic('addedList')
-                addProductToDB(array[0], False)
+       if not addedRami:
+           print('could not add to cart')
+           playMusic('addedList')
+           addProductToDB(array[0], False)
     except:
         print('could not add to cart')
         playMusic('addedList')
