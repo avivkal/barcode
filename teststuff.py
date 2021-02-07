@@ -65,7 +65,7 @@ def logError():
     except:
         print('no wifi/no file')
 
-job()
+
 print(getserial())
 url = pyqrcode.create(getserial(),version=3)
 url.svg('uca-url.svg', scale=8)
