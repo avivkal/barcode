@@ -250,7 +250,7 @@ def addToCartRami():
             print(product.get('barcode'))
             if str(product.get('barcode')) == str(array[0]):
                 print('true')
-                id = json_data.get('data')[0].get('id')
+                id = product.get('id')
 
                 found = False
 
