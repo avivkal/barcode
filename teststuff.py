@@ -246,6 +246,7 @@ def addToCartRami():
     try:
         response4 = requests.post('https://www.rami-levy.co.il/api/catalog', headers=headers4, data=data4)
         json_data = json.loads(response4.text)
+        addedRami = False
         for product in json_data.get('data'):
             print(product.get('barcode'))
             if str(product.get('barcode')) == str(array[0]):
@@ -291,8 +292,13 @@ def addToCartRami():
 
                 response3 = requests.post('https://www.rami-levy.co.il/api/cart', headers=headers3, data=str(myDict))
                 print(response3.text)
+                addedRami = true
                 playMusic('added')
                 addProductToDB(array[0], True)
+            if not addedRami:
+                print('could not add to cart')
+                playMusic('addedList')
+                addProductToDB(array[0], False)
     except:
         print('could not add to cart')
         playMusic('addedList')
