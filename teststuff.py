@@ -259,11 +259,11 @@ def addToCartRami():
         json_data = json.loads(response4.text)
         id = ""
         for product in json_data.get('data'):
-            if product.get('barcode') == array[0]:
+            if str(product.get('barcode')) == str(array[0]):
                 id = product.get('id')
                 
         if id == "":
-            print(1/0)
+            print("fuckk")
 
         found = False
 
