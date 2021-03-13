@@ -361,6 +361,8 @@ def addToCart():
 
     response = session.post('https://www.shufersal.co.il/online/he/j_spring_security_check', headers=headers,
                             cookies=cookies, data=data)
+    print(response)
+    print('---')
     response5 = session.get('https://www.shufersal.co.il/online/he/A')
     doc = html.fromstring(response5.content)
     try:
