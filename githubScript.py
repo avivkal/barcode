@@ -432,7 +432,7 @@ def addToCart():
             print(amount)
     strAmount = str(amount)
 
-    data2 = '{"productCodePost":"P_' + croppedBarcode + '","productCode":"P_' + croppedBarcode + '","sellingMethod":"BY_UNIT","qty":'strAmount',"frontQuantity":'strAmount',"comment":"","affiliateCode":""}'
+    data2 = '{"productCodePost":"P_' + croppedBarcode + '","productCode":"P_' + croppedBarcode + '","sellingMethod":"BY_UNIT","qty":"'strAmount'","frontQuantity":"'strAmount'","comment":"","affiliateCode":""}'
 
     response2 = session.post('https://www.shufersal.co.il/online/he/cart/add', headers=headers9, params=params2,
                              cookies=myList, data=data2)
