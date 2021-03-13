@@ -436,7 +436,7 @@ def addToCart():
         'TS0176b833': '0135176ca70c87aece7f7ce02721a70cc17750ccc188b39a5cf323ec19b97e3a13eac10d8aa3de9fb3458f6848f88e8e7ac952bf60ec535d6fa850290bcfaba3762e421bf2ad9958668db464c914024731bac24653',
     }
 
-    response = requests.get('https://www.shufersal.co.il/online/he/recommendations/entry-recommendations', headers=headers, cookies=cookies)
+    response = requests.get('https://www.shufersal.co.il/online/he/recommendations/entry-recommendations', headers=headers, cookies=myList)
     print(response.text)
 
     data2 = '{"productCodePost":"P_' + croppedBarcode + '","productCode":"P_' + croppedBarcode + '","sellingMethod":"BY_UNIT","qty":"2","frontQuantity":"2","comment":"","affiliateCode":""}'
