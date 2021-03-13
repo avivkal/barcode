@@ -407,6 +407,9 @@ def addToCart():
         ('cartContext[recommendationType]', 'REGULAR'),
     )
 
+    response = requests.get('https://www.shufersal.co.il/online/he/recommendations/entry-recommendations', headers=headers9, cookies=cookies)
+    print(response.text)
+
     data2 = '{"productCodePost":"P_' + croppedBarcode + '","productCode":"P_' + croppedBarcode + '","sellingMethod":"BY_UNIT","qty":"2","frontQuantity":"2","comment":"","affiliateCode":""}'
 
     response2 = session.post('https://www.shufersal.co.il/online/he/cart/add', headers=headers9, params=params2,
