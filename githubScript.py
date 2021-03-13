@@ -361,8 +361,6 @@ def addToCart():
 
     response = session.post('https://www.shufersal.co.il/online/he/j_spring_security_check', headers=headers,
                             cookies=cookies, data=data)
-    print(response)
-    print('---')
     response5 = session.get('https://www.shufersal.co.il/online/he/A')
     doc = html.fromstring(response5.content)
     try:
@@ -409,7 +407,7 @@ def addToCart():
         ('cartContext[recommendationType]', 'REGULAR'),
     )
 
-    data2 = '{"productCodePost":"P_' + croppedBarcode + '","productCode":"P_' + croppedBarcode + '","sellingMethod":"BY_UNIT","qty":"1","frontQuantity":"1","comment":"","affiliateCode":""}'
+    data2 = '{"productCodePost":"P_' + croppedBarcode + '","productCode":"P_' + croppedBarcode + '","sellingMethod":"BY_UNIT","qty":"2","frontQuantity":"2","comment":"","affiliateCode":""}'
 
     response2 = session.post('https://www.shufersal.co.il/online/he/cart/add', headers=headers9, params=params2,
                              cookies=myList, data=data2)
