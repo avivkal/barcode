@@ -423,13 +423,15 @@ def addToCart():
     
     response = requests.get('https://www.shufersal.co.il/online/he/recommendations/entry-recommendations', headers=headers, cookies=myList)
     print(response.text)
+    amount = 1
     listOfProducts = json.loads(response.text)
     for product in listOfProducts:
         print(product)
         if str(product.get('productCode')) == "P_" + str(array[0]):
-            print('exists')
+            amount = int(product.get('cartyQty'))) + 1
+    strAmount = str(amount)
 
-    data2 = '{"productCodePost":"P_' + croppedBarcode + '","productCode":"P_' + croppedBarcode + '","sellingMethod":"BY_UNIT","qty":"2","frontQuantity":"2","comment":"","affiliateCode":""}'
+    data2 = '{"productCodePost":"P_' + croppedBarcode + '","productCode":"P_' + croppedBarcode + '","sellingMethod":"BY_UNIT","qty":'strAmount',"frontQuantity":'strAmount',"comment":"","affiliateCode":""}'
 
     response2 = session.post('https://www.shufersal.co.il/online/he/cart/add', headers=headers9, params=params2,
                              cookies=myList, data=data2)
