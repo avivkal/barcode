@@ -421,23 +421,13 @@ def addToCart():
         'accept-language': 'he-IL,he;q=0.9,en-US;q=0.8,en;q=0.7',
     }
     
-    cookies = {
-        'miglog-cart': '20b6b657-d481-4991-b431-c0f6876b49f8',
-        'XSRF-TOKEN': '976998a1-92a5-4cd7-a2fb-d57fad251520',
-        'JSESSIONID': '3147F33FAC9B958E38DEB15C104157A7',
-        'TS01585391': '0135176ca77a5629c0d5b90e5b5dbca4fafa32a71817fdc75a7ee792273523fb06da9b4389f3aea97e4eef96ab49839306891f2c6432c777ebcbc5d2cb931b8559ccab6e65f4a90143c82988743ba326d6156f61f42d4f99718aac098a8b0a5f5a4b0454b3a17222eab4c6e4308c5772d33718c812',
-        'SMC': 'ShowBasketInfoFirstTime=True&CommerceID=fd53dd51-e4c4-4137-976c-6ff0538281e7&Session=2b8c6db4-2f5a-4322-aec9-acd54c39b197&Tran=64472',
-        'afUserId': 'a00f0884-125f-47a1-ac03-3e58ebd75f4a-p',
-        'acceleratorSecureGUID': '532f1ee57f5b33f23a8c3ebb4f1b95fdebdc2e07',
-        'TS01d710be': '018c1146a47ab169cff73406fbf41f44e2db02b9f1ae1323b9e4adec7566775ef77edfcd69ad7f2fce60973b9e2429b034c239b0a33ab56d50934cfaf00f1ce674fc3016ff',
-        'TScae16bc3027': '08ee439653ab2000391130bd156374e7907c56fdaac60de403e1c1f0c402d4a4af7c1e21b6ef61e40801cc308411300019f4d977dfa65afdd280f0d2b169d19fad8327b654c1af4bc8c490de622c1067ed7ecb853c48dc246c07961fcc3e4528',
-        'AWSALB': 'sfTCehC74EbMxwI+bByhT0vEzHnZFyVn8MQ/oPIzDpPuUsBk5p+k+PYUqNLrA9nf9J3elnbK8Scy1ahpxviNHHqoam8MLehKysU0uGfnn+JBzTajNMzRhLLuNgnT',
-        'AWSALBCORS': 'sfTCehC74EbMxwI+bByhT0vEzHnZFyVn8MQ/oPIzDpPuUsBk5p+k+PYUqNLrA9nf9J3elnbK8Scy1ahpxviNHHqoam8MLehKysU0uGfnn+JBzTajNMzRhLLuNgnT',
-        'TS0176b833': '0135176ca70c87aece7f7ce02721a70cc17750ccc188b39a5cf323ec19b97e3a13eac10d8aa3de9fb3458f6848f88e8e7ac952bf60ec535d6fa850290bcfaba3762e421bf2ad9958668db464c914024731bac24653',
-    }
-
     response = requests.get('https://www.shufersal.co.il/online/he/recommendations/entry-recommendations', headers=headers, cookies=myList)
     print(response.text)
+    listOfProducts = json.loads(response.text)
+    for product in listOfProducts:
+        print(product)
+        if str(product.get('productCode')) == "P_" + str(array[0]):
+            print('exists')
 
     data2 = '{"productCodePost":"P_' + croppedBarcode + '","productCode":"P_' + croppedBarcode + '","sellingMethod":"BY_UNIT","qty":"2","frontQuantity":"2","comment":"","affiliateCode":""}'
 
