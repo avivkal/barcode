@@ -428,7 +428,8 @@ def addToCart():
     for product in listOfProducts:
         print(product)
         if str(product.get('productCode')) == "P_" + str(array[0]):
-            amount = int(product.get('cartyQty'))) + 1
+            amount = int(product.get('cartyQty')) + 1
+            print(amount)
     strAmount = str(amount)
 
     data2 = '{"productCodePost":"P_' + croppedBarcode + '","productCode":"P_' + croppedBarcode + '","sellingMethod":"BY_UNIT","qty":'strAmount',"frontQuantity":'strAmount',"comment":"","affiliateCode":""}'
