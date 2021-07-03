@@ -427,7 +427,7 @@ def addToCart():
     listOfProducts = json.loads(response.text)
     for product in listOfProducts:
         print(product)
-        if str(product.get('productCode')) == "P_" + str(array[0]):
+        if str(product.get('productCode')) == "P_" + str(croppedBarcode):
             amount = int(product.get('cartyQty')) + 1
             print(amount)
     strAmount = str(amount)
