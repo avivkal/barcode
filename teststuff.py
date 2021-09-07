@@ -533,6 +533,7 @@ if __name__ == '__main__':
     try:
         id = 0
         responseTest = requests.post('https://scanly.net/api/login/idValidation', data={"deviceID": getserial()})
+        print(responseTest.text)
         currentUser = json.loads(responseTest.text)
         userSelect = currentUser.get('selection')
         thread1 = threading.Thread(target=ask).start()
