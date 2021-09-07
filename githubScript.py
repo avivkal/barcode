@@ -513,8 +513,7 @@ def addProductToDB(barcode, added):
         print(name)
     except:
         print('name/image not found')
-    responseOfAdding = requests.post('https://scanly.net/api/products/addData',
-                                     headers={'Authorization': currentUser.get('token')},
+    responseOfAdding = requests.post('https://scanly.net/api/products/addData', cookies={'token': currentUser.get('token')},
                                      data={"email": currentUser.get('email'), "selection": currentUser.get('selection'),
                                            "barcode": barcode, "creationDate": datetime.datetime.now(),
                                            "added": str(added), "shufersalPrice": shufersalPrice,
@@ -535,6 +534,7 @@ if __name__ == '__main__':
         id = 0
         responseTest = requests.post('https://scanly.net/api/login/idValidation', data={"deviceID": getserial()})
         currentUser = json.loads(responseTest.text)
+        currentUser["token"] = responseTest.cookies.get_dict().get('token')
         userSelect = currentUser.get('selection')
         thread1 = threading.Thread(target=ask).start()
         thread3 = threading.Thread(target=scheduleTask).start()
