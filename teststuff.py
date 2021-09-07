@@ -407,7 +407,32 @@ def addToCart():
         ('cartContext[recommendationType]', 'REGULAR'),
     )
 
-    data2 = '{"productCodePost":"P_' + croppedBarcode + '","productCode":"P_' + croppedBarcode + '","sellingMethod":"BY_UNIT","qty":"1","frontQuantity":"1","comment":"","affiliateCode":""}'
+    headers = {
+        'authority': 'www.shufersal.co.il',
+        'sec-ch-ua': '"Google Chrome";v="89", "Chromium";v="89", ";Not A Brand";v="99"',
+        'accept': '*/*',
+        'x-requested-with': 'XMLHttpRequest',
+        'sec-ch-ua-mobile': '?0',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.82 Safari/537.36',
+        'sec-fetch-site': 'same-origin',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        'referer': 'https://www.shufersal.co.il/online/he/%D7%A7%D7%98%D7%92%D7%95%D7%A8%D7%99%D7%95%D7%AA/%D7%A1%D7%95%D7%A4%D7%A8%D7%9E%D7%A8%D7%A7%D7%98/%D7%A4%D7%90%D7%A8%D7%9D-%D7%95%D7%AA%D7%99%D7%A0%D7%95%D7%A7%D7%95%D7%AA/%D7%93%D7%90%D7%95%D7%93%D7%95%D7%A8%D7%A0%D7%98/%D7%93%D7%90%D7%95%D7%93%D7%95%D7%A8%D7%A0%D7%98-%D7%A1%D7%A4%D7%A8%D7%99%D7%99-%D7%92%D7%91%D7%A8/%D7%90%D7%A7%D7%A1-%D7%A1%D7%A4%D7%A8%D7%99%D7%99-%D7%92%D7%95%D7%A3-%D7%91%D7%9C%D7%90%D7%A7/p/P_8717163647226',
+        'accept-language': 'he-IL,he;q=0.9,en-US;q=0.8,en;q=0.7',
+    }
+    
+    response = requests.get('https://www.shufersal.co.il/online/he/recommendations/entry-recommendations', headers=headers, cookies=myList)
+    print(response.text)
+    amount = 1
+    listOfProducts = json.loads(response.text)
+    for product in listOfProducts:
+        print(product)
+        if str(product.get('productCode')) == "P_" + str(croppedBarcode):
+            amount = int(product.get('cartyQty')) + 1
+            print(amount)
+    strAmount = str(amount)
+
+    data2 = '{"productCodePost":"P_' + croppedBarcode + '","productCode":"P_' + croppedBarcode + '","sellingMethod":"BY_UNIT","qty":"' + strAmount + '","frontQuantity":"' + strAmount + '","comment":"","affiliateCode":""}'
 
     response2 = session.post('https://www.shufersal.co.il/online/he/cart/add', headers=headers9, params=params2,
                              cookies=myList, data=data2)
@@ -489,7 +514,6 @@ def addProductToDB(barcode, added):
     except:
         print('name/image not found')
     responseOfAdding = requests.post('https://scanly.net/api/products/addData',
-                                     headers={'Authorization': currentUser.get('token')},
                                      data={"email": currentUser.get('email'), "selection": currentUser.get('selection'),
                                            "barcode": barcode, "creationDate": datetime.datetime.now(),
                                            "added": str(added), "shufersalPrice": shufersalPrice,
