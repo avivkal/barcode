@@ -389,13 +389,8 @@ def addToCartShufersal():
         'accept-language': 'he-IL,he;q=0.9,en-US;q=0.8,en;q=0.7',
     }
 
-    try:
-        cart_response = session.get('https://www.shufersal.co.il/online/he/checkout/composed', cookies=myList, headers=headersTest)
-        current_price = json.loads(cart_response.text).get('directCart').get('totalPrice').get('value')
-    except Exception:
-        current_price = 0
-        print('There was a problem getting the cart total value')
-        print(traceback.format_exc())
+    cart_response = session.get('https://www.shufersal.co.il/online/he/checkout/composed', cookies=myList, headers=headersTest)
+    current_price = json.loads(cart_response.text).get('directCart').get('totalPrice').get('value')
 
 
     response = requests.get('https://www.shufersal.co.il/online/he/recommendations/entry-recommendations',
@@ -417,12 +412,9 @@ def addToCartShufersal():
                              cookies=myList, data=data2)
     # responseCheck = session.get('https://www.shufersal.co.il/online/he/A')
     # doc = html.fromstring(responseCheck.content)
-    print('here')
 
     try:
-        new_cart_response = session.get('https://www.shufersal.co.il/online/he/checkout/composed', cookies=cookies, headers=headersTest)
-        print(json.loads(new_cart_response.text).get('directCart'))
-        print(new_cart_response.text)
+        new_cart_response = session.get('https://www.shufersal.co.il/online/he/checkout/composed', cookies=myList, headers=headersTest)
         updated_price = json.loads(new_cart_response.text).get('directCart').get('totalPrice').get('value')
         print(updated_price)
         print(current_price)
