@@ -385,7 +385,6 @@ def addToCartShufersal():
 
     response2 = session.post('https://www.shufersal.co.il/online/he/cart/add', headers=headers9, params=params2,
                              cookies=myList, data=data2)
-    print(response2.text)
     # responseCheck = session.get('https://www.shufersal.co.il/online/he/A')
     # doc = html.fromstring(responseCheck.content)
     print('here')
