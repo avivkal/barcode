@@ -391,7 +391,7 @@ def addToCartShufersal():
     try:
         cart_response = session.get('https://www.shufersal.co.il/online/he/checkout/costSummary/direct', cookies=myList, headers=headers)
         print(cart_response.text)
-        current_price = json.loads(cart_response.text).get('totalAmount')
+        #current_price = json.loads(cart_response.text).get('totalAmount')
     except Exception:
         print(traceback.format_exc())
 
