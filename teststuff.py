@@ -297,6 +297,36 @@ def addToCartShufersal():
         'accept-language': 'he-IL,he;q=0.9,en-US;q=0.8,en;q=0.7',
     }
 
+    cookiesTest = {
+        'blackFriday': 'inTest',
+        'XSRF-TOKEN': 'c1d6c23d-1ca8-42e0-93d4-bca552141605',
+        'JSESSIONID': '9F16B3F36DC5A18F948E1C26189EB52C',
+        'miglogstorefrontRememberMe': 'YXZpdmthbG1hbnNvbkBnbWFpbC5jb206MTY2ODYzMDg2MTExODozOTI4YmM4MDAyNjA1ZTM2NzMyYzI2YjE2YTM5N2M1ZA',
+        'TS01585391': '0135176ca7fd5a553e6a1b143df5f288e218e5175223d5fa6a4e4677487e850b80243fedbce3f5c351956fc3f36f42a737e3dd91c7722b812b16a3f670fa7358a48c9f733e5243d47f054c9a10ee30e854b613a37b5ec85e747aa5dfe971b8377570e7e4f4bd4af1f6ae0dcd1c2e0cf9655e632cb0',
+        'BIGipServerPool_LandingPages': '862786570.20480.0000',
+        '_gaexp': 'GAX1.3.cHB7yKRQSpi8dqq9SfcxqQ.19024.1!tTj0K5qjSfKoc3gZYhoelQ.19028.1!R-a5VKf6Q-e9dRQvxAjbhQ.19039.1',
+        '_gid': 'GA1.3.316455999.1637078315',
+        '_gcl_au': '1.1.556043702.1637078315',
+        'com.silverpop.iMAWebCookie': '9314980a-e059-021b-8656-56bda498de5b',
+        'ImcVisitorFlag': '1',
+        'BIGipServerPool_ShufersalDirect_Commerce_Servers_HTTP': '1600984074.20480.0000',
+        'TS01311fea': '018c1146a4152e3a59a8822903f2c76619d9cad79b1a561889699b7797a60de39bdb79e9cbf1bdfef4e61af49b371c75bcd72d13ec179fd896b229129bd6cdc939c9642dbf',
+        'TS3010e44d027': '08ee439653ab2000128794234601215bf21e7514cb670d3519b7fd2360b4895257e73a8fe96232be08123936cb113000ca1a1305824a9759d1ad8697e6ce2b505bd3a661b42e148bf20163949d71350c0c7812281cdbcd3be817111dab592a00',
+        'com.silverpop.iMA.session': 'd521749e-a912-a161-8aa7-24c711281d4c',
+        'acceleratorSecureGUID': '4e019eabeb704f95bc6325e3d5ea96a0553480a8',
+        'com.silverpop.iMA.page_visit': '-185351059:1018363036:819143684:',
+        '_gat_UA-27526974-20': '1',
+        '_gat_UA-27526974-1': '1',
+        'usfu_wPlQK1_f9JTaA3NnH24793Q%3d%3d': 'true',
+        'cto_bundle': 'rcU8rV9oeHhMQTZaQkJjYnYwRUxBVUN3RVhNRzNaWkR3UUY4dmNKSWFzZFhoYzFHclpiTCUyQlBpTzF4ejFlNEJvT2JJa0JsTGU4OEt5S0pnaG5lODhaUlJnU1ZTYlZHV3dyMk1uZGhmUGxBZEZ1WWMyU0M5N3U0MWRXMUVwc1BuWTAzOG9EdmtJeiUyRjZRVVNzVjFUTHhHWGlZSllBJTNEJTNE',
+        'outbrain_cid_fetch': 'true',
+        '_ga': 'GA1.3.997411171.1637078315',
+        '_ga_JNGKGQCSJD': 'GS1.1.1637094823.4.1.1637095972.47',
+        'AWSALB': '5Ki7O80+4FoVbh5v/CeiyczZ2M+AT2dhB7RctBwKjRyzZn7xMOOCu0y3l7qOp6eTe8ThNGcGwj98hxbRLCQlbRjdliX3X2VQp088lEHHS0pzpbgqAKt0aDaP1h9T',
+        'AWSALBCORS': '5Ki7O80+4FoVbh5v/CeiyczZ2M+AT2dhB7RctBwKjRyzZn7xMOOCu0y3l7qOp6eTe8ThNGcGwj98hxbRLCQlbRjdliX3X2VQp088lEHHS0pzpbgqAKt0aDaP1h9T',
+        'TS0176b833': '0135176ca7d6bc2bcc925d81b12a08201fef8816cbca28978eef49b09a8f69854e0a252e01b83594d8344680c47b7ba9e5372e4097924437bf608e1f2c99f7087305699df5e70f41a4319b7288557434bb84f264ce',
+    }
+
     login_details = {
         'fail_url': '/login/?error=true',
         'j_username': currentUser.get('shufersalUsername'),
@@ -306,15 +336,6 @@ def addToCartShufersal():
 
     response = session.post('https://www.shufersal.co.il/online/he/j_spring_security_check', headers=headers,
                             cookies=cookies, data=login_details)
-
-    try:
-        cart_response = session.get('https://www.shufersal.co.il/online/he/checkout/composed', cookies=cookies, headers=headersTest)
-        current_price = json.loads(cart_response.text).get('directCart').get('totalPrice').get('value')
-    except Exception:
-        current_price = 0
-        print('There was a problem getting the cart total value')
-        print(traceback.format_exc())
-
 
 
     JSESSIONID2 = session.cookies.get_dict().get('JSESSIONID')
@@ -367,6 +388,15 @@ def addToCartShufersal():
         'referer': 'https://www.shufersal.co.il/online/he/%D7%A7%D7%98%D7%92%D7%95%D7%A8%D7%99%D7%95%D7%AA/%D7%A1%D7%95%D7%A4%D7%A8%D7%9E%D7%A8%D7%A7%D7%98/%D7%A4%D7%90%D7%A8%D7%9D-%D7%95%D7%AA%D7%99%D7%A0%D7%95%D7%A7%D7%95%D7%AA/%D7%93%D7%90%D7%95%D7%93%D7%95%D7%A8%D7%A0%D7%98/%D7%93%D7%90%D7%95%D7%93%D7%95%D7%A8%D7%A0%D7%98-%D7%A1%D7%A4%D7%A8%D7%99%D7%99-%D7%92%D7%91%D7%A8/%D7%90%D7%A7%D7%A1-%D7%A1%D7%A4%D7%A8%D7%99%D7%99-%D7%92%D7%95%D7%A3-%D7%91%D7%9C%D7%90%D7%A7/p/P_8717163647226',
         'accept-language': 'he-IL,he;q=0.9,en-US;q=0.8,en;q=0.7',
     }
+
+    try:
+        cart_response = session.get('https://www.shufersal.co.il/online/he/checkout/composed', cookies=myList, headers=headersTest)
+        current_price = json.loads(cart_response.text).get('directCart').get('totalPrice').get('value')
+    except Exception:
+        current_price = 0
+        print('There was a problem getting the cart total value')
+        print(traceback.format_exc())
+
 
     response = requests.get('https://www.shufersal.co.il/online/he/recommendations/entry-recommendations',
                             headers=headers, cookies=myList)
