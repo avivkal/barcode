@@ -388,11 +388,12 @@ def addToCartShufersal():
         'referer': 'https://www.shufersal.co.il/online/he/%D7%A7%D7%98%D7%92%D7%95%D7%A8%D7%99%D7%95%D7%AA/%D7%A1%D7%95%D7%A4%D7%A8%D7%9E%D7%A8%D7%A7%D7%98/%D7%A4%D7%90%D7%A8%D7%9D-%D7%95%D7%AA%D7%99%D7%A0%D7%95%D7%A7%D7%95%D7%AA/%D7%93%D7%90%D7%95%D7%93%D7%95%D7%A8%D7%A0%D7%98/%D7%93%D7%90%D7%95%D7%93%D7%95%D7%A8%D7%A0%D7%98-%D7%A1%D7%A4%D7%A8%D7%99%D7%99-%D7%92%D7%91%D7%A8/%D7%90%D7%A7%D7%A1-%D7%A1%D7%A4%D7%A8%D7%99%D7%99-%D7%92%D7%95%D7%A3-%D7%91%D7%9C%D7%90%D7%A7/p/P_8717163647226',
         'accept-language': 'he-IL,he;q=0.9,en-US;q=0.8,en;q=0.7',
     }
-
-    cart_response = session.get('https://www.shufersal.co.il/online/he/checkout/costSummary/direct', cookies=myList, headers=headers)
-    print(cart_response.text)
-    current_price = json.loads(cart_response.text).get('totalAmount')
-
+    try:
+        cart_response = session.get('https://www.shufersal.co.il/online/he/checkout/costSummary/direct', cookies=myList, headers=headers)
+        print(cart_response.text)
+        current_price = json.loads(cart_response.text).get('totalAmount')
+    except Exception:
+        print(traceback.format_exc())
 
 
     response = requests.get('https://www.shufersal.co.il/online/he/recommendations/entry-recommendations',
