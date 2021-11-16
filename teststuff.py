@@ -288,6 +288,8 @@ def addToCartShufersal():
         'CSRFToken': XSRFTOKEN
     }
 
+    print(login_details)
+
     response = session.post('https://www.shufersal.co.il/online/he/j_spring_security_check', headers=headers,
                             cookies=cookies, data=login_details)
 
