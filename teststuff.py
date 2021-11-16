@@ -293,9 +293,11 @@ def addToCartShufersal():
 
     try:
         cart_response = session.get('https://www.shufersal.co.il/online/he/checkout/composed')
+        print(cart_response.text)
         current_price = json.loads(cart_response.text).get('directCart').get('totalPrice').get('value')
     except Exception:
         print('There was a problem getting the cart total value')
+        print(traceback.format_exc())
 
 
 
