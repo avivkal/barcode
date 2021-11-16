@@ -279,6 +279,7 @@ def addToCartShufersal():
         'sec-fetch-dest': 'document',
         'referer': 'https://www.shufersal.co.il/online/he/login',
         'accept-language': 'he-IL,he;q=0.9,en-US;q=0.8,en;q=0.7',
+        'x-requested-with': 'XMLHttpRequest'
     }
 
     login_details = {
