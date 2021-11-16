@@ -279,7 +279,22 @@ def addToCartShufersal():
         'sec-fetch-dest': 'document',
         'referer': 'https://www.shufersal.co.il/online/he/login',
         'accept-language': 'he-IL,he;q=0.9,en-US;q=0.8,en;q=0.7',
-        'x-requested-with': 'XMLHttpRequest'
+    }
+
+    headersTest = {
+        'authority': 'www.shufersal.co.il',
+        'sec-ch-ua': '"Google Chrome";v="95", "Chromium";v="95", ";Not A Brand";v="99"',
+        'accept': '*/*',
+        'content-type': 'application/json',
+        'x-requested-with': 'XMLHttpRequest',
+        'sec-ch-ua-mobile': '?0',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36',
+        'sec-ch-ua-platform': '"Windows"',
+        'sec-fetch-site': 'same-origin',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-dest': 'empty',
+        'referer': 'https://www.shufersal.co.il/online/he/miglog-checkout',
+        'accept-language': 'he-IL,he;q=0.9,en-US;q=0.8,en;q=0.7',
     }
 
     login_details = {
@@ -293,7 +308,7 @@ def addToCartShufersal():
                             cookies=cookies, data=login_details)
 
     try:
-        cart_response = session.get('https://www.shufersal.co.il/online/he/checkout/composed', cookies=cookies, headers=headers)
+        cart_response = session.get('https://www.shufersal.co.il/online/he/checkout/composed', cookies=cookies, headers=headersTest)
         current_price = json.loads(cart_response.text).get('directCart').get('totalPrice').get('value')
     except Exception:
         current_price = 0
@@ -376,7 +391,7 @@ def addToCartShufersal():
     print('here')
 
     try:
-        new_cart_response = session.get('https://www.shufersal.co.il/online/he/checkout/composed', cookies=cookies, headers=headers)
+        new_cart_response = session.get('https://www.shufersal.co.il/online/he/checkout/composed', cookies=cookies, headers=headersTest)
         print(json.loads(new_cart_response.text).get('directCart'))
         print(new_cart_response.text)
         updated_price = json.loads(new_cart_response.text).get('directCart').get('totalPrice').get('value')
