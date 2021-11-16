@@ -292,7 +292,7 @@ def addToCartShufersal():
                             cookies=cookies, data=login_details)
 
     try:
-        cart_response = session.get('https://www.shufersal.co.il/online/he/checkout/composed', cookies=cookies)
+        cart_response = session.get('https://www.shufersal.co.il/online/he/checkout/composed', cookies=cookies, headers=headers)
         print(json.loads(cart_response.text).get('directCart'))
         print(json.loads(cart_response.text).get('directCart').get('totalPrice'))
         print(json.loads(cart_response.text).get('directCart').get('totalPrice').get('value'))
