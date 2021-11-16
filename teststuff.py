@@ -293,7 +293,6 @@ def addToCartShufersal():
 
     try:
         cart_response = session.get('https://www.shufersal.co.il/online/he/checkout/composed')
-        print(json.loads(cart_response.text))
         print(json.loads(cart_response.text).get('directCart'))
         print(json.loads(cart_response.text).get('directCart').get('totalPrice'))
         print(json.loads(cart_response.text).get('directCart').get('totalPrice').get('value'))
