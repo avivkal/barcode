@@ -252,6 +252,7 @@ def addToCartShufersal():
         croppedBarcode = barcode[6:]
 
     session = requests.Session()
+    print('here')
 
     authenticationResponse = session.get('https://www.shufersal.co.il/online/he/A')
     JSESSIONID = authenticationResponse.cookies.get_dict().get('JSESSIONID')
@@ -337,6 +338,7 @@ def addToCartShufersal():
     response = session.post('https://www.shufersal.co.il/online/he/j_spring_security_check', headers=headers,
                             cookies=cookies, data=login_details)
 
+    print('here')
 
     JSESSIONID2 = session.cookies.get_dict().get('JSESSIONID')
     XSRFTOKEN2 = session.cookies.get_dict().get('XSRF-TOKEN')
@@ -392,6 +394,7 @@ def addToCartShufersal():
     cart_response = session.get('https://www.shufersal.co.il/online/he/checkout/composed', cookies=myList, headers=headersTest)
     current_price = json.loads(cart_response.text).get('directCart').get('totalPrice').get('value')
 
+    print('here')
 
     response = requests.get('https://www.shufersal.co.il/online/he/recommendations/entry-recommendations',
                             headers=headers, cookies=myList)
@@ -412,6 +415,7 @@ def addToCartShufersal():
                              cookies=myList, data=data2)
     # responseCheck = session.get('https://www.shufersal.co.il/online/he/A')
     # doc = html.fromstring(responseCheck.content)
+    print('here')
 
     try:
         new_cart_response = session.get('https://www.shufersal.co.il/online/he/checkout/composed', cookies=myList, headers=headersTest)
