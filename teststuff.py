@@ -288,19 +288,14 @@ def addToCartShufersal():
         'CSRFToken': XSRFTOKEN
     }
 
-    print(login_details)
-
     response = session.post('https://www.shufersal.co.il/online/he/j_spring_security_check', headers=headers,
                             cookies=cookies, data=login_details)
 
     try:
         cart_response = session.get('https://www.shufersal.co.il/online/he/checkout/composed', cookies=cookies, headers=headers)
-        print(json.loads(cart_response.text).get('directCart'))
-        print(json.loads(cart_response.text).get('directCart').get('totalPrice'))
-        print(json.loads(cart_response.text).get('directCart').get('totalPrice').get('value'))
-
         current_price = json.loads(cart_response.text).get('directCart').get('totalPrice').get('value')
     except Exception:
+        current_price = 0
         print('There was a problem getting the cart total value')
         print(traceback.format_exc())
 
