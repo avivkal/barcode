@@ -375,8 +375,10 @@ def addToCartShufersal():
     print('here')
 
     try:
-        new_cart_response = session.get('https://www.shufersal.co.il/online/he/checkout/composed')
+        new_cart_response = session.get('https://www.shufersal.co.il/online/he/checkout/composed', cookies=cookies, headers=headers)
         updated_price = json.loads(new_cart_response.text).get('directCart').get('totalPrice').get('value')
+        print(updated_price)
+        print(current_price)
         if updated_price != current_price:
             print("Product was added to your cart")
             current_price = updated_price
