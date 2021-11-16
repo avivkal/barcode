@@ -391,6 +391,7 @@ def addToCartShufersal():
 
     try:
         cart_response = session.get('https://www.shufersal.co.il/online/he/checkout/composed', cookies=myList, headers=headersTest)
+        print(cart_response.text)
         current_price = json.loads(cart_response.text).get('directCart').get('totalPrice').get('value')
     except Exception:
         current_price = 0
@@ -421,6 +422,7 @@ def addToCartShufersal():
 
     try:
         new_cart_response = session.get('https://www.shufersal.co.il/online/he/checkout/composed', cookies=myList, headers=headersTest)
+        print(new_cart_response.text)
         updated_price = json.loads(new_cart_response.text).get('directCart').get('totalPrice').get('value')
         print(updated_price)
         print(current_price)
