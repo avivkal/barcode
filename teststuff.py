@@ -302,8 +302,8 @@ def addToCartShufersal():
     myList["XSRF-TOKEN"] = XSRFTOKEN2
     myList["JSESSIONID"] = JSESSIONID2
     myList["miglog-cart"] = '20b6b657-d481-4991-b431-c0f6876b49f8'
-
-    print(login_response.cookies.get_dict())
+    combined = login_response.cookies.get_dict() | session.cookies.get_dict()
+    print(combined)
     print(type(myList))
     headers9 = {
         'authority': 'www.shufersal.co.il',
@@ -341,7 +341,7 @@ def addToCartShufersal():
     }
 
     response = requests.get('https://www.shufersal.co.il/online/he/recommendations/entry-recommendations',
-                            headers=headers, cookies=login_response.cookies.get_dict())
+                            headers=headers, cookies=combined)
     print(response.text)
     amount = 1
     old_products_cart_quantity = 0
@@ -358,11 +358,11 @@ def addToCartShufersal():
     data2 = '{"productCodePost":"P_' + croppedBarcode + '","productCode":"P_' + croppedBarcode + '","sellingMethod":"BY_UNIT","qty":"' + strAmount + '","frontQuantity":"' + strAmount + '","comment":"","affiliateCode":""}'
 
     session.post('https://www.shufersal.co.il/online/he/cart/add', headers=headers9, params=params2,
-                             cookies=login_response.cookies.get_dict(), data=data2)
+                             cookies=combined, data=data2)
 
     try:
         response = requests.get('https://www.shufersal.co.il/online/he/recommendations/entry-recommendations',
-                                headers=headers, cookies=login_response.cookies.get_dict())
+                                headers=headers, cookies=combined)
         print(response.text)
         new_products_cart_quantity = 0
         cart_products = json.loads(response.text)
@@ -373,7 +373,7 @@ def addToCartShufersal():
         print(old_products_cart_quantity)
         print(new_products_cart_quantity)
 
-        session.get('https://www.shufersal.co.il/online/he/logout?redirect_url=/A', headers=headers, cookies=login_response.cookies.get_dict())
+        session.get('https://www.shufersal.co.il/online/he/logout?redirect_url=/A', headers=headers, cookies=combined)
         if old_products_cart_quantity != new_products_cart_quantity:
             print("Product was added to your cart")
             # current_price = updated_price
