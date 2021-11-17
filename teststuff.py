@@ -373,7 +373,7 @@ def addToCartRami():
 
         if not found:
             print('not found')
-            items[id] = 1
+            items[id] = 1.00
 
         for key, value in items.items():
             items[key] = str(value)
