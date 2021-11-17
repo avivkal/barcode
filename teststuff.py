@@ -366,7 +366,6 @@ def addToCartRami():
         for item in items:
             print("item")
             print(item)
-            print(item[item])
             if item == str(id):
                 items[item] = items[item] + 1
                 found = True
