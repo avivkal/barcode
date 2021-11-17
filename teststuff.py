@@ -235,6 +235,7 @@ def addToCartRami():
         playMusic('addedList')
         addProductToDB(barcodes_array[0], False)
 
+
 def crop_barcode(barcode):
     if (barcode.startswith('72900000')):
         return barcode[8:]
@@ -243,6 +244,7 @@ def crop_barcode(barcode):
     elif (barcode.startswith('729000')):
         return barcode[6:]
     return barcode
+
 
 def addToCartShufersal():
     barcode = barcodes_array[0]
@@ -293,7 +295,7 @@ def addToCartShufersal():
     }
 
     login_response = session.post('https://www.shufersal.co.il/online/he/j_spring_security_check', headers=headers,
-                            cookies=authenticationResponse.cookies.get_dict(), data=login_details)
+                                  cookies=authenticationResponse.cookies.get_dict(), data=login_details)
 
     session_cookies = {**login_response.cookies.get_dict(), **session.cookies.get_dict()}
     headers9 = {
@@ -344,12 +346,12 @@ def addToCartShufersal():
             amount = int(product.get('cartyQty')) + 1
             print(amount)
             # might wanna add a return statement - Be Careful it might ruin
-            
+
     str_amount = str(amount)
     shufersal_product_data = '{"productCodePost":"P_' + croppedBarcode + '","productCode":"P_' + croppedBarcode + '","sellingMethod":"BY_UNIT","qty":"' + str_amount + '","frontQuantity":"' + str_amount + '","comment":"","affiliateCode":""}'
 
     session.post('https://www.shufersal.co.il/online/he/cart/add', headers=headers9, params=params,
-                             cookies=session_cookies, data=shufersal_product_data)
+                 cookies=session_cookies, data=shufersal_product_data)
 
     try:
         response = requests.get('https://www.shufersal.co.il/online/he/recommendations/entry-recommendations',
@@ -364,7 +366,8 @@ def addToCartShufersal():
         print(old_products_cart_quantity)
         print(new_products_cart_quantity)
 
-        session.get('https://www.shufersal.co.il/online/he/logout?redirect_url=/A', headers=headers, cookies=session_cookies)
+        session.get('https://www.shufersal.co.il/online/he/logout?redirect_url=/A', headers=headers,
+                    cookies=session_cookies)
         if old_products_cart_quantity != new_products_cart_quantity:
             print("Product was added to your cart")
             # current_price = updated_price
@@ -387,7 +390,7 @@ def addProductToDB(barcode, added):
     image = ''
     name = ''
     croppedBarcode = crop_barcode(barcode)
-    
+
     # if (barcode.startswith('72900000')):
     #     croppedBarcode = barcode[8:]
     # elif (barcode.startswith('7290000')):
@@ -395,7 +398,8 @@ def addProductToDB(barcode, added):
     # elif (barcode.startswith('729000')):
     #     croppedBarcode = barcode[6:]
     try:
-        shufersal_search_response = requests.get('https://www.shufersal.co.il/online/he/search/results?q={}'.format(croppedBarcode))
+        shufersal_search_response = requests.get(
+            'https://www.shufersal.co.il/online/he/search/results?q={}'.format(croppedBarcode))
         shufersal_price = json.loads(shufersal_search_response.text).get('results')[0].get('price').get('value')
     except:
         print('shufersal not found')
@@ -419,7 +423,8 @@ def addProductToDB(barcode, added):
     }
 
     try:
-        rami_levy_search_response = requests.get('https://www.rami-levy.co.il/api/search?q=' + barcode + '&store=331', headers=headers9)
+        rami_levy_search_response = requests.get('https://www.rami-levy.co.il/api/search?q=' + barcode + '&store=331',
+                                                 headers=headers9)
         rami_levy_price = json.loads(rami_levy_search_response.text).get('data')[0].get('price').get('price')
     except:
         print('rami levy not found')
@@ -431,11 +436,12 @@ def addProductToDB(barcode, added):
     except:
         print('name/image not found')
     save_data_to_db_response = requests.post('https://scanly.net/api/products/addData',
-                                     cookies={'token': currentUser.get('token')},
-                                     data={"email": currentUser.get('email'), "selection": currentUser.get('selection'),
-                                           "barcode": barcode, "creationDate": datetime.datetime.now(),
-                                           "added": str(added), "shufersalPrice": shufersal_price,
-                                           "ramiLevyPrice": rami_levy_price, "image": image, "name": name})
+                                             cookies={'token': currentUser.get('token')},
+                                             data={"email": currentUser.get('email'),
+                                                   "selection": currentUser.get('selection'),
+                                                   "barcode": barcode, "creationDate": datetime.datetime.now(),
+                                                   "added": str(added), "shufersalPrice": shufersal_price,
+                                                   "ramiLevyPrice": rami_levy_price, "image": image, "name": name})
     print(save_data_to_db_response)
 
 
@@ -449,7 +455,8 @@ def wait_for_input():
 
 if __name__ == '__main__':
     try:
-        device_login_response = requests.post('https://scanly.net/api/login/idValidation', data={"deviceID": getserial()})
+        device_login_response = requests.post('https://scanly.net/api/login/idValidation',
+                                              data={"deviceID": getserial()})
         currentUser = json.loads(device_login_response.text)
         currentUser["token"] = device_login_response.cookies.get_dict().get('token')
         input_thread = threading.Thread(target=wait_for_input).start()
@@ -458,7 +465,7 @@ if __name__ == '__main__':
             playMusic('shufersal', True)
         elif currentUser.get('selection') == 'Rami Levy':
             playMusic('rami', True)
-        #add other sounds for new supermarkets
+        # add other sounds for new supermarkets
         add_to_cart_thread = threading.Thread(target=add_to_cart_loop).start()
     except Exception:
         logError()
