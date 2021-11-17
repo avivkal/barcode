@@ -353,8 +353,8 @@ def addToCartRami():
         for product in json_data.get('data'):
             if str(product.get('barcode')) == str(barcodes_array[0]):
                 print(product)
-                print(id)
                 id = product.get('id')
+                print(id)
 
         if id == "":
             raise Exception("Sorry, product was not found")
@@ -380,6 +380,9 @@ def addToCartRami():
         myDict["is_club"] = 0
         myDict['items'] = items
 
+        print(items)
+
+        print(myDict)
         # add the item
         headers3 = {
             'authority': 'api-prod.rami-levy.co.il',
