@@ -303,7 +303,7 @@ def addToCartShufersal():
     myList["JSESSIONID"] = JSESSIONID2
     myList["miglog-cart"] = '20b6b657-d481-4991-b431-c0f6876b49f8'
 
-    print(myList)
+    print(login_response.cookies.get_dict())
     print(type(myList))
     headers9 = {
         'authority': 'www.shufersal.co.il',
