@@ -388,25 +388,27 @@ def addToCartShufersal():
         'referer': 'https://www.shufersal.co.il/online/he/%D7%A7%D7%98%D7%92%D7%95%D7%A8%D7%99%D7%95%D7%AA/%D7%A1%D7%95%D7%A4%D7%A8%D7%9E%D7%A8%D7%A7%D7%98/%D7%A4%D7%90%D7%A8%D7%9D-%D7%95%D7%AA%D7%99%D7%A0%D7%95%D7%A7%D7%95%D7%AA/%D7%93%D7%90%D7%95%D7%93%D7%95%D7%A8%D7%A0%D7%98/%D7%93%D7%90%D7%95%D7%93%D7%95%D7%A8%D7%A0%D7%98-%D7%A1%D7%A4%D7%A8%D7%99%D7%99-%D7%92%D7%91%D7%A8/%D7%90%D7%A7%D7%A1-%D7%A1%D7%A4%D7%A8%D7%99%D7%99-%D7%92%D7%95%D7%A3-%D7%91%D7%9C%D7%90%D7%A7/p/P_8717163647226',
         'accept-language': 'he-IL,he;q=0.9,en-US;q=0.8,en;q=0.7',
     }
-    try:
-        cart_response = session.get('https://www.shufersal.co.il/online/he/checkout/costSummary/direct', cookies=myList, headers=headers)
-        print(cart_response.text)
-        #current_price = json.loads(cart_response.text).get('totalAmount')
-    except Exception:
-        print(traceback.format_exc())
+    # try:
+    #     cart_response = session.get('https://www.shufersal.co.il/online/he/checkout/costSummary/direct', cookies=myList, headers=headers)
+    #     print(cart_response.text)
+    #     #current_price = json.loads(cart_response.text).get('totalAmount')
+    # except Exception:
+    #     print(traceback.format_exc())
 
 
     response = requests.get('https://www.shufersal.co.il/online/he/recommendations/entry-recommendations',
                             headers=headers, cookies=myList)
     print(response.text)
     amount = 1
+    old_products_cart_quantity = 0
     cart_products = json.loads(response.text)
     for product in cart_products:
-        print(product)
+        old_products_cart_quantity += product.get('cartyQty')
+        print(old_products_cart_quantity)
         if str(product.get('productCode')) == "P_" + str(croppedBarcode):
             amount = int(product.get('cartyQty')) + 1
             print(amount)
-            # might wanna add a return statement
+            # might wanna add a return statement - Be Careful it might ruin
     strAmount = str(amount)
 
     data2 = '{"productCodePost":"P_' + croppedBarcode + '","productCode":"P_' + croppedBarcode + '","sellingMethod":"BY_UNIT","qty":"' + strAmount + '","frontQuantity":"' + strAmount + '","comment":"","affiliateCode":""}'
@@ -418,14 +420,26 @@ def addToCartShufersal():
     print('here')
 
     try:
-        new_cart_response = session.get('https://www.shufersal.co.il/online/he/checkout/costSummary/direct', headers=headers, cookies=myList)
-        print(new_cart_response.text)
-        updated_price = json.loads(new_cart_response.text).get('totalAmount')
-        print(updated_price)
-        print(current_price)
-        if updated_price != current_price:
+        # new_cart_response = session.get('https://www.shufersal.co.il/online/he/checkout/costSummary/direct', headers=headers, cookies=myList)
+        # print(new_cart_response.text)
+        # updated_price = json.loads(new_cart_response.text).get('totalAmount')
+        # print(updated_price)
+        # print(current_price)
+        response = requests.get('https://www.shufersal.co.il/online/he/recommendations/entry-recommendations',
+                                headers=headers, cookies=myList)
+        print(response.text)
+        new_products_cart_quantity = 0
+        cart_products = json.loads(response.text)
+        for product in cart_products:
+            new_products_cart_quantity += product.get('cartyQty')
+            print(new_products_cart_quantity)
+
+        print(old_products_cart_quantity)
+        print(new_products_cart_quantity)
+
+        if old_products_cart_quantity != new_products_cart_quantity:
             print("Product was added to your cart")
-            current_price = updated_price
+            # current_price = updated_price
             playMusic('added')
             addProductToDB(barcode, True)
         else:
