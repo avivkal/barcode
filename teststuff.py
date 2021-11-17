@@ -317,10 +317,10 @@ def addToCartShufersal():
         'accept-language': 'he-IL,he;q=0.9,en-US;q=0.8,en;q=0.7',
     }
 
-    params2 = (
-        ('cartContext[openFrom]', 'PROMOTION'),
-        ('cartContext[recommendationType]', 'REGULAR'),
-    )
+    # params2 = (
+    #     ('cartContext[openFrom]', 'PROMOTION'),
+    #     ('cartContext[recommendationType]', 'REGULAR'),
+    # )
 
     headers = {
         'authority': 'www.shufersal.co.il',
@@ -353,7 +353,7 @@ def addToCartShufersal():
 
     data2 = '{"productCodePost":"P_' + croppedBarcode + '","productCode":"P_' + croppedBarcode + '","sellingMethod":"BY_UNIT","qty":"' + strAmount + '","frontQuantity":"' + strAmount + '","comment":"","affiliateCode":""}'
 
-    response2 = session.post('https://www.shufersal.co.il/online/he/cart/add', headers=headers9, params=params2,
+    response2 = session.post('https://www.shufersal.co.il/online/he/cart/add', headers=headers9,
                              cookies=myList, data=data2)
     print('here')
 
