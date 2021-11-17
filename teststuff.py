@@ -302,7 +302,7 @@ def addToCartShufersal():
     myList["XSRF-TOKEN"] = XSRFTOKEN2
     myList["JSESSIONID"] = JSESSIONID2
     myList["miglog-cart"] = '20b6b657-d481-4991-b431-c0f6876b49f8'
-    combined = login_response.cookies.get_dict() | session.cookies.get_dict()
+    combined = {**login_response.cookies.get_dict(), **session.cookies.get_dict()}
     print(combined)
     print(type(myList))
     headers9 = {
