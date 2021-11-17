@@ -252,7 +252,7 @@ def addToCartShufersal():
     XSRFTOKEN = authenticationResponse.cookies.get_dict().get('XSRF-TOKEN')
 
     cookies = {
-        'miglog-cart': '20b6b657-d481-4991-b431-c0f6876b49f8',
+        'miglogstorefrontRememberMe': 'YXZpdmthbG1hbnNvbkBnbWFpbC5jb206MTY2ODY4Mzg4NTQyMjphNjlkMzM4OTUwYjdhMjY2NTNkZjlmMGQ4M2UzNjRiZQ',
         'XSRF-TOKEN': XSRFTOKEN,
         'JSESSIONID': JSESSIONID,
     }
@@ -301,7 +301,7 @@ def addToCartShufersal():
 
     myList["XSRF-TOKEN"] = XSRFTOKEN2
     myList["JSESSIONID"] = JSESSIONID2
-    myList["miglog-cart"] = '20b6b657-d481-4991-b431-c0f6876b49f8'
+    myList["miglogstorefrontRememberMe"] = 'YXZpdmthbG1hbnNvbkBnbWFpbC5jb206MTY2ODY4Mzg4NTQyMjphNjlkMzM4OTUwYjdhMjY2NTNkZjlmMGQ4M2UzNjRiZQ'
 
     print(myList)
     print(type(response.cookies.get_dict()))
