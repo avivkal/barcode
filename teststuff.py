@@ -402,6 +402,7 @@ def addToCartRami():
         addProductToDB(barcodes_array[0], True)
     except:
         print('could not add to cart')
+        print(traceback.format_exc())
         playMusic('addedList')
         addProductToDB(barcodes_array[0], False)
 
