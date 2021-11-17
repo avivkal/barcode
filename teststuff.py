@@ -388,13 +388,6 @@ def addToCartShufersal():
         'referer': 'https://www.shufersal.co.il/online/he/%D7%A7%D7%98%D7%92%D7%95%D7%A8%D7%99%D7%95%D7%AA/%D7%A1%D7%95%D7%A4%D7%A8%D7%9E%D7%A8%D7%A7%D7%98/%D7%A4%D7%90%D7%A8%D7%9D-%D7%95%D7%AA%D7%99%D7%A0%D7%95%D7%A7%D7%95%D7%AA/%D7%93%D7%90%D7%95%D7%93%D7%95%D7%A8%D7%A0%D7%98/%D7%93%D7%90%D7%95%D7%93%D7%95%D7%A8%D7%A0%D7%98-%D7%A1%D7%A4%D7%A8%D7%99%D7%99-%D7%92%D7%91%D7%A8/%D7%90%D7%A7%D7%A1-%D7%A1%D7%A4%D7%A8%D7%99%D7%99-%D7%92%D7%95%D7%A3-%D7%91%D7%9C%D7%90%D7%A7/p/P_8717163647226',
         'accept-language': 'he-IL,he;q=0.9,en-US;q=0.8,en;q=0.7',
     }
-    # try:
-    #     cart_response = session.get('https://www.shufersal.co.il/online/he/checkout/costSummary/direct', cookies=myList, headers=headers)
-    #     print(cart_response.text)
-    #     #current_price = json.loads(cart_response.text).get('totalAmount')
-    # except Exception:
-    #     print(traceback.format_exc())
-
 
     response = requests.get('https://www.shufersal.co.il/online/he/recommendations/entry-recommendations',
                             headers=headers, cookies=myList)
@@ -415,16 +408,9 @@ def addToCartShufersal():
 
     response2 = session.post('https://www.shufersal.co.il/online/he/cart/add', headers=headers9, params=params2,
                              cookies=myList, data=data2)
-    # responseCheck = session.get('https://www.shufersal.co.il/online/he/A')
-    # doc = html.fromstring(responseCheck.content)
     print('here')
 
     try:
-        # new_cart_response = session.get('https://www.shufersal.co.il/online/he/checkout/costSummary/direct', headers=headers, cookies=myList)
-        # print(new_cart_response.text)
-        # updated_price = json.loads(new_cart_response.text).get('totalAmount')
-        # print(updated_price)
-        # print(current_price)
         response = requests.get('https://www.shufersal.co.il/online/he/recommendations/entry-recommendations',
                                 headers=headers, cookies=myList)
         print(response.text)
@@ -488,13 +474,9 @@ def addProductToDB(barcode, added):
         'accept-language': 'he-IL,he;q=0.9,en-US;q=0.8,en;q=0.7',
         'cookie': 'visid_incap_2021397=nYC3WoN+QvionmgCV/KAuv7Ujl8AAAAAQUIPAAAAAAAWVrDAqj4FIiHmqWNHAXS4; i18n_redirected=he; _ga=GA1.3.652806923.1603196161; visid_incap_2256378=uy5pV0DkRWmN9TDryS1KRQjVjl8AAAAAQUIPAAAAAABvCCZmFxadU5djeOszvRh5; reese84=3:WaqpGFdm3jgYolW4kfPvqQ==:aOidVe3pgJqok3ziQypZq5XGr1jNlDHhXVcrj/UtmEP1YK5scz8DS5SuBJWebq5aUAciBTdZ03ssqHzQMqi/G3tppVyIb1bMn7bZA6qBYLJucdXf2kAZcBjcdICDjVtRUC22KdmTg0VKKMusFS42vk1+X0j3otcu6qlFk1P6FfYOqIu+w0pCGahCRFD2pJk3qPI5x+DzbyUwBH53Mu99gw+eeJk+xEzFCwnoMbdCVFfaKsDAGozqTITUi856ChPskhU8Ovs9AugnQA/7xVu3mKc8xS4YM9IEBZdekQlJlKuGPPItDvUDYBoeVVEexNi2nKc/5bcpueS7Zx0uNz0OPeSyjBarRtFtQypXpKJjjOj4m5duoJiT37pqzjtnJPk4f2liaYFb63FJa9m/Z37fhAve4GDUHePnEDtRpTZimyfcBum7aZd088s8dUELsMAZNN/cH+OvceMMtGJcA5rA7Q==:sbhOCwCaZ7+S+y5BWD44AsNPlwxYg4tstQ3bjra4/kQ=; _gid=GA1.3.618706417.1607465195; auth.strategy=local; _gat=1',
     }
-    dataDict = mydict()
-    dataDict["q"] = barcode
-    dataDict["store"] = 331
-    dataDict["sort"] = "relevant"
-    dataDict["aggs"] = 1
+
     try:
-        rami_levy_search_response = requests.post('https://www.rami-levy.co.il/api/catalog', headers=headers9, data=str(dataDict))
+        rami_levy_search_response = requests.get('https://www.rami-levy.co.il/api/search?q=' + barcode + '&store=331', headers=headers9)
         rami_levy_price = json.loads(rami_levy_search_response.text).get('data')[0].get('price').get('price')
     except:
         print('rami levy not found')
@@ -533,6 +515,7 @@ if __name__ == '__main__':
             playMusic('shufersal', True)
         elif currentUser.get('selection') == 'Rami Levy':
             playMusic('rami', True)
+        #add other sounds for new supermarkets
         add_to_cart_thread = threading.Thread(target=add_to_cart_loop).start()
     except Exception:
         logError()
