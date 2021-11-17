@@ -4,17 +4,11 @@ import threading
 import os
 import socket
 import pygame
-import re
 import json
-from lxml import html
-import pymongo
 import datetime
-from bs4 import BeautifulSoup
 import traceback
 import pyqrcode
 
-# userEmail = ""
-# userPassword = ""
 current_price = 0
 currentUser = ""
 
@@ -258,7 +252,7 @@ def addToCartShufersal():
     XSRFTOKEN = authenticationResponse.cookies.get_dict().get('XSRF-TOKEN')
 
     cookies = {
-        'miglog-cart': '20b6b657-d481-4991-b431-c0f6876b49f8',
+        # 'miglog-cart': '20b6b657-d481-4991-b431-c0f6876b49f8',
         'XSRF-TOKEN': XSRFTOKEN,
         'JSESSIONID': JSESSIONID,
     }
