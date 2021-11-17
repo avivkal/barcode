@@ -360,6 +360,8 @@ def addToCartRami():
             raise Exception("Sorry, product was not found")
 
         found = False
+        print("itemsss")
+        print(items)
 
         for item in items:
             print("item")
