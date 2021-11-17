@@ -11,6 +11,162 @@ import pyqrcode
 
 current_price = 0
 currentUser = ""
+supermarketURLS = ""
+
+def getHeadersBySupermarketName(supermarketName, token=""):
+    supermarkets_data = '''[
+    {
+        "supermarketName": "Shufersal",
+        "headers": [{
+            'authority': 'www.shufersal.co.il',
+            'cache-control': 'max-age=0',
+            'sec-ch-ua': '"Chromium";v="86", "\\"Not\\\\A;Brand";v="99", "Google Chrome";v="86"',
+            'sec-ch-ua-mobile': '?0',
+            'upgrade-insecure-requests': '1',
+            'origin': 'https://www.shufersal.co.il',
+            'content-type': 'application/x-www-form-urlencoded',
+            'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36',
+            'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+            'sec-fetch-site': 'same-origin',
+            'sec-fetch-mode': 'navigate',
+            'sec-fetch-user': '?1',
+            'sec-fetch-dest': 'document',
+            'referer': 'https://www.shufersal.co.il/online/he/login',
+            'accept-language': 'he-IL,he;q=0.9,en-US;q=0.8,en;q=0.7'
+        },
+        {
+            'authority': 'www.shufersal.co.il',
+            'sec-ch-ua': '"Chromium";v="86", "\\"Not\\\\A;Brand";v="99", "Google Chrome";v="86"',
+            'accept': '*/*',
+            'csrftoken': \'''' + token + '''\',
+            'x-requested-with': 'XMLHttpRequest',
+            'sec-ch-ua-mobile': '?0',
+            'user-agent': 'Mozill   a/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36',
+            'content-type': 'application/json',
+            'origin': 'https://www.shufersal.co.il',
+            'sec-fetch-site': 'same-origin',
+            'sec-fetch-mode': 'cors',
+            'sec-fetch-dest': 'empty',
+            'accept-language': 'he-IL,he;q=0.9,en-US;q=0.8,en;q=0.7',
+        }]
+    },
+    {
+        "supermarketName": "Yeinot Bitan",
+        "headers": {
+            "authority": "www.ybitan.co.il",
+            "content-type": "application/json;charset=UTF-8",
+            "accept": "application/json, text/plain, */*",
+            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36",
+            "x-http-method-override": "PATCH",
+            "origin": "https://www.ybitan.co.il",
+            "authorization": "Bearer ''' + token + '''"
+        }
+    },
+    {
+        "supermarketName": "Keshet Teamim",
+        "headers": {
+            "authority": "www.keshet-teamim.co.il",
+            "content-type": "application/json;charset=UTF-8",
+            "accept": "application/json, text/plain, */*",
+            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36",
+            "x-http-method-override": "PATCH",
+            "origin": "https://www.keshet-teamim.co.il",
+            "authorization": "Bearer ''' + token + '''"
+        }
+    },
+    {
+        "supermarketName": "Machsanei HaShuk",
+        "headers": {
+            "authority": "www.mck.co.il",
+            "content-type": "application/json;charset=UTF-8",
+            "accept": "application/json, text/plain, */*",
+            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36",
+            "x-http-method-override": "PATCH",
+            "origin": "https://www.mck.co.il",
+            "authorization": "Bearer ''' + token + '''"
+        }
+    },
+    {
+        "supermarketName": "Mega",
+        "headers": {
+            "authority": "www.mega.co.il",
+            "content-type": "application/json;charset=UTF-8",
+            "accept": "application/json, text/plain, */*",
+            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36",
+            "x-http-method-override": "PATCH",
+            "origin": "https://www.mega.co.il",
+            "authorization": "Bearer ''' + token + '''"
+        }
+    },
+    {
+        "supermarketName": "AMPM",
+        "headers": {
+            "authority": "www.ampm.co.il",
+            "content-type": "application/json;charset=UTF-8",
+            "accept": "application/json, text/plain, */*",
+            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36",
+            "x-http-method-override": "PATCH",
+            "origin": "https://www.ampm.co.il",
+            "authorization": "Bearer ''' + token + '''"
+        }
+    }
+    ]'''
+
+    for supermarket in json.loads(supermarkets_data):
+        if supermarket.get('supermarketName') == supermarketName:
+            return supermarket.get('headers')
+
+
+def base_url_by_supermarket(supermarketName):
+    supermarketsData = '''[
+        {
+            "supermarketName": "Shufersal",
+            "baseURL": "https://www.shufersal.co.il/online/he/A",
+            "loginBaseURL": "https://www.shufersal.co.il/online/he/j_spring_security_check",
+            "productSearchURL": "https://www.shufersal.co.il/online/he/search/results?q=",
+            "currentCartURL": "https://www.shufersal.co.il/online/he/recommendations/entry-recommendations",
+            "addProductURL": "https://www.shufersal.co.il/online/he/cart/add"
+        },
+        {
+            "supermarketName": "Yeinot Bitan",
+            "loginBaseURL": "https://www.ybitan.co.il/retailers/1131/",
+            "productSearchURL": "https://www.ybitan.co.il/v2/retailers/1131/branches/1973/products/",
+            "currentCartURL": "https://www.ybitan.co.il/v2/retailers/1131/branches/1973/",
+            "addProductURL": "https://www.ybitan.co.il/v2/retailers/1131/branches/1973/"
+        },
+        {
+            "supermarketName": "Keshet Teamim",
+            "loginBaseURL": "https://www.keshet-teamim.co.il/retailers/1219/",
+            "productSearchURL": "https://www.keshet-teamim.co.il/v2/retailers/1219/branches/1437/products/",
+            "currentCartURL": "https://www.keshet-teamim.co.il/v2/retailers/1219/branches/1437/",
+            "addProductURL": "https://www.keshet-teamim.co.il/v2/retailers/1219/branches/1437/"
+        },
+         {
+            "supermarketName": "Machsanei HaShuk",
+            "loginBaseURL": "https://www.mck.co.il/retailers/1107/",
+            "productSearchURL": "https://www.mck.co.il/v2/retailers/1107/branches/836/products/",
+            "currentCartURL": "https://www.mck.co.il/v2/retailers/1107/branches/836/",
+            "addProductURL": "https://www.mck.co.il/v2/retailers/1107/branches/836/"
+        },
+        {
+            "supermarketName": "Mega",
+            "loginBaseURL": "https://www.mega.co.il/retailers/1182/",
+            "productSearchURL": "https://www.mega.co.il/v2/retailers/1182/branches/1357/products/",
+            "currentCartURL": "https://www.mega.co.il/v2/retailers/1182/branches/1357/",
+            "addProductURL": "https://www.mega.co.il/v2/retailers/1182/branches/1357/"
+        },
+         {
+            "supermarketName": "AMPM",
+            "loginBaseURL": "https://www.ampm.co.il/retailers/2/",
+            "productSearchURL": "https://www.ampm.co.il/v2/retailers/2/branches/2064/products/",
+            "currentCartURL": "https://www.ampm.co.il/v2/retailers/2/branches/2064/",
+            "addProductURL": "https://www.ampm.co.il/v2/retailers/2/branches/2064/"
+        }
+    ]'''
+
+    for supermarket in json.loads(supermarketsData):
+        if supermarket.get('supermarketName') == supermarketName:
+            return supermarket
 
 
 class mydict(dict):
@@ -248,18 +404,11 @@ def crop_barcode(barcode):
 
 def addToCartShufersal():
     barcode = barcodes_array[0]
-    # croppedBarcode = barcodes_array[0]
-    # if (barcode.startswith('72900000')):
-    #     croppedBarcode = barcode[8:]
-    # elif (barcode.startswith('7290000')):
-    #     croppedBarcode = barcode[7:]
-    # elif (barcode.startswith('729000')):
-    #     croppedBarcode = barcode[6:]
     croppedBarcode = crop_barcode(barcode)
 
     session = requests.Session()
 
-    authenticationResponse = session.get('https://www.shufersal.co.il/online/he/A')
+    authenticationResponse = session.get(supermarketURLS.get('baseURL'))
     JSESSIONID = authenticationResponse.cookies.get_dict().get('JSESSIONID')
     XSRFTOKEN = authenticationResponse.cookies.get_dict().get('XSRF-TOKEN')
 
@@ -294,7 +443,7 @@ def addToCartShufersal():
         'CSRFToken': XSRFTOKEN
     }
 
-    login_response = session.post('https://www.shufersal.co.il/online/he/j_spring_security_check', headers=headers,
+    login_response = session.post(supermarketURLS.get('loginBaseURL'), headers=headers,
                                   cookies=authenticationResponse.cookies.get_dict(), data=login_details)
 
     session_cookies = {**login_response.cookies.get_dict(), **session.cookies.get_dict()}
@@ -333,7 +482,7 @@ def addToCartShufersal():
         'accept-language': 'he-IL,he;q=0.9,en-US;q=0.8,en;q=0.7',
     }
 
-    response = requests.get('https://www.shufersal.co.il/online/he/recommendations/entry-recommendations',
+    response = requests.get(supermarketURLS.get('currentCartURL'),
                             headers=headers, cookies=session_cookies)
     print(response.text)
     amount = 1
@@ -350,11 +499,11 @@ def addToCartShufersal():
     str_amount = str(amount)
     shufersal_product_data = '{"productCodePost":"P_' + croppedBarcode + '","productCode":"P_' + croppedBarcode + '","sellingMethod":"BY_UNIT","qty":"' + str_amount + '","frontQuantity":"' + str_amount + '","comment":"","affiliateCode":""}'
 
-    session.post('https://www.shufersal.co.il/online/he/cart/add', headers=headers9, params=params,
+    session.post(supermarketURLS.get('addProductURL'), headers=headers9, params=params,
                  cookies=session_cookies, data=shufersal_product_data)
 
     try:
-        response = requests.get('https://www.shufersal.co.il/online/he/recommendations/entry-recommendations',
+        response = requests.get(supermarketURLS.get('currentCartURL'),
                                 headers=headers, cookies=session_cookies)
         print(response.text)
         new_products_cart_quantity = 0
@@ -366,8 +515,6 @@ def addToCartShufersal():
         print(old_products_cart_quantity)
         print(new_products_cart_quantity)
 
-        session.get('https://www.shufersal.co.il/online/he/logout?redirect_url=/A', headers=headers,
-                    cookies=session_cookies)
         if old_products_cart_quantity != new_products_cart_quantity:
             print("Product was added to your cart")
             # current_price = updated_price
@@ -391,15 +538,9 @@ def addProductToDB(barcode, added):
     name = ''
     croppedBarcode = crop_barcode(barcode)
 
-    # if (barcode.startswith('72900000')):
-    #     croppedBarcode = barcode[8:]
-    # elif (barcode.startswith('7290000')):
-    #     croppedBarcode = barcode[7:]
-    # elif (barcode.startswith('729000')):
-    #     croppedBarcode = barcode[6:]
     try:
         shufersal_search_response = requests.get(
-            'https://www.shufersal.co.il/online/he/search/results?q={}'.format(croppedBarcode))
+                supermarketURLS.get('productSearchURL') + croppedBarcode)
         shufersal_price = json.loads(shufersal_search_response.text).get('results')[0].get('price').get('value')
     except:
         print('shufersal not found')
@@ -466,6 +607,8 @@ if __name__ == '__main__':
         elif currentUser.get('selection') == 'Rami Levy':
             playMusic('rami', True)
         # add other sounds for new supermarkets
+
+        supermarketURLS = base_url_by_supermarket(currentUser.get('selection'))
         add_to_cart_thread = threading.Thread(target=add_to_cart_loop).start()
     except Exception:
         logError()
