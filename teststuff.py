@@ -251,6 +251,9 @@ def addToCartShufersal():
     JSESSIONID = authenticationResponse.cookies.get_dict().get('JSESSIONID')
     XSRFTOKEN = authenticationResponse.cookies.get_dict().get('XSRF-TOKEN')
 
+    miglog_response = requests.get('https://www.shufersal.co.il/online/he/miglog-sso/customer-token')
+    print(miglog_response.text)
+    
     cookies = {
         'miglog-cart': '20b6b657-d481-4991-b431-c0f6876b49f8',
         'XSRF-TOKEN': XSRFTOKEN,
