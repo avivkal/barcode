@@ -252,13 +252,6 @@ def addToCartShufersal():
     XSRFTOKEN = authenticationResponse.cookies.get_dict().get('XSRF-TOKEN')
 
     cookies = {
-        'XSRF-TOKEN': XSRFTOKEN,
-        'JSESSIONID': JSESSIONID,
-    }
-    miglog_response = requests.get('https://www.shufersal.co.il/online/he/miglog-sso/customer-token', cookies=cookies)
-    print(miglog_response.text)
-
-    cookies = {
         'miglog-cart': '20b6b657-d481-4991-b431-c0f6876b49f8',
         'XSRF-TOKEN': XSRFTOKEN,
         'JSESSIONID': JSESSIONID,
@@ -299,8 +292,9 @@ def addToCartShufersal():
     AWSALBCORS = session.cookies.get_dict().get('AWSALBCORS')
     list = response.cookies.get_dict()
     myList = {}
+    # if x[0:2] == 'TS':
     for x in list:
-        if x[0:2] == 'TS':
+        if x.startswith('TS'):
             myList[x] = list[x]
     myList["AWSALB"] = AWSALB
     myList["AWSALBCORS"] = AWSALBCORS
@@ -309,6 +303,9 @@ def addToCartShufersal():
     myList["JSESSIONID"] = JSESSIONID2
     myList["miglog-cart"] = '20b6b657-d481-4991-b431-c0f6876b49f8'
 
+    print(myList)
+    print(type(response.cookies.get_dict()))
+    print(type(myList))
     headers9 = {
         'authority': 'www.shufersal.co.il',
         'sec-ch-ua': '"Chromium";v="86", "\\"Not\\\\A;Brand";v="99", "Google Chrome";v="86"',
@@ -361,9 +358,8 @@ def addToCartShufersal():
 
     data2 = '{"productCodePost":"P_' + croppedBarcode + '","productCode":"P_' + croppedBarcode + '","sellingMethod":"BY_UNIT","qty":"' + strAmount + '","frontQuantity":"' + strAmount + '","comment":"","affiliateCode":""}'
 
-    response2 = session.post('https://www.shufersal.co.il/online/he/cart/add', headers=headers9, params=params2,
+    session.post('https://www.shufersal.co.il/online/he/cart/add', headers=headers9, params=params2,
                              cookies=myList, data=data2)
-    print('here')
 
     try:
         response = requests.get('https://www.shufersal.co.il/online/he/recommendations/entry-recommendations',
