@@ -216,6 +216,7 @@ def scheduleTask():
 
 
 def logError():
+    print(traceback.format_exc())
     playMusic('error', True)
     time.sleep(5)
     try:
@@ -419,31 +420,13 @@ def addToCartShufersal():
     session = requests.Session()
 
     authenticationResponse = session.get(supermarketURLS.get('baseURL'))
-    JSESSIONID = authenticationResponse.cookies.get_dict().get('JSESSIONID')
+    # JSESSIONID = authenticationResponse.cookies.get_dict().get('JSESSIONID')
     XSRFTOKEN = authenticationResponse.cookies.get_dict().get('XSRF-TOKEN')
 
-    cookies = {
-        'miglog-cart': '20b6b657-d481-4991-b431-c0f6876b49f8',
-        'XSRF-TOKEN': XSRFTOKEN,
-        'JSESSIONID': JSESSIONID,
-    }
-
-    # headers = {
-    #     'authority': 'www.shufersal.co.il',
-    #     'cache-control': 'max-age=0',
-    #     'sec-ch-ua': '"Chromium";v="86", "\\"Not\\\\A;Brand";v="99", "Google Chrome";v="86"',
-    #     'sec-ch-ua-mobile': '?0',
-    #     'upgrade-insecure-requests': '1',
-    #     'origin': 'https://www.shufersal.co.il',
-    #     'content-type': 'application/x-www-form-urlencoded',
-    #     'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36',
-    #     'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
-    #     'sec-fetch-site': 'same-origin',
-    #     'sec-fetch-mode': 'navigate',
-    #     'sec-fetch-user': '?1',
-    #     'sec-fetch-dest': 'document',
-    #     'referer': 'https://www.shufersal.co.il/online/he/login',
-    #     'accept-language': 'he-IL,he;q=0.9,en-US;q=0.8,en;q=0.7',
+    # cookies = {
+    #     'miglog-cart': '20b6b657-d481-4991-b431-c0f6876b49f8',
+    #     'XSRF-TOKEN': XSRFTOKEN,
+    #     'JSESSIONID': JSESSIONID,
     # }
 
     login_details = {
@@ -457,40 +440,11 @@ def addToCartShufersal():
                                   cookies=authenticationResponse.cookies.get_dict(), data=login_details)
 
     session_cookies = {**login_response.cookies.get_dict(), **session.cookies.get_dict()}
-    # headers9 = {
-    #     'authority': 'www.shufersal.co.il',
-    #     'sec-ch-ua': '"Chromium";v="86", "\\"Not\\\\A;Brand";v="99", "Google Chrome";v="86"',
-    #     'accept': '*/*',
-    #     'csrftoken': session.cookies.get_dict().get('XSRF-TOKEN'),
-    #     'x-requested-with': 'XMLHttpRequest',
-    #     'sec-ch-ua-mobile': '?0',
-    #     'user-agent': 'Mozill   a/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36',
-    #     'content-type': 'application/json',
-    #     'origin': 'https://www.shufersal.co.il',
-    #     'sec-fetch-site': 'same-origin',
-    #     'sec-fetch-mode': 'cors',
-    #     'sec-fetch-dest': 'empty',
-    #     'accept-language': 'he-IL,he;q=0.9,en-US;q=0.8,en;q=0.7',
-    # }
 
     params = (
         ('cartContext[openFrom]', 'PROMOTION'),
         ('cartContext[recommendationType]', 'REGULAR'),
     )
-
-    # headers = {
-    #     'authority': 'www.shufersal.co.il',
-    #     'sec-ch-ua': '"Google Chrome";v="89", "Chromium";v="89", ";Not A Brand";v="99"',
-    #     'accept': '*/*',
-    #     'x-requested-with': 'XMLHttpRequest',
-    #     'sec-ch-ua-mobile': '?0',
-    #     'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.82 Safari/537.36',
-    #     'sec-fetch-site': 'same-origin',
-    #     'sec-fetch-mode': 'cors',
-    #     'sec-fetch-dest': 'empty',
-    #     'referer': 'https://www.shufersal.co.il/online/he/%D7%A7%D7%98%D7%92%D7%95%D7%A8%D7%99%D7%95%D7%AA/%D7%A1%D7%95%D7%A4%D7%A8%D7%9E%D7%A8%D7%A7%D7%98/%D7%A4%D7%90%D7%A8%D7%9D-%D7%95%D7%AA%D7%99%D7%A0%D7%95%D7%A7%D7%95%D7%AA/%D7%93%D7%90%D7%95%D7%93%D7%95%D7%A8%D7%A0%D7%98/%D7%93%D7%90%D7%95%D7%93%D7%95%D7%A8%D7%A0%D7%98-%D7%A1%D7%A4%D7%A8%D7%99%D7%99-%D7%92%D7%91%D7%A8/%D7%90%D7%A7%D7%A1-%D7%A1%D7%A4%D7%A8%D7%99%D7%99-%D7%92%D7%95%D7%A3-%D7%91%D7%9C%D7%90%D7%A7/p/P_8717163647226',
-    #     'accept-language': 'he-IL,he;q=0.9,en-US;q=0.8,en;q=0.7',
-    # }
 
     response = requests.get(supermarketURLS.get('currentCartURL'),
                             headers=getHeadersBySupermarketName('Shufersal')[2], cookies=session_cookies)
