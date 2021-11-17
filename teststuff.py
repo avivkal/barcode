@@ -235,15 +235,25 @@ def addToCartRami():
         playMusic('addedList')
         addProductToDB(barcodes_array[0], False)
 
+def crop_barcode(barcode):
+    if (barcode.startswith('72900000')):
+        return barcode[8:]
+    elif (barcode.startswith('7290000')):
+        return barcode[7:]
+    elif (barcode.startswith('729000')):
+        return barcode[6:]
+    return barcode
+
 def addToCartShufersal():
     barcode = barcodes_array[0]
-    croppedBarcode = barcodes_array[0]
-    if (barcode.startswith('72900000')):
-        croppedBarcode = barcode[8:]
-    elif (barcode.startswith('7290000')):
-        croppedBarcode = barcode[7:]
-    elif (barcode.startswith('729000')):
-        croppedBarcode = barcode[6:]
+    # croppedBarcode = barcodes_array[0]
+    # if (barcode.startswith('72900000')):
+    #     croppedBarcode = barcode[8:]
+    # elif (barcode.startswith('7290000')):
+    #     croppedBarcode = barcode[7:]
+    # elif (barcode.startswith('729000')):
+    #     croppedBarcode = barcode[6:]
+    croppedBarcode = crop_barcode(barcode)
 
     session = requests.Session()
 
@@ -285,31 +295,12 @@ def addToCartShufersal():
     login_response = session.post('https://www.shufersal.co.il/online/he/j_spring_security_check', headers=headers,
                             cookies=authenticationResponse.cookies.get_dict(), data=login_details)
 
-
-    JSESSIONID2 = session.cookies.get_dict().get('JSESSIONID')
-    XSRFTOKEN2 = session.cookies.get_dict().get('XSRF-TOKEN')
-    AWSALB = session.cookies.get_dict().get('AWSALB')
-    AWSALBCORS = session.cookies.get_dict().get('AWSALBCORS')
-    list = login_response.cookies.get_dict()
-    myList = {}
-    # if x[0:2] == 'TS':
-    for x in list:
-        if x.startswith('TS'):
-            myList[x] = list[x]
-    myList["AWSALB"] = AWSALB
-    myList["AWSALBCORS"] = AWSALBCORS
-
-    myList["XSRF-TOKEN"] = XSRFTOKEN2
-    myList["JSESSIONID"] = JSESSIONID2
-    myList["miglog-cart"] = '20b6b657-d481-4991-b431-c0f6876b49f8'
-    combined = {**login_response.cookies.get_dict(), **session.cookies.get_dict()}
-    print(combined)
-    print(type(myList))
+    session_cookies = {**login_response.cookies.get_dict(), **session.cookies.get_dict()}
     headers9 = {
         'authority': 'www.shufersal.co.il',
         'sec-ch-ua': '"Chromium";v="86", "\\"Not\\\\A;Brand";v="99", "Google Chrome";v="86"',
         'accept': '*/*',
-        'csrftoken': XSRFTOKEN2,
+        'csrftoken': session.cookies.get_dict().get('XSRF-TOKEN'),
         'x-requested-with': 'XMLHttpRequest',
         'sec-ch-ua-mobile': '?0',
         'user-agent': 'Mozill   a/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36',
@@ -321,7 +312,7 @@ def addToCartShufersal():
         'accept-language': 'he-IL,he;q=0.9,en-US;q=0.8,en;q=0.7',
     }
 
-    params2 = (
+    params = (
         ('cartContext[openFrom]', 'PROMOTION'),
         ('cartContext[recommendationType]', 'REGULAR'),
     )
@@ -341,7 +332,7 @@ def addToCartShufersal():
     }
 
     response = requests.get('https://www.shufersal.co.il/online/he/recommendations/entry-recommendations',
-                            headers=headers, cookies=combined)
+                            headers=headers, cookies=session_cookies)
     print(response.text)
     amount = 1
     old_products_cart_quantity = 0
@@ -353,16 +344,16 @@ def addToCartShufersal():
             amount = int(product.get('cartyQty')) + 1
             print(amount)
             # might wanna add a return statement - Be Careful it might ruin
-    strAmount = str(amount)
+            
+    str_amount = str(amount)
+    shufersal_product_data = '{"productCodePost":"P_' + croppedBarcode + '","productCode":"P_' + croppedBarcode + '","sellingMethod":"BY_UNIT","qty":"' + str_amount + '","frontQuantity":"' + str_amount + '","comment":"","affiliateCode":""}'
 
-    data2 = '{"productCodePost":"P_' + croppedBarcode + '","productCode":"P_' + croppedBarcode + '","sellingMethod":"BY_UNIT","qty":"' + strAmount + '","frontQuantity":"' + strAmount + '","comment":"","affiliateCode":""}'
-
-    session.post('https://www.shufersal.co.il/online/he/cart/add', headers=headers9, params=params2,
-                             cookies=combined, data=data2)
+    session.post('https://www.shufersal.co.il/online/he/cart/add', headers=headers9, params=params,
+                             cookies=session_cookies, data=shufersal_product_data)
 
     try:
         response = requests.get('https://www.shufersal.co.il/online/he/recommendations/entry-recommendations',
-                                headers=headers, cookies=combined)
+                                headers=headers, cookies=session_cookies)
         print(response.text)
         new_products_cart_quantity = 0
         cart_products = json.loads(response.text)
@@ -373,7 +364,7 @@ def addToCartShufersal():
         print(old_products_cart_quantity)
         print(new_products_cart_quantity)
 
-        session.get('https://www.shufersal.co.il/online/he/logout?redirect_url=/A', headers=headers, cookies=combined)
+        session.get('https://www.shufersal.co.il/online/he/logout?redirect_url=/A', headers=headers, cookies=session_cookies)
         if old_products_cart_quantity != new_products_cart_quantity:
             print("Product was added to your cart")
             # current_price = updated_price
@@ -390,18 +381,19 @@ def addToCartShufersal():
 
 
 def addProductToDB(barcode, added):
-    croppedBarcode = barcode
+    # croppedBarcode = barcode
     shufersal_price = 'לא נמצא'
     rami_levy_price = 'לא נמצא'
     image = ''
     name = ''
-
-    if (barcode.startswith('72900000')):
-        croppedBarcode = barcode[8:]
-    elif (barcode.startswith('7290000')):
-        croppedBarcode = barcode[7:]
-    elif (barcode.startswith('729000')):
-        croppedBarcode = barcode[6:]
+    croppedBarcode = crop_barcode(barcode)
+    
+    # if (barcode.startswith('72900000')):
+    #     croppedBarcode = barcode[8:]
+    # elif (barcode.startswith('7290000')):
+    #     croppedBarcode = barcode[7:]
+    # elif (barcode.startswith('729000')):
+    #     croppedBarcode = barcode[6:]
     try:
         shufersal_search_response = requests.get('https://www.shufersal.co.il/online/he/search/results?q={}'.format(croppedBarcode))
         shufersal_price = json.loads(shufersal_search_response.text).get('results')[0].get('price').get('value')
