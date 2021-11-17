@@ -282,15 +282,15 @@ def addToCartShufersal():
         'CSRFToken': XSRFTOKEN
     }
 
-    response = session.post('https://www.shufersal.co.il/online/he/j_spring_security_check', headers=headers,
-                            cookies=cookies, data=login_details)
+    login_response = session.post('https://www.shufersal.co.il/online/he/j_spring_security_check', headers=headers,
+                            cookies=authenticationResponse.cookies.get_dict(), data=login_details)
 
 
     JSESSIONID2 = session.cookies.get_dict().get('JSESSIONID')
     XSRFTOKEN2 = session.cookies.get_dict().get('XSRF-TOKEN')
     AWSALB = session.cookies.get_dict().get('AWSALB')
     AWSALBCORS = session.cookies.get_dict().get('AWSALBCORS')
-    list = response.cookies.get_dict()
+    list = login_response.cookies.get_dict()
     myList = {}
     # if x[0:2] == 'TS':
     for x in list:
@@ -304,7 +304,6 @@ def addToCartShufersal():
     myList["miglog-cart"] = '20b6b657-d481-4991-b431-c0f6876b49f8'
 
     print(myList)
-    print(type(response.cookies.get_dict()))
     print(type(myList))
     headers9 = {
         'authority': 'www.shufersal.co.il',
@@ -342,7 +341,7 @@ def addToCartShufersal():
     }
 
     response = requests.get('https://www.shufersal.co.il/online/he/recommendations/entry-recommendations',
-                            headers=headers, cookies=myList)
+                            headers=headers, cookies=login_response.cookies.get_dict())
     print(response.text)
     amount = 1
     old_products_cart_quantity = 0
@@ -359,11 +358,11 @@ def addToCartShufersal():
     data2 = '{"productCodePost":"P_' + croppedBarcode + '","productCode":"P_' + croppedBarcode + '","sellingMethod":"BY_UNIT","qty":"' + strAmount + '","frontQuantity":"' + strAmount + '","comment":"","affiliateCode":""}'
 
     session.post('https://www.shufersal.co.il/online/he/cart/add', headers=headers9, params=params2,
-                             cookies=myList, data=data2)
+                             cookies=login_response.cookies.get_dict(), data=data2)
 
     try:
         response = requests.get('https://www.shufersal.co.il/online/he/recommendations/entry-recommendations',
-                                headers=headers, cookies=myList)
+                                headers=headers, cookies=login_response.cookies.get_dict())
         print(response.text)
         new_products_cart_quantity = 0
         cart_products = json.loads(response.text)
@@ -374,7 +373,7 @@ def addToCartShufersal():
         print(old_products_cart_quantity)
         print(new_products_cart_quantity)
 
-        session.get('https://www.shufersal.co.il/online/he/logout?redirect_url=/A', headers=headers, cookies=myList)
+        session.get('https://www.shufersal.co.il/online/he/logout?redirect_url=/A', headers=headers, cookies=login_response.cookies.get_dict())
         if old_products_cart_quantity != new_products_cart_quantity:
             print("Product was added to your cart")
             # current_price = updated_price
