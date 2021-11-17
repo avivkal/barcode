@@ -46,6 +46,19 @@ def getHeadersBySupermarketName(supermarketName, token=""):
             "sec-fetch-mode": "cors",
             "sec-fetch-dest": "empty",
             "accept-language": "he-IL,he;q=0.9,en-US;q=0.8,en;q=0.7"
+        },
+        {
+            "authority": "www.shufersal.co.il",
+            "sec-ch-ua": ""Google Chrome";v="89", "Chromium";v="89", ";Not A Brand";v="99"",
+            "accept": "*/*",
+            "x-requested-with": "XMLHttpRequest",
+            "sec-ch-ua-mobile": "?0",
+            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.82 Safari/537.36",
+            "sec-fetch-site": "same-origin",
+            "sec-fetch-mode": "cors",
+            "sec-fetch-dest": "empty",
+            "referer": "https://www.shufersal.co.il/online/he/%D7%A7%D7%98%D7%92%D7%95%D7%A8%D7%99%D7%95%D7%AA/%D7%A1%D7%95%D7%A4%D7%A8%D7%9E%D7%A8%D7%A7%D7%98/%D7%A4%D7%90%D7%A8%D7%9D-%D7%95%D7%AA%D7%99%D7%A0%D7%95%D7%A7%D7%95%D7%AA/%D7%93%D7%90%D7%95%D7%93%D7%95%D7%A8%D7%A0%D7%98/%D7%93%D7%90%D7%95%D7%93%D7%95%D7%A8%D7%A0%D7%98-%D7%A1%D7%A4%D7%A8%D7%99%D7%99-%D7%92%D7%91%D7%A8/%D7%90%D7%A7%D7%A1-%D7%A1%D7%A4%D7%A8%D7%99%D7%99-%D7%92%D7%95%D7%A3-%D7%91%D7%9C%D7%90%D7%A7/p/P_8717163647226",
+            "accept-language": "he-IL,he;q=0.9,en-US;q=0.8,en;q=0.7"
         }]
     },
     {
@@ -466,22 +479,22 @@ def addToCartShufersal():
         ('cartContext[recommendationType]', 'REGULAR'),
     )
 
-    headers = {
-        'authority': 'www.shufersal.co.il',
-        'sec-ch-ua': '"Google Chrome";v="89", "Chromium";v="89", ";Not A Brand";v="99"',
-        'accept': '*/*',
-        'x-requested-with': 'XMLHttpRequest',
-        'sec-ch-ua-mobile': '?0',
-        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.82 Safari/537.36',
-        'sec-fetch-site': 'same-origin',
-        'sec-fetch-mode': 'cors',
-        'sec-fetch-dest': 'empty',
-        'referer': 'https://www.shufersal.co.il/online/he/%D7%A7%D7%98%D7%92%D7%95%D7%A8%D7%99%D7%95%D7%AA/%D7%A1%D7%95%D7%A4%D7%A8%D7%9E%D7%A8%D7%A7%D7%98/%D7%A4%D7%90%D7%A8%D7%9D-%D7%95%D7%AA%D7%99%D7%A0%D7%95%D7%A7%D7%95%D7%AA/%D7%93%D7%90%D7%95%D7%93%D7%95%D7%A8%D7%A0%D7%98/%D7%93%D7%90%D7%95%D7%93%D7%95%D7%A8%D7%A0%D7%98-%D7%A1%D7%A4%D7%A8%D7%99%D7%99-%D7%92%D7%91%D7%A8/%D7%90%D7%A7%D7%A1-%D7%A1%D7%A4%D7%A8%D7%99%D7%99-%D7%92%D7%95%D7%A3-%D7%91%D7%9C%D7%90%D7%A7/p/P_8717163647226',
-        'accept-language': 'he-IL,he;q=0.9,en-US;q=0.8,en;q=0.7',
-    }
+    # headers = {
+    #     'authority': 'www.shufersal.co.il',
+    #     'sec-ch-ua': '"Google Chrome";v="89", "Chromium";v="89", ";Not A Brand";v="99"',
+    #     'accept': '*/*',
+    #     'x-requested-with': 'XMLHttpRequest',
+    #     'sec-ch-ua-mobile': '?0',
+    #     'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.82 Safari/537.36',
+    #     'sec-fetch-site': 'same-origin',
+    #     'sec-fetch-mode': 'cors',
+    #     'sec-fetch-dest': 'empty',
+    #     'referer': 'https://www.shufersal.co.il/online/he/%D7%A7%D7%98%D7%92%D7%95%D7%A8%D7%99%D7%95%D7%AA/%D7%A1%D7%95%D7%A4%D7%A8%D7%9E%D7%A8%D7%A7%D7%98/%D7%A4%D7%90%D7%A8%D7%9D-%D7%95%D7%AA%D7%99%D7%A0%D7%95%D7%A7%D7%95%D7%AA/%D7%93%D7%90%D7%95%D7%93%D7%95%D7%A8%D7%A0%D7%98/%D7%93%D7%90%D7%95%D7%93%D7%95%D7%A8%D7%A0%D7%98-%D7%A1%D7%A4%D7%A8%D7%99%D7%99-%D7%92%D7%91%D7%A8/%D7%90%D7%A7%D7%A1-%D7%A1%D7%A4%D7%A8%D7%99%D7%99-%D7%92%D7%95%D7%A3-%D7%91%D7%9C%D7%90%D7%A7/p/P_8717163647226',
+    #     'accept-language': 'he-IL,he;q=0.9,en-US;q=0.8,en;q=0.7',
+    # }
 
     response = requests.get(supermarketURLS.get('currentCartURL'),
-                            headers=headers, cookies=session_cookies)
+                            headers=getHeadersBySupermarketName('Shufersal')[2], cookies=session_cookies)
     print(response.text)
     amount = 1
     old_products_cart_quantity = 0
@@ -502,7 +515,7 @@ def addToCartShufersal():
 
     try:
         response = requests.get(supermarketURLS.get('currentCartURL'),
-                                headers=headers, cookies=session_cookies)
+                                headers=getHeadersBySupermarketName('Shufersal')[2], cookies=session_cookies)
         print(response.text)
         new_products_cart_quantity = 0
         cart_products = json.loads(response.text)
