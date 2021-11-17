@@ -320,6 +320,7 @@ def addToCartRami():
 
     response = requests.post('https://api-prod.rami-levy.co.il/api/v2/site/auth/login', headers=headers,
                              data=str(dataT))
+    print(response.text)
     token = json.loads(response.text).get('user').get('token')
 
     try:
