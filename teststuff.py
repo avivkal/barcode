@@ -252,7 +252,7 @@ def addToCartShufersal():
     XSRFTOKEN = authenticationResponse.cookies.get_dict().get('XSRF-TOKEN')
 
     cookies = {
-        'miglogstorefrontRememberMe': 'YXZpdmthbG1hbnNvbkBnbWFpbC5jb206MTY2ODY4Mzg4NTQyMjphNjlkMzM4OTUwYjdhMjY2NTNkZjlmMGQ4M2UzNjRiZQ',
+        'miglog-cart': '20b6b657-d481-4991-b431-c0f6876b49f8',
         'XSRF-TOKEN': XSRFTOKEN,
         'JSESSIONID': JSESSIONID,
     }
@@ -301,7 +301,7 @@ def addToCartShufersal():
 
     myList["XSRF-TOKEN"] = XSRFTOKEN2
     myList["JSESSIONID"] = JSESSIONID2
-    myList["miglogstorefrontRememberMe"] = 'YXZpdmthbG1hbnNvbkBnbWFpbC5jb206MTY2ODY4Mzg4NTQyMjphNjlkMzM4OTUwYjdhMjY2NTNkZjlmMGQ4M2UzNjRiZQ'
+    myList["miglog-cart"] = '20b6b657-d481-4991-b431-c0f6876b49f8'
 
     print(myList)
     print(type(response.cookies.get_dict()))
@@ -374,6 +374,7 @@ def addToCartShufersal():
         print(old_products_cart_quantity)
         print(new_products_cart_quantity)
 
+        session.get('https://www.shufersal.co.il/online/he/logout?redirect_url=/A', headers=headers, cookies=myList)
         if old_products_cart_quantity != new_products_cart_quantity:
             print("Product was added to your cart")
             # current_price = updated_price
