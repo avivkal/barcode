@@ -18,36 +18,34 @@ def getHeadersBySupermarketName(supermarketName, token=""):
     {
         "supermarketName": "Shufersal",
         "headers": [{
-            'authority': 'www.shufersal.co.il',
-            'cache-control': 'max-age=0',
-            'sec-ch-ua': '"Chromium";v="86", "\\"Not\\\\A;Brand";v="99", "Google Chrome";v="86"',
-            'sec-ch-ua-mobile': '?0',
-            'upgrade-insecure-requests': '1',
-            'origin': 'https://www.shufersal.co.il',
-            'content-type': 'application/x-www-form-urlencoded',
-            'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36',
-            'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
-            'sec-fetch-site': 'same-origin',
-            'sec-fetch-mode': 'navigate',
-            'sec-fetch-user': '?1',
-            'sec-fetch-dest': 'document',
-            'referer': 'https://www.shufersal.co.il/online/he/login',
-            'accept-language': 'he-IL,he;q=0.9,en-US;q=0.8,en;q=0.7'
+            "authority": "www.shufersal.co.il",
+            "cache-control": "max-age=0",
+            "sec-ch-ua-mobile": "?0",
+            "upgrade-insecure-requests": "1",
+            "origin": "https://www.shufersal.co.il",
+            "content-type": "application/x-www-form-urlencoded",
+            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36",
+            "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
+            "sec-fetch-site": "same-origin",
+            "sec-fetch-mode": "navigate",
+            "sec-fetch-user": "?1",
+            "sec-fetch-dest": "document",
+            "referer": "https://www.shufersal.co.il/online/he/login",
+            "accept-language": "he-IL,he;q=0.9,en-US;q=0.8,en;q=0.7"
         },
         {
-            'authority': 'www.shufersal.co.il',
-            'sec-ch-ua': '"Chromium";v="86", "\\"Not\\\\A;Brand";v="99", "Google Chrome";v="86"',
-            'accept': '*/*',
-            'csrftoken': \'''' + token + '''\',
-            'x-requested-with': 'XMLHttpRequest',
-            'sec-ch-ua-mobile': '?0',
-            'user-agent': 'Mozill   a/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36',
-            'content-type': 'application/json',
-            'origin': 'https://www.shufersal.co.il',
-            'sec-fetch-site': 'same-origin',
-            'sec-fetch-mode': 'cors',
-            'sec-fetch-dest': 'empty',
-            'accept-language': 'he-IL,he;q=0.9,en-US;q=0.8,en;q=0.7',
+            "authority": "www.shufersal.co.il",
+            "accept": "*/*",
+            "csrftoken": "''' + token + '''",
+            "x-requested-with": "XMLHttpRequest",
+            "sec-ch-ua-mobile": "?0",
+            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36",
+            "content-type": "application/json",
+            "origin": "https://www.shufersal.co.il",
+            "sec-fetch-site": "same-origin",
+            "sec-fetch-mode": "cors",
+            "sec-fetch-dest": "empty",
+            "accept-language": "he-IL,he;q=0.9,en-US;q=0.8,en;q=0.7"
         }]
     },
     {
@@ -418,23 +416,23 @@ def addToCartShufersal():
         'JSESSIONID': JSESSIONID,
     }
 
-    headers = {
-        'authority': 'www.shufersal.co.il',
-        'cache-control': 'max-age=0',
-        'sec-ch-ua': '"Chromium";v="86", "\\"Not\\\\A;Brand";v="99", "Google Chrome";v="86"',
-        'sec-ch-ua-mobile': '?0',
-        'upgrade-insecure-requests': '1',
-        'origin': 'https://www.shufersal.co.il',
-        'content-type': 'application/x-www-form-urlencoded',
-        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36',
-        'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
-        'sec-fetch-site': 'same-origin',
-        'sec-fetch-mode': 'navigate',
-        'sec-fetch-user': '?1',
-        'sec-fetch-dest': 'document',
-        'referer': 'https://www.shufersal.co.il/online/he/login',
-        'accept-language': 'he-IL,he;q=0.9,en-US;q=0.8,en;q=0.7',
-    }
+    # headers = {
+    #     'authority': 'www.shufersal.co.il',
+    #     'cache-control': 'max-age=0',
+    #     'sec-ch-ua': '"Chromium";v="86", "\\"Not\\\\A;Brand";v="99", "Google Chrome";v="86"',
+    #     'sec-ch-ua-mobile': '?0',
+    #     'upgrade-insecure-requests': '1',
+    #     'origin': 'https://www.shufersal.co.il',
+    #     'content-type': 'application/x-www-form-urlencoded',
+    #     'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36',
+    #     'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+    #     'sec-fetch-site': 'same-origin',
+    #     'sec-fetch-mode': 'navigate',
+    #     'sec-fetch-user': '?1',
+    #     'sec-fetch-dest': 'document',
+    #     'referer': 'https://www.shufersal.co.il/online/he/login',
+    #     'accept-language': 'he-IL,he;q=0.9,en-US;q=0.8,en;q=0.7',
+    # }
 
     login_details = {
         'fail_url': '/login/?error=true',
@@ -443,25 +441,25 @@ def addToCartShufersal():
         'CSRFToken': XSRFTOKEN
     }
 
-    login_response = session.post(supermarketURLS.get('loginBaseURL'), headers=headers,
+    login_response = session.post(supermarketURLS.get('loginBaseURL'), headers=getHeadersBySupermarketName('Shufersal')[0],
                                   cookies=authenticationResponse.cookies.get_dict(), data=login_details)
 
     session_cookies = {**login_response.cookies.get_dict(), **session.cookies.get_dict()}
-    headers9 = {
-        'authority': 'www.shufersal.co.il',
-        'sec-ch-ua': '"Chromium";v="86", "\\"Not\\\\A;Brand";v="99", "Google Chrome";v="86"',
-        'accept': '*/*',
-        'csrftoken': session.cookies.get_dict().get('XSRF-TOKEN'),
-        'x-requested-with': 'XMLHttpRequest',
-        'sec-ch-ua-mobile': '?0',
-        'user-agent': 'Mozill   a/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36',
-        'content-type': 'application/json',
-        'origin': 'https://www.shufersal.co.il',
-        'sec-fetch-site': 'same-origin',
-        'sec-fetch-mode': 'cors',
-        'sec-fetch-dest': 'empty',
-        'accept-language': 'he-IL,he;q=0.9,en-US;q=0.8,en;q=0.7',
-    }
+    # headers9 = {
+    #     'authority': 'www.shufersal.co.il',
+    #     'sec-ch-ua': '"Chromium";v="86", "\\"Not\\\\A;Brand";v="99", "Google Chrome";v="86"',
+    #     'accept': '*/*',
+    #     'csrftoken': session.cookies.get_dict().get('XSRF-TOKEN'),
+    #     'x-requested-with': 'XMLHttpRequest',
+    #     'sec-ch-ua-mobile': '?0',
+    #     'user-agent': 'Mozill   a/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36',
+    #     'content-type': 'application/json',
+    #     'origin': 'https://www.shufersal.co.il',
+    #     'sec-fetch-site': 'same-origin',
+    #     'sec-fetch-mode': 'cors',
+    #     'sec-fetch-dest': 'empty',
+    #     'accept-language': 'he-IL,he;q=0.9,en-US;q=0.8,en;q=0.7',
+    # }
 
     params = (
         ('cartContext[openFrom]', 'PROMOTION'),
@@ -499,7 +497,7 @@ def addToCartShufersal():
     str_amount = str(amount)
     shufersal_product_data = '{"productCodePost":"P_' + croppedBarcode + '","productCode":"P_' + croppedBarcode + '","sellingMethod":"BY_UNIT","qty":"' + str_amount + '","frontQuantity":"' + str_amount + '","comment":"","affiliateCode":""}'
 
-    session.post(supermarketURLS.get('addProductURL'), headers=headers9, params=params,
+    session.post(supermarketURLS.get('addProductURL'), headers=getHeadersBySupermarketName('Shufersal', session.cookies.get_dict().get('XSRF-TOKEN'))[1], params=params,
                  cookies=session_cookies, data=shufersal_product_data)
 
     try:
