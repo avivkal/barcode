@@ -551,6 +551,15 @@ def addProductToDB(barcode, added):
         print(name)
     except:
         print('name/image not found')
+        
+        
+    try:
+        product_details_response_scanly = requests.get('https://scanly.net/api/products/details/' + barcode)
+        details = json.loads(product_details_response_scanly.text)
+        print(details.get('image')
+        print(details.get('name')
+        print(details.get('prices')
+
     save_data_to_db_response = requests.post('https://scanly.net/api/products/addData',
                                              cookies={'token': currentUser.get('token')},
                                              data={"email": currentUser.get('email'),
