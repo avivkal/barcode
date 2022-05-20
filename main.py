@@ -107,10 +107,10 @@ if __name__ == '__main__':
         print('No internet currently')
         playMusicMandatory('noInternet')
 
-        credentials = open("/home/pi/cred.txt", "r")
+        credentials = open("../cred.txt", "r")
         while(credentials.read() == ""):
             print("credentials:", credentials.read())
-            credentials = open("/home/pi/cred.txt", "r")
+            credentials = open("../cred.txt", "r")
             time.sleep(1)
 
         print('Connected Succesfully')
