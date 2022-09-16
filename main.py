@@ -122,7 +122,7 @@ if __name__ == '__main__':
 
             credentialsEmail = open("../email.txt", "r")
             credentialsPassword = open("../password.txt", "r")
-            while(credentialsPassword.read() == "" and credentialsEmail == ""):
+            while(credentialsPassword.read() == "" and credentialsEmail.read() == ""):
                 print("waiting for cred")
                 credentialsEmail = open("../email.txt", "r")
                 credentialsPassword = open("../password.txt", "r")
