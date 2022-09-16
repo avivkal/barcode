@@ -11,7 +11,6 @@ import requests
 token = ""
 array = []
 
-
 def getserial():
     # Extract serial from cpuinfo file
     cpuserial = "0000000000000000"
@@ -30,7 +29,7 @@ def getserial():
 def playMusicMandatory(fileName):
     try:
         pygame.mixer.init()
-        pygame.mixer.music.load("/home/pi/real/barcode/" + fileName + ".mp3")
+        pygame.mixer.music.load("./" + fileName + ".mp3")
         pygame.mixer.music.play()
     except Exception:
         logError()
@@ -40,7 +39,7 @@ def logError():
     playMusicMandatory('error')
     time.sleep(5)
     try:
-        with open('/home/pi/logErrors.txt', 'a') as netcfg:
+        with open('./logErrors.txt', 'a') as netcfg:
             netcfg.write(str(datetime.datetime.now()))
             netcfg.write(str(traceback.format_exc()))
     except:
@@ -85,7 +84,8 @@ def main_loop():
 def addToCart():
     barcode = array[0]
     add_product_response = requests.post(
-        'https://scanly.net/api/products', data={"barcode": barcode}
+        'https://scanly.net/api/products', data={"barcode": barcode, "amountToAdd": 1},
+        headers={'cookie': 'token=' + token}
     )
 
     if add_product_response == 'true':
@@ -104,19 +104,30 @@ def ask():
 
 if __name__ == '__main__':
     try:
-        print('No internet currently')
-        playMusicMandatory('noInternet')
+        if not internet():
+            print('No internet currently')
+            playMusicMandatory('noInternet')
 
-        credentials = open("../cred.txt", "r")
-        while(credentials.read() == ""):
-            print("credentials:", credentials.read())
-            credentials = open("../cred.txt", "r")
-            time.sleep(1)
+            credentialsEmail = open("../email.txt", "r")
+            credentialsPassword = open("../password.txt", "r")
+            while(credentialsPassword.read() == "" and credentialsEmail == ""):
+                print("waiting for cred")
+                credentialsEmail = open("../email.txt", "r")
+                credentialsPassword = open("../password.txt", "r")
+                time.sleep(1)
 
-        print('Connected Succesfully')
-        playMusicMandatory('wifiConnected')
+            print('Connected Succesfully')
+            playMusicMandatory('wifiConnected')
 
-        token = credentials.read()
+        credentialsEmail = open("../email.txt", "r")
+        credentialsPassword = open("../password.txt", "r")
+
+        login_response = requests.post(
+            'https://scanly.net/api/login', data={"email": credentialsEmail, "password": credentialsPassword},
+        )
+
+        token = login_response.cookies.get_dict().get('token')
+
         ask_thread = threading.Thread(target=ask).start()
         main_loop_thread = threading.Thread(target=main_loop).start()
     except Exception:
