@@ -101,12 +101,24 @@ def ask():
     print(array)
     ask()
 
+def create_files_if_not_exists():
+    try:
+        open("../email.txt", "r")
+    except Exception:
+        os.system("touch ../email.txt")
+
+    try:
+        open("../password.txt", "r")
+    except Exception:
+        os.system("touch ../password.txt")
 
 if __name__ == '__main__':
     try:
         if not internet():
             print('No internet currently')
             playMusicMandatory('noInternet')
+
+            create_files_if_not_exists()
 
             credentialsEmail = open("../email.txt", "r")
             credentialsPassword = open("../password.txt", "r")
