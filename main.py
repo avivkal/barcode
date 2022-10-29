@@ -147,9 +147,10 @@ if __name__ == '__main__':
         credentialsPassword = open("/home/pi/barcode/password.txt", "r").read()
 
         login_response = requests.post(
-            'https://scanly.net/api/login', data={"email": credentialsEmail, "password": credentialsPassword},
+            'https://scanly.net/api/login', data={"email": credentialsEmail.strip(), "password": credentialsPassword.strip()},
         )
 
+        print(login_response.text)
         print(login_response.cookies)
 
         token = login_response.cookies.get_dict().get('token')
