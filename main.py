@@ -11,6 +11,7 @@ import requests
 token = ""
 array = []
 
+
 def getserial():
     # Extract serial from cpuinfo file
     cpuserial = "0000000000000000"
@@ -29,17 +30,16 @@ def getserial():
 def playMusicMandatory(fileName):
     try:
         pygame.mixer.init()
-        pygame.mixer.music.load("./" + fileName + ".mp3")
+        pygame.mixer.music.load("/home/pi/barcode/" + fileName + ".mp3")
         pygame.mixer.music.play()
     except Exception:
         logError()
-
 
 def logError():
     playMusicMandatory('error')
     time.sleep(5)
     try:
-        with open('./logErrors.txt', 'a') as netcfg:
+        with open('/home/pi/barcode/logErrors.txt', 'a') as netcfg:
             netcfg.write(str(datetime.datetime.now()))
             netcfg.write(str(traceback.format_exc()))
     except:
@@ -83,12 +83,21 @@ def main_loop():
 
 def addToCart():
     barcode = array[0]
+
+    print(token)
+
     add_product_response = requests.post(
-        'https://scanly.net/api/products', data={"barcode": barcode, "amountToAdd": 1},
-        headers={'cookie': 'token=' + token}
+        'https://scanly.net/api/products', data=json.dumps({"barcode": barcode, "amountToAdd": 1}),
+        headers={'Cookie': 'token=' + token,
+                 'Content-Type': 'application/json'}
     )
 
-    if add_product_response == 'true':
+    print(add_product_response.text)
+
+    if add_product_response.status_code != 201:
+        print("OH NO, PROBLEM IN AUTH OR THE SERVER")
+
+    if add_product_response.text == 'true':
         playMusicMandatory('added')
     else:
         playMusicMandatory('addedList')
@@ -96,21 +105,24 @@ def addToCart():
 
 def ask():
     barcode = input('enter barcode')
+    barcode = str(barcode)
     print('your original barcode is' + barcode)
     array.append(barcode)
     print(array)
     ask()
 
+
 def create_files_if_not_exists():
     try:
-        open("../email.txt", "r")
+        open("/home/pi/barcode/email.txt", "r")
     except Exception:
-        os.system("touch ../email.txt")
+        os.system("touch /home/pi/barcode/email.txt")
 
     try:
-        open("../password.txt", "r")
+        open("/home/pi/barcode/password.txt", "r")
     except Exception:
-        os.system("touch ../password.txt")
+        os.system("touch /home/pi/barcode/password.txt")
+
 
 if __name__ == '__main__':
     try:
@@ -120,23 +132,25 @@ if __name__ == '__main__':
 
             create_files_if_not_exists()
 
-            credentialsEmail = open("../email.txt", "r")
-            credentialsPassword = open("../password.txt", "r")
+            credentialsEmail = open("/home/pi/barcode/email.txt", "r")
+            credentialsPassword = open("/home/pi/barcode/password.txt", "r")
             while(credentialsPassword.read() == "" and credentialsEmail.read() == ""):
                 print("waiting for cred")
-                credentialsEmail = open("../email.txt", "r")
-                credentialsPassword = open("../password.txt", "r")
+                credentialsEmail = open("/home/pi/barcode/email.txt", "r")
+                credentialsPassword = open("/home/pi/barcode/password.txt", "r")
                 time.sleep(1)
 
             print('Connected Succesfully')
             playMusicMandatory('wifiConnected')
 
-        credentialsEmail = open("../email.txt", "r")
-        credentialsPassword = open("../password.txt", "r")
+        credentialsEmail = open("/home/pi/barcode/email.txt", "r").read()
+        credentialsPassword = open("/home/pi/barcode/password.txt", "r").read()
 
         login_response = requests.post(
             'https://scanly.net/api/login', data={"email": credentialsEmail, "password": credentialsPassword},
         )
+
+        print(login_response.cookies)
 
         token = login_response.cookies.get_dict().get('token')
 
