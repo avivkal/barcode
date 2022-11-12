@@ -130,9 +130,9 @@ if __name__ == '__main__':
             print('No internet currently')
             playMusicMandatory('noInternet')
 
-            os.system("sudo node /home/pi/scanlyWifiServer/server.js")
-
             create_files_if_not_exists()
+
+            os.system("sudo node /home/pi/scanlyWifiServer/server.js")
 
             credentialsEmail = open("/home/pi/barcode/email.txt", "r")
             credentialsPassword = open("/home/pi/barcode/password.txt", "r")
@@ -156,6 +156,8 @@ if __name__ == '__main__':
         print(login_response.cookies)
 
         token = login_response.cookies.get_dict().get('token')
+        
+        playMusicMandatory('ready')
 
         ask_thread = threading.Thread(target=ask).start()
         main_loop_thread = threading.Thread(target=main_loop).start()
