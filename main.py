@@ -130,6 +130,8 @@ if __name__ == '__main__':
             print('No internet currently')
             playMusicMandatory('noInternet')
 
+            os.system("sudo node /home/pi/scanlyWifiServer/server.js")
+
             create_files_if_not_exists()
 
             credentialsEmail = open("/home/pi/barcode/email.txt", "r")
